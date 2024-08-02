@@ -29,7 +29,10 @@ struct ContentView: View {
                     EditButton()
                 }
                 ToolbarItem {
-                    Button(action: addItem) {
+                    
+                    NavigationLink {
+                        VideoEditView()
+                    } label: {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
