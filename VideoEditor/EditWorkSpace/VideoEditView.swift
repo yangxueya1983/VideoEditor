@@ -46,15 +46,32 @@ struct VideoEditView: View {
             }
             .sheet(isPresented: $showPicker) {
                 PhotoPicker(selectedImages: $selectedImages) { selectedImages in
-                    let filename = Date().formatted() + ".mp4"
-                    let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent(filename)
-
+                    let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent(Date().formatted() + ".mp4")
+                    
                     createVideoFromImages(images: selectedImages, outputURL: outputURL) { error in
                         if let error = error {
                             print("Error creating video: \(error)")
                         } else {
                             print("Video created successfully at \(outputURL)")
-                            videoPath = outputURL
+                            let fileName = Date().formatted() + "composition.mp4"
+                            let finalURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
+                            if let audioURL = Bundle.main.url(forResource: "Saddle of My Heart", withExtension: "mp3") {
+                                print("Video added Audio successfully at \(finalURL)")
+                                
+                                Task(priority: .high) {
+                                    await addAudioToVideo(videoURL: outputURL, audioURL: audioURL, outputURL: finalURL) { success in
+                                        if success {
+                                            videoPath = finalURL
+                                        } else {
+                                            print("Export error")
+                                        }
+                                    }
+                                }
+                                
+                            } else {
+                                print("Resource not found.")
+                            }
+                            
                         }
                     }
                 }

@@ -75,6 +75,59 @@ func createVideoFromImages(images: [UIImage], outputURL: URL, completion: @escap
 }
 
 
+func addAudioToVideo(videoURL: URL, audioURL: URL, outputURL: URL, completion: @escaping (Bool) -> Void) async {
+    let composition = AVMutableComposition()
+    
+    // Video track
+    let videoAsset = AVAsset(url: videoURL)
+    let audioAsset = AVAsset(url: audioURL)
+    let videoDuration = videoAsset.duration
+    
+    do {
+        let videoTracks = try await videoAsset.loadTracks(withMediaType: .video)
+        let audioTracks = try await audioAsset.loadTracks(withMediaType: .audio)
+        
+        if let videoTrack = videoTracks.first, let audioTrack = audioTracks.first {
+            let videoCompositionTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
+            try? videoCompositionTrack?.insertTimeRange(CMTimeRange(start: .zero, duration: videoDuration), of: videoTrack, at: .zero)
+            
+            let audioCompositionTrack = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
+            try? audioCompositionTrack?.insertTimeRange(CMTimeRange(start: .zero, duration: videoDuration), of: audioTrack, at: .zero)
+            
+            // Export the composition
+            guard let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality) else {
+                completion(false)
+                return
+            }
+            
+            exportSession.outputURL = outputURL
+            exportSession.outputFileType = .mp4
+            exportSession.shouldOptimizeForNetworkUse = true
+            
+            await exportSession.export()
+            switch exportSession.status {
+            case .completed:
+                print("Export completed")
+                completion(true)
+            case .failed:
+                print("Export failed: \(String(describing: exportSession.error))")
+                completion(false)
+            case .cancelled:
+                print("Export cancelled")
+                completion(false)
+            default:
+                break
+            }
+        } else {
+            completion(false)
+        }
+        
+    } catch {
+        completion(false)
+    }
+    
+}
+
 extension UIImage {
     func correctedOrientation() -> UIImage {
         // No need to adjust if the image is already upright

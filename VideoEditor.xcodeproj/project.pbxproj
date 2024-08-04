@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B64C6D592C5C4D6000BD1883 /* VEUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64C6D582C5C4D6000BD1883 /* VEUtil.swift */; };
+		B6A0F83B2C5DA476009741EF /* Love Paradise.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B6A0F83A2C5DA476009741EF /* Love Paradise.mp3 */; };
+		B6A0F83D2C5DA48F009741EF /* Saddle of My Heart.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B6A0F83C2C5DA48F009741EF /* Saddle of My Heart.mp3 */; };
 		B6B5D09B2C580FD600D2FA37 /* VideoEditorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5D09A2C580FD600D2FA37 /* VideoEditorApp.swift */; };
 		B6B5D09D2C580FD600D2FA37 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5D09C2C580FD600D2FA37 /* ContentView.swift */; };
 		B6B5D09F2C580FD600D2FA37 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5D09E2C580FD600D2FA37 /* Item.swift */; };
@@ -40,6 +42,8 @@
 
 /* Begin PBXFileReference section */
 		B64C6D582C5C4D6000BD1883 /* VEUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VEUtil.swift; sourceTree = "<group>"; };
+		B6A0F83A2C5DA476009741EF /* Love Paradise.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Love Paradise.mp3"; sourceTree = "<group>"; };
+		B6A0F83C2C5DA48F009741EF /* Saddle of My Heart.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Saddle of My Heart.mp3"; sourceTree = "<group>"; };
 		B6B5D0972C580FD600D2FA37 /* VideoEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6B5D09A2C580FD600D2FA37 /* VideoEditorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoEditorApp.swift; sourceTree = "<group>"; };
 		B6B5D09C2C580FD600D2FA37 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -81,6 +85,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B6A0F8392C5DA3F8009741EF /* AudioAssets */ = {
+			isa = PBXGroup;
+			children = (
+				B6A0F83C2C5DA48F009741EF /* Saddle of My Heart.mp3 */,
+				B6A0F83A2C5DA476009741EF /* Love Paradise.mp3 */,
+			);
+			path = AudioAssets;
+			sourceTree = "<group>";
+		};
 		B6B5D08E2C580FD600D2FA37 = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +117,7 @@
 		B6B5D0992C580FD600D2FA37 /* VideoEditor */ = {
 			isa = PBXGroup;
 			children = (
+				B6A0F8392C5DA3F8009741EF /* AudioAssets */,
 				B6B5D0C62C58166B00D2FA37 /* EditWorkSpace */,
 				B6B5D09A2C580FD600D2FA37 /* VideoEditorApp.swift */,
 				B6B5D09C2C580FD600D2FA37 /* ContentView.swift */,
@@ -254,6 +268,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6A0F83D2C5DA48F009741EF /* Saddle of My Heart.mp3 in Resources */,
+				B6A0F83B2C5DA476009741EF /* Love Paradise.mp3 in Resources */,
 				B6B5D0A42C580FD700D2FA37 /* Preview Assets.xcassets in Resources */,
 				B6B5D0A12C580FD700D2FA37 /* Assets.xcassets in Resources */,
 			);
