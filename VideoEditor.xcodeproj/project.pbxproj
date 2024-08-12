@@ -117,6 +117,13 @@
 			path = Editor;
 			sourceTree = "<group>";
 		};
+		B62385F12C6AD7CC00206B58 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		B6A0F8392C5DA3F8009741EF /* AudioAssets */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +156,7 @@
 		B6B5D0992C580FD600D2FA37 /* VideoEditor */ = {
 			isa = PBXGroup;
 			children = (
+				B62385F12C6AD7CC00206B58 /* Images */,
 				B6A0F8392C5DA3F8009741EF /* AudioAssets */,
 				B6B5D0C62C58166B00D2FA37 /* EditWorkSpace */,
 				B6B5D09A2C580FD600D2FA37 /* VideoEditorApp.swift */,
