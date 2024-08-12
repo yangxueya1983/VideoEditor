@@ -211,6 +211,20 @@ struct SessionUtilties {
         }
         
         videoCompositions.instructions = instructions
+        
+        if !sess.audioItems.isEmpty {
+            // add audio track, make sure the audio item time ranges have no overlap
+            let audioTrack = mixComposition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
+            for itm in sess.audioItems {
+                let audioAsset = AVAsset(url: itm.url)
+                // load audio track
+                guard let t = try await audioAsset.loadTracks(withMediaType: .audio).first else {
+                    return NSError(domain: "no audio tracks for audio files", code: 0)
+                }
+                try audioTrack?.insertTimeRange(itm.selectRange, of: t, at: itm.positionTime)
+            }
+        }
+        
         // ready to export
         guard let exportSession = AVAssetExportSession(asset: mixComposition, presetName: AVAssetExportPresetMediumQuality) else {
             return NSError(domain: "export session error", code: 0)
@@ -251,7 +265,7 @@ struct SessionUtilties {
             i2.layerInstructions = [l2]
             ret.append(i2)
         } else {
-            assert(false, "type not supported")
+            assert(false, "type \(trans.type) not implemented")
         }
         return ret
     }

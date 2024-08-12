@@ -40,6 +40,8 @@ class EditSession {
     
     func check() -> Bool {
         // TODO: implement this
+        
+        // TODO: audio timerange should have no overlap
         return true
     }
     

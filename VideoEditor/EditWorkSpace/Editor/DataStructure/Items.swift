@@ -19,7 +19,7 @@ struct PhotoItem {
 struct AudioItem {
     let url: URL
     var selectRange: CMTimeRange
-    var positionRange: CMTimeRange
+    var positionTime: CMTime
 }
 
 enum TransitionType {
