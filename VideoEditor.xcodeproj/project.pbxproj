@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2677D0E72C69885800115565 /* EditSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2677D0E12C69885800115565 /* EditSession.swift */; };
+		2677D0E82C69885800115565 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2677D0E22C69885800115565 /* Items.swift */; };
+		2677D0E92C69885800115565 /* SessionUtilties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2677D0E42C69885800115565 /* SessionUtilties.swift */; };
 		B64C6D592C5C4D6000BD1883 /* VEUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64C6D582C5C4D6000BD1883 /* VEUtil.swift */; };
 		B6A0F83B2C5DA476009741EF /* Love Paradise.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B6A0F83A2C5DA476009741EF /* Love Paradise.mp3 */; };
 		B6A0F83D2C5DA48F009741EF /* Saddle of My Heart.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B6A0F83C2C5DA48F009741EF /* Saddle of My Heart.mp3 */; };
@@ -41,6 +44,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2677D0E12C69885800115565 /* EditSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSession.swift; sourceTree = "<group>"; };
+		2677D0E22C69885800115565 /* Items.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
+		2677D0E42C69885800115565 /* SessionUtilties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionUtilties.swift; sourceTree = "<group>"; };
 		B64C6D582C5C4D6000BD1883 /* VEUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VEUtil.swift; sourceTree = "<group>"; };
 		B6A0F83A2C5DA476009741EF /* Love Paradise.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Love Paradise.mp3"; sourceTree = "<group>"; };
 		B6A0F83C2C5DA48F009741EF /* Saddle of My Heart.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Saddle of My Heart.mp3"; sourceTree = "<group>"; };
@@ -85,6 +91,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2677D0E32C69885800115565 /* DataStructure */ = {
+			isa = PBXGroup;
+			children = (
+				2677D0E12C69885800115565 /* EditSession.swift */,
+				2677D0E22C69885800115565 /* Items.swift */,
+			);
+			path = DataStructure;
+			sourceTree = "<group>";
+		};
+		2677D0E52C69885800115565 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				2677D0E42C69885800115565 /* SessionUtilties.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		2677D0E62C69885800115565 /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				2677D0E32C69885800115565 /* DataStructure */,
+				2677D0E52C69885800115565 /* Utilities */,
+			);
+			path = Editor;
+			sourceTree = "<group>";
+		};
 		B6A0F8392C5DA3F8009741EF /* AudioAssets */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +188,7 @@
 		B6B5D0C62C58166B00D2FA37 /* EditWorkSpace */ = {
 			isa = PBXGroup;
 			children = (
+				2677D0E62C69885800115565 /* Editor */,
 				B6B5D0C72C5816B900D2FA37 /* VideoEditView.swift */,
 				B6B5D0C92C584BF500D2FA37 /* PhotoPicker.swift */,
 				B6B5D0CB2C585F1700D2FA37 /* VideoPlayerView.swift */,
@@ -300,9 +333,12 @@
 				B6B5D09D2C580FD600D2FA37 /* ContentView.swift in Sources */,
 				B6B5D09F2C580FD600D2FA37 /* Item.swift in Sources */,
 				B6B5D0C82C5816B900D2FA37 /* VideoEditView.swift in Sources */,
+				2677D0E82C69885800115565 /* Items.swift in Sources */,
 				B6B5D0CA2C584BF500D2FA37 /* PhotoPicker.swift in Sources */,
 				B6B5D09B2C580FD600D2FA37 /* VideoEditorApp.swift in Sources */,
+				2677D0E72C69885800115565 /* EditSession.swift in Sources */,
 				B6B5D0CC2C585F1700D2FA37 /* VideoPlayerView.swift in Sources */,
+				2677D0E92C69885800115565 /* SessionUtilties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
