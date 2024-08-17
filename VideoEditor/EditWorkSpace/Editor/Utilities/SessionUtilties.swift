@@ -7,6 +7,17 @@
 
 import Foundation
 import AVFoundation
+import UIKit
+
+struct CommonUtilities {
+    static func imageWithURL(url: URL) -> UIImage? {
+        guard let imageData = try? Data(contentsOf: url) else {
+            return nil
+        }
+        
+        return UIImage(data: imageData)
+    }
+}
 
 struct SessionUtilties {
     static func getAvailableURLs(cnt: Int) throws -> [URL] {
@@ -24,7 +35,7 @@ struct SessionUtilties {
         return ret
     }
     
-    private static func concatenatePhotoWithoutTransition(width: Int, height: Int, photoItems:[PhotoItem], outURL: URL) async -> Error?
+    static func concatenatePhotoWithoutTransition(width: Int, height: Int, photoItems:[PhotoItem], outURL: URL) async -> Error?
     {
         let writer = try! AVAssetWriter(url: outURL, fileType: .mov)
         let videoSettings: [String: Any] = [
@@ -33,20 +44,20 @@ struct SessionUtilties {
             AVVideoHeightKey: height
         ]
         
-        let writerInput = AVAssetWriterInput(mediaType: .video, outputSettings: videoSettings)
-        let adaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerInput, sourcePixelBufferAttributes: nil)
-        
-        writer.add(writerInput)
-        writer.startWriting()
-        writer.startSession(atSourceTime: .zero)
-        
-        // create a pixel buffer pool
         // Create a pixel buffer pool
         let bufferAttributes: [String: Any] = [
             kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_32ARGB),
             kCVPixelBufferWidthKey as String: width,
-            kCVPixelBufferHeightKey as String: height
-        ]
+            kCVPixelBufferHeightKey as String: height]
+        
+        let writerInput = AVAssetWriterInput(mediaType: .video, outputSettings: videoSettings)
+        let adaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerInput, sourcePixelBufferAttributes: bufferAttributes)
+        
+        writer.add(writerInput)
+        writer.startWriting()
+        writer.startSession(atSourceTime: .zero)
+
+
         var pixelBufferPool = adaptor.pixelBufferPool
         guard let pixelBufferPool else {
             return NSError(domain: "No Pixel buffer pool", code: 0, userInfo: [NSLocalizedDescriptionKey: "No Pixel buffer pool allocated"])
@@ -55,7 +66,10 @@ struct SessionUtilties {
         var curTime: CMTime  = .zero
         
         for itm in photoItems {
-            let image = itm.image
+            guard let image = CommonUtilities.imageWithURL(url: itm.url) else {
+                print("image with url \(itm.url) can't be found")
+                continue
+            }
             // allocate the pixel buffer
             var pixelBuffer: CVPixelBuffer?
             CVPixelBufferPoolCreatePixelBuffer(kCFAllocatorDefault, pixelBufferPool, &pixelBuffer)

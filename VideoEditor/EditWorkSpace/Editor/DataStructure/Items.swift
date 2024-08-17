@@ -12,7 +12,7 @@ import UIKit
 struct PhotoItem {
     let id = UUID()
     let url: URL
-    let image: UIImage
+//    let image: UIImage
     let duration: CMTime
 }
 

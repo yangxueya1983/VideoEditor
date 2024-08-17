@@ -10,6 +10,58 @@
 		2677D0E72C69885800115565 /* EditSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2677D0E12C69885800115565 /* EditSession.swift */; };
 		2677D0E82C69885800115565 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2677D0E22C69885800115565 /* Items.swift */; };
 		2677D0E92C69885800115565 /* SessionUtilties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2677D0E42C69885800115565 /* SessionUtilties.swift */; };
+		2677D0ED2C70FDAB00115565 /* TestEditingAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2677D0EC2C70FDAB00115565 /* TestEditingAPIs.swift */; };
+		2677D0FF2C70FF9800115565 /* pic_15.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0EE2C70FF9800115565 /* pic_15.jpg */; };
+		2677D1002C70FF9800115565 /* pic_15.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0EE2C70FF9800115565 /* pic_15.jpg */; };
+		2677D1012C70FF9800115565 /* pic_15.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0EE2C70FF9800115565 /* pic_15.jpg */; };
+		2677D1022C70FF9800115565 /* pic_9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0EF2C70FF9800115565 /* pic_9.jpg */; };
+		2677D1032C70FF9800115565 /* pic_9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0EF2C70FF9800115565 /* pic_9.jpg */; };
+		2677D1042C70FF9800115565 /* pic_9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0EF2C70FF9800115565 /* pic_9.jpg */; };
+		2677D1052C70FF9800115565 /* pic_13.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F02C70FF9800115565 /* pic_13.jpg */; };
+		2677D1062C70FF9800115565 /* pic_13.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F02C70FF9800115565 /* pic_13.jpg */; };
+		2677D1072C70FF9800115565 /* pic_13.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F02C70FF9800115565 /* pic_13.jpg */; };
+		2677D1082C70FF9800115565 /* pic_7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F12C70FF9800115565 /* pic_7.jpg */; };
+		2677D1092C70FF9800115565 /* pic_7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F12C70FF9800115565 /* pic_7.jpg */; };
+		2677D10A2C70FF9800115565 /* pic_7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F12C70FF9800115565 /* pic_7.jpg */; };
+		2677D10B2C70FF9800115565 /* pic_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F22C70FF9800115565 /* pic_1.jpg */; };
+		2677D10C2C70FF9800115565 /* pic_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F22C70FF9800115565 /* pic_1.jpg */; };
+		2677D10D2C70FF9800115565 /* pic_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F22C70FF9800115565 /* pic_1.jpg */; };
+		2677D10E2C70FF9800115565 /* pic_16.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F32C70FF9800115565 /* pic_16.jpg */; };
+		2677D10F2C70FF9800115565 /* pic_16.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F32C70FF9800115565 /* pic_16.jpg */; };
+		2677D1102C70FF9800115565 /* pic_16.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F32C70FF9800115565 /* pic_16.jpg */; };
+		2677D1112C70FF9800115565 /* pic_11.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F42C70FF9800115565 /* pic_11.jpg */; };
+		2677D1122C70FF9800115565 /* pic_11.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F42C70FF9800115565 /* pic_11.jpg */; };
+		2677D1132C70FF9800115565 /* pic_11.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F42C70FF9800115565 /* pic_11.jpg */; };
+		2677D1142C70FF9800115565 /* pic_14.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F52C70FF9800115565 /* pic_14.jpg */; };
+		2677D1152C70FF9800115565 /* pic_14.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F52C70FF9800115565 /* pic_14.jpg */; };
+		2677D1162C70FF9800115565 /* pic_14.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F52C70FF9800115565 /* pic_14.jpg */; };
+		2677D1172C70FF9800115565 /* pic_4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F62C70FF9800115565 /* pic_4.jpg */; };
+		2677D1182C70FF9800115565 /* pic_4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F62C70FF9800115565 /* pic_4.jpg */; };
+		2677D1192C70FF9800115565 /* pic_4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F62C70FF9800115565 /* pic_4.jpg */; };
+		2677D11A2C70FF9800115565 /* pic_17.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F72C70FF9800115565 /* pic_17.jpg */; };
+		2677D11B2C70FF9800115565 /* pic_17.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F72C70FF9800115565 /* pic_17.jpg */; };
+		2677D11C2C70FF9800115565 /* pic_17.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F72C70FF9800115565 /* pic_17.jpg */; };
+		2677D11D2C70FF9800115565 /* pic_8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F82C70FF9800115565 /* pic_8.jpg */; };
+		2677D11E2C70FF9800115565 /* pic_8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F82C70FF9800115565 /* pic_8.jpg */; };
+		2677D11F2C70FF9800115565 /* pic_8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F82C70FF9800115565 /* pic_8.jpg */; };
+		2677D1202C70FF9800115565 /* pic_12.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F92C70FF9800115565 /* pic_12.jpg */; };
+		2677D1212C70FF9800115565 /* pic_12.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F92C70FF9800115565 /* pic_12.jpg */; };
+		2677D1222C70FF9800115565 /* pic_12.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0F92C70FF9800115565 /* pic_12.jpg */; };
+		2677D1232C70FF9800115565 /* pic_10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FA2C70FF9800115565 /* pic_10.jpg */; };
+		2677D1242C70FF9800115565 /* pic_10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FA2C70FF9800115565 /* pic_10.jpg */; };
+		2677D1252C70FF9800115565 /* pic_10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FA2C70FF9800115565 /* pic_10.jpg */; };
+		2677D1262C70FF9800115565 /* pic_5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FB2C70FF9800115565 /* pic_5.jpg */; };
+		2677D1272C70FF9800115565 /* pic_5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FB2C70FF9800115565 /* pic_5.jpg */; };
+		2677D1282C70FF9800115565 /* pic_5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FB2C70FF9800115565 /* pic_5.jpg */; };
+		2677D1292C70FF9800115565 /* pic_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FC2C70FF9800115565 /* pic_2.jpg */; };
+		2677D12A2C70FF9800115565 /* pic_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FC2C70FF9800115565 /* pic_2.jpg */; };
+		2677D12B2C70FF9800115565 /* pic_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FC2C70FF9800115565 /* pic_2.jpg */; };
+		2677D12C2C70FF9800115565 /* pic_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FD2C70FF9800115565 /* pic_3.jpg */; };
+		2677D12D2C70FF9800115565 /* pic_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FD2C70FF9800115565 /* pic_3.jpg */; };
+		2677D12E2C70FF9800115565 /* pic_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FD2C70FF9800115565 /* pic_3.jpg */; };
+		2677D12F2C70FF9800115565 /* pic_6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FE2C70FF9800115565 /* pic_6.jpg */; };
+		2677D1302C70FF9800115565 /* pic_6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FE2C70FF9800115565 /* pic_6.jpg */; };
+		2677D1312C70FF9800115565 /* pic_6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FE2C70FF9800115565 /* pic_6.jpg */; };
 		B64C6D592C5C4D6000BD1883 /* VEUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64C6D582C5C4D6000BD1883 /* VEUtil.swift */; };
 		B6A0F83B2C5DA476009741EF /* Love Paradise.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B6A0F83A2C5DA476009741EF /* Love Paradise.mp3 */; };
 		B6A0F83D2C5DA48F009741EF /* Saddle of My Heart.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B6A0F83C2C5DA48F009741EF /* Saddle of My Heart.mp3 */; };
@@ -47,6 +99,24 @@
 		2677D0E12C69885800115565 /* EditSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSession.swift; sourceTree = "<group>"; };
 		2677D0E22C69885800115565 /* Items.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
 		2677D0E42C69885800115565 /* SessionUtilties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionUtilties.swift; sourceTree = "<group>"; };
+		2677D0EC2C70FDAB00115565 /* TestEditingAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEditingAPIs.swift; sourceTree = "<group>"; };
+		2677D0EE2C70FF9800115565 /* pic_15.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_15.jpg; sourceTree = "<group>"; };
+		2677D0EF2C70FF9800115565 /* pic_9.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_9.jpg; sourceTree = "<group>"; };
+		2677D0F02C70FF9800115565 /* pic_13.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_13.jpg; sourceTree = "<group>"; };
+		2677D0F12C70FF9800115565 /* pic_7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_7.jpg; sourceTree = "<group>"; };
+		2677D0F22C70FF9800115565 /* pic_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_1.jpg; sourceTree = "<group>"; };
+		2677D0F32C70FF9800115565 /* pic_16.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_16.jpg; sourceTree = "<group>"; };
+		2677D0F42C70FF9800115565 /* pic_11.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_11.jpg; sourceTree = "<group>"; };
+		2677D0F52C70FF9800115565 /* pic_14.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_14.jpg; sourceTree = "<group>"; };
+		2677D0F62C70FF9800115565 /* pic_4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_4.jpg; sourceTree = "<group>"; };
+		2677D0F72C70FF9800115565 /* pic_17.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_17.jpg; sourceTree = "<group>"; };
+		2677D0F82C70FF9800115565 /* pic_8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_8.jpg; sourceTree = "<group>"; };
+		2677D0F92C70FF9800115565 /* pic_12.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_12.jpg; sourceTree = "<group>"; };
+		2677D0FA2C70FF9800115565 /* pic_10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_10.jpg; sourceTree = "<group>"; };
+		2677D0FB2C70FF9800115565 /* pic_5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_5.jpg; sourceTree = "<group>"; };
+		2677D0FC2C70FF9800115565 /* pic_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_2.jpg; sourceTree = "<group>"; };
+		2677D0FD2C70FF9800115565 /* pic_3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_3.jpg; sourceTree = "<group>"; };
+		2677D0FE2C70FF9800115565 /* pic_6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_6.jpg; sourceTree = "<group>"; };
 		B64C6D582C5C4D6000BD1883 /* VEUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VEUtil.swift; sourceTree = "<group>"; };
 		B6A0F83A2C5DA476009741EF /* Love Paradise.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Love Paradise.mp3"; sourceTree = "<group>"; };
 		B6A0F83C2C5DA48F009741EF /* Saddle of My Heart.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Saddle of My Heart.mp3"; sourceTree = "<group>"; };
@@ -120,6 +190,23 @@
 		B62385F12C6AD7CC00206B58 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2677D0F22C70FF9800115565 /* pic_1.jpg */,
+				2677D0FC2C70FF9800115565 /* pic_2.jpg */,
+				2677D0FD2C70FF9800115565 /* pic_3.jpg */,
+				2677D0F62C70FF9800115565 /* pic_4.jpg */,
+				2677D0FB2C70FF9800115565 /* pic_5.jpg */,
+				2677D0FE2C70FF9800115565 /* pic_6.jpg */,
+				2677D0F12C70FF9800115565 /* pic_7.jpg */,
+				2677D0F82C70FF9800115565 /* pic_8.jpg */,
+				2677D0EF2C70FF9800115565 /* pic_9.jpg */,
+				2677D0FA2C70FF9800115565 /* pic_10.jpg */,
+				2677D0F42C70FF9800115565 /* pic_11.jpg */,
+				2677D0F92C70FF9800115565 /* pic_12.jpg */,
+				2677D0F02C70FF9800115565 /* pic_13.jpg */,
+				2677D0F52C70FF9800115565 /* pic_14.jpg */,
+				2677D0EE2C70FF9800115565 /* pic_15.jpg */,
+				2677D0F32C70FF9800115565 /* pic_16.jpg */,
+				2677D0F72C70FF9800115565 /* pic_17.jpg */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -180,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				B6B5D0AD2C580FD700D2FA37 /* VideoEditorTests.swift */,
+				2677D0EC2C70FDAB00115565 /* TestEditingAPIs.swift */,
 			);
 			path = VideoEditorTests;
 			sourceTree = "<group>";
@@ -309,8 +397,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2677D0FF2C70FF9800115565 /* pic_15.jpg in Resources */,
+				2677D1052C70FF9800115565 /* pic_13.jpg in Resources */,
+				2677D12C2C70FF9800115565 /* pic_3.jpg in Resources */,
+				2677D11D2C70FF9800115565 /* pic_8.jpg in Resources */,
+				2677D1172C70FF9800115565 /* pic_4.jpg in Resources */,
+				2677D1082C70FF9800115565 /* pic_7.jpg in Resources */,
+				2677D11A2C70FF9800115565 /* pic_17.jpg in Resources */,
 				B6A0F83D2C5DA48F009741EF /* Saddle of My Heart.mp3 in Resources */,
+				2677D1202C70FF9800115565 /* pic_12.jpg in Resources */,
+				2677D1022C70FF9800115565 /* pic_9.jpg in Resources */,
+				2677D1232C70FF9800115565 /* pic_10.jpg in Resources */,
+				2677D1112C70FF9800115565 /* pic_11.jpg in Resources */,
+				2677D10E2C70FF9800115565 /* pic_16.jpg in Resources */,
+				2677D10B2C70FF9800115565 /* pic_1.jpg in Resources */,
+				2677D1292C70FF9800115565 /* pic_2.jpg in Resources */,
 				B6A0F83B2C5DA476009741EF /* Love Paradise.mp3 in Resources */,
+				2677D1262C70FF9800115565 /* pic_5.jpg in Resources */,
+				2677D12F2C70FF9800115565 /* pic_6.jpg in Resources */,
+				2677D1142C70FF9800115565 /* pic_14.jpg in Resources */,
 				B6B5D0A42C580FD700D2FA37 /* Preview Assets.xcassets in Resources */,
 				B6B5D0A12C580FD700D2FA37 /* Assets.xcassets in Resources */,
 			);
@@ -320,6 +425,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2677D11B2C70FF9800115565 /* pic_17.jpg in Resources */,
+				2677D1032C70FF9800115565 /* pic_9.jpg in Resources */,
+				2677D1152C70FF9800115565 /* pic_14.jpg in Resources */,
+				2677D10F2C70FF9800115565 /* pic_16.jpg in Resources */,
+				2677D10C2C70FF9800115565 /* pic_1.jpg in Resources */,
+				2677D1122C70FF9800115565 /* pic_11.jpg in Resources */,
+				2677D12D2C70FF9800115565 /* pic_3.jpg in Resources */,
+				2677D1272C70FF9800115565 /* pic_5.jpg in Resources */,
+				2677D1182C70FF9800115565 /* pic_4.jpg in Resources */,
+				2677D1302C70FF9800115565 /* pic_6.jpg in Resources */,
+				2677D1062C70FF9800115565 /* pic_13.jpg in Resources */,
+				2677D1092C70FF9800115565 /* pic_7.jpg in Resources */,
+				2677D11E2C70FF9800115565 /* pic_8.jpg in Resources */,
+				2677D1002C70FF9800115565 /* pic_15.jpg in Resources */,
+				2677D1212C70FF9800115565 /* pic_12.jpg in Resources */,
+				2677D1242C70FF9800115565 /* pic_10.jpg in Resources */,
+				2677D12A2C70FF9800115565 /* pic_2.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +449,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2677D11C2C70FF9800115565 /* pic_17.jpg in Resources */,
+				2677D1042C70FF9800115565 /* pic_9.jpg in Resources */,
+				2677D1162C70FF9800115565 /* pic_14.jpg in Resources */,
+				2677D1102C70FF9800115565 /* pic_16.jpg in Resources */,
+				2677D10D2C70FF9800115565 /* pic_1.jpg in Resources */,
+				2677D1132C70FF9800115565 /* pic_11.jpg in Resources */,
+				2677D12E2C70FF9800115565 /* pic_3.jpg in Resources */,
+				2677D1282C70FF9800115565 /* pic_5.jpg in Resources */,
+				2677D1192C70FF9800115565 /* pic_4.jpg in Resources */,
+				2677D1312C70FF9800115565 /* pic_6.jpg in Resources */,
+				2677D1072C70FF9800115565 /* pic_13.jpg in Resources */,
+				2677D10A2C70FF9800115565 /* pic_7.jpg in Resources */,
+				2677D11F2C70FF9800115565 /* pic_8.jpg in Resources */,
+				2677D1012C70FF9800115565 /* pic_15.jpg in Resources */,
+				2677D1222C70FF9800115565 /* pic_12.jpg in Resources */,
+				2677D1252C70FF9800115565 /* pic_10.jpg in Resources */,
+				2677D12B2C70FF9800115565 /* pic_2.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,6 +494,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6B5D0AE2C580FD700D2FA37 /* VideoEditorTests.swift in Sources */,
+				2677D0ED2C70FDAB00115565 /* TestEditingAPIs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,7 +650,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VideoEditor/Preview Content\"";
-				DEVELOPMENT_TEAM = YV22CJ54H7;
+				DEVELOPMENT_TEAM = 8N5XM3EBGN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -518,6 +658,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -539,7 +680,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VideoEditor/Preview Content\"";
-				DEVELOPMENT_TEAM = YV22CJ54H7;
+				DEVELOPMENT_TEAM = 8N5XM3EBGN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -547,6 +688,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -567,9 +709,9 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YV22CJ54H7;
+				DEVELOPMENT_TEAM = 8N5XM3EBGN;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yangxueya.VideoEditorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -587,9 +729,9 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YV22CJ54H7;
+				DEVELOPMENT_TEAM = 8N5XM3EBGN;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yangxueya.VideoEditorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -606,8 +748,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YV22CJ54H7;
+				DEVELOPMENT_TEAM = 8N5XM3EBGN;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yangxueya.VideoEditorUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -624,8 +767,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = YV22CJ54H7;
+				DEVELOPMENT_TEAM = 8N5XM3EBGN;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yangxueya.VideoEditorUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
