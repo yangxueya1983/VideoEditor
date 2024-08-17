@@ -32,7 +32,7 @@ enum TransitionType {
 struct TransitionCfg {
     let item1Id: UUID
     let item2Id: UUID
-    let type : TransitionType = .None
+    let type : TransitionType
     let duration: CMTime
 }
 

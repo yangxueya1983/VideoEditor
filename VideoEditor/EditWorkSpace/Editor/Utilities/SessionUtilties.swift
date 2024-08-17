@@ -47,7 +47,7 @@ struct SessionUtilties {
         
         var ret: [URL] = []
         for _ in 0..<cnt {
-            let url = tempDirURL.appendingPathComponent(UUID().uuidString)
+            let url = tempDirURL.appendingPathComponent(UUID().uuidString + ".mp4")
             ret.append(url)
         }
         
@@ -114,8 +114,8 @@ struct SessionUtilties {
             curTime = CMTimeAdd(curTime, itm.duration)
         }
         
-        // TODO: do I need to append the last image twice?
         writerInput.markAsFinished()
+        writer.endSession(atSourceTime: curTime)
         await writer.finishWriting()
         
         if let error = writer.error {
@@ -125,7 +125,7 @@ struct SessionUtilties {
         }
     }
     
-    private static func concatenatePhotosWithTransition(sess: EditSession, outURL: URL) async throws -> Error? {
+    static func concatenatePhotosWithTransition(sess: EditSession, outURL: URL) async throws -> Error? {
         // combine the videos without any transition
         let (groups, transitions) = sess.groupPhotoItemsWithoutTransition()
         assert(groups.count == transitions.count + 1)
@@ -191,7 +191,7 @@ struct SessionUtilties {
             var insertPos = prevPos
             if idx > 0 {
                 // previous transition
-                let trans = transitions[idx]
+                let trans = transitions[idx-1]
                 assert(trans.type != .None)
                 assert(insertPos > trans.duration)
                 insertPos = insertPos - trans.duration
@@ -211,8 +211,6 @@ struct SessionUtilties {
             prevPos = insertPos + duration
         }
         
-        let totalDuration = prevPos
-        
         // add instruction for transitions
         let videoCompositions = AVMutableVideoComposition()
         videoCompositions.renderSize = track1.naturalSize
@@ -220,9 +218,9 @@ struct SessionUtilties {
 
         var instructions: [AVMutableVideoCompositionInstruction] = []
         for (idx, _) in groupsURLs.enumerated() {
-            var track : AVAssetTrack = idx % 2 == 0 ? track1 : track2
-            var prevTrack: AVAssetTrack = idx % 2 == 1 ? track1: track2
-            var trackRange = segmentTimeRanges[idx]
+            let track : AVAssetTrack = idx % 2 == 0 ? track1 : track2
+            let prevTrack: AVAssetTrack = idx % 2 == 1 ? track1: track2
+            let trackRange = segmentTimeRanges[idx]
             var overlapDur: CMTime = .zero
             var trans: TransitionCfg?
             if idx > 0 {
@@ -233,7 +231,7 @@ struct SessionUtilties {
                 instructions.append(contentsOf: ins)
             }
             
-            var singleStart = trackRange.start + overlapDur
+            let singleStart = trackRange.start + overlapDur
             var singleDuration = trackRange.duration - overlapDur
             if idx != groupsURLs.count - 1 {
                 // not last one, need to consider the right transitions as well
@@ -242,7 +240,7 @@ struct SessionUtilties {
                 singleDuration = singleDuration - rightTransDur
             }
             let ins = createSingleTrackInstruction(curTrack: track, prevTrack: prevTrack, timeRange: CMTimeRange(start: singleStart, duration: singleDuration))
-            instructions.append(contentsOf: ins)
+            instructions.append(ins)
         }
         
         videoCompositions.instructions = instructions
@@ -289,37 +287,32 @@ struct SessionUtilties {
         
         if trans.type == .Opacity {
             let i1 = AVMutableVideoCompositionInstruction()
+            i1.timeRange = timeRange
+            
             let l1 = AVMutableVideoCompositionLayerInstruction(assetTrack: curTrack)
             l1.setOpacityRamp(fromStartOpacity: 0, toEndOpacity: 1, timeRange: timeRange)
-            i1.layerInstructions = [l1]
-            ret.append(i1)
-            
-            let i2 = AVMutableVideoCompositionInstruction()
             let l2 = AVMutableVideoCompositionLayerInstruction(assetTrack: prevTrack)
             l2.setOpacityRamp(fromStartOpacity: 1, toEndOpacity: 0, timeRange: timeRange)
-            i2.layerInstructions = [l2]
-            ret.append(i2)
+            i1.layerInstructions = [l1, l2]
+            ret.append(i1)
         } else {
             assert(false, "type \(trans.type) not implemented")
         }
         return ret
     }
     
-    private static func createSingleTrackInstruction(curTrack: AVAssetTrack, prevTrack: AVAssetTrack, timeRange: CMTimeRange) -> [AVMutableVideoCompositionInstruction] {
+    private static func createSingleTrackInstruction(curTrack: AVAssetTrack, prevTrack: AVAssetTrack, timeRange: CMTimeRange) -> AVMutableVideoCompositionInstruction {
         let i1 = AVMutableVideoCompositionInstruction()
         i1.timeRange = timeRange
+        
         let l1 = AVMutableVideoCompositionLayerInstruction(assetTrack: curTrack)
         l1.setOpacity(1, at: timeRange.start)
-        i1.layerInstructions = [l1]
-        
-        
-        let i2 = AVMutableVideoCompositionInstruction()
-        i2.timeRange = timeRange
         let l2 = AVMutableVideoCompositionLayerInstruction(assetTrack: prevTrack)
         l2.setOpacity(0, at: timeRange.start)
-        i2.layerInstructions = [l2]
         
-        return [i1, i2]
+        i1.layerInstructions = [l1, l2]
+        
+        return i1
     }
     
 }

@@ -61,7 +61,28 @@ final class EditAPITest : XCTestCase {
         
     }
     
-    func testTransition1() throws {
+    func testTransition1() async throws {
+        let photoItem1 = createPhotoItem(name: "pic_1", ext: "jpg")
+        let photoItem2 = createPhotoItem(name: "pic_2", ext: "jpg")
         
+        guard let photoItem1, let photoItem2 else {
+            XCTAssert(false)
+            return
+        }
+        let session = EditSession(videoWidth: 720, videoHeight: 480)
+        session.photoItems = [photoItem1, photoItem2]
+        
+        // create the transition action
+        let config = TransitionCfg(item1Id: photoItem1.id, item2Id: photoItem2.id, type: .Opacity, duration: CMTime(value: 1, timescale: 1))
+        session.transitions = [config]
+        
+        let outURL = getOutputURL()
+        print("the generated video will be exported to \(outURL)")
+        let error = try await SessionUtilties.concatenatePhotosWithTransition(sess: session, outURL: outURL)
+        if let error {
+            print("the error is \(error)")
+        } else {
+            print("the export succeed")
+        }
     }
 }

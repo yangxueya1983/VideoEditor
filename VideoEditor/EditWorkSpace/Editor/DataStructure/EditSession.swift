@@ -69,7 +69,13 @@ class EditSession {
                 groups.append(oneGroup)
                 oneGroup.removeAll()
                 trans.append(cfg)
+                oneGroup.append(itm)
             }
+        }
+        
+        if !oneGroup.isEmpty {
+            groups.append(oneGroup)
+            oneGroup.removeAll()
         }
         
         return (groups, trans)
