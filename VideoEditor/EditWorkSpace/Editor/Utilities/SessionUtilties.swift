@@ -17,6 +17,25 @@ struct CommonUtilities {
         
         return UIImage(data: imageData)
     }
+    
+    static func getDrawRect(image: UIImage, frameW: CGFloat, frameH: CGFloat)-> CGRect {
+        let imgSize = image.size
+        let w = imgSize.width
+        let h = imgSize.height
+        
+        var scaleSize : CGSize
+        
+        if w > frameW || h > frameH {
+            let r = max(w/frameW, h / frameH)
+            scaleSize = CGSizeMake(w/r, h/r)
+        } else {
+            let r = min(frameW/w, frameH/h)
+            scaleSize = CGSizeMake(w*r, h*r)
+        }
+        
+        let c = CGPointMake(frameW/2, frameH/2)
+        return CGRectMake(c.x-scaleSize.width/2, c.y - scaleSize.height/2 , scaleSize.width, scaleSize.height)
+    }
 }
 
 struct SessionUtilties {
@@ -58,7 +77,7 @@ struct SessionUtilties {
         writer.startSession(atSourceTime: .zero)
 
 
-        var pixelBufferPool = adaptor.pixelBufferPool
+        let pixelBufferPool = adaptor.pixelBufferPool
         guard let pixelBufferPool else {
             return NSError(domain: "No Pixel buffer pool", code: 0, userInfo: [NSLocalizedDescriptionKey: "No Pixel buffer pool allocated"])
         }
@@ -83,7 +102,9 @@ struct SessionUtilties {
             let context = CGContext(data: pixelData, width: Int(width), height: Int(height),
                                     bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(buffer),
                                     space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue)
-            context?.draw(image.cgImage!, in: CGRect(x: 0, y: 0, width: width, height: height))
+            
+            let drawRect = CommonUtilities.getDrawRect(image: image, frameW: CGFloat(width), frameH: CGFloat(height))
+            context?.draw(image.cgImage!, in: drawRect)
             CVPixelBufferUnlockBaseAddress(buffer, [])
             
             // wait for the writer input to finish
@@ -126,7 +147,7 @@ struct SessionUtilties {
                     let outURL = groupsURLs[i]
                     group.addTask {
                         let error =  await concatenatePhotoWithoutTransition(width: width, height: height, photoItems: groups[i], outURL: outURL)
-                        if let error = error {
+                        if error != nil {
                             return 1
                         } else {
                             return 0
