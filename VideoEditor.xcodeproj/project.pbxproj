@@ -62,6 +62,8 @@
 		2677D12F2C70FF9800115565 /* pic_6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FE2C70FF9800115565 /* pic_6.jpg */; };
 		2677D1302C70FF9800115565 /* pic_6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FE2C70FF9800115565 /* pic_6.jpg */; };
 		2677D1312C70FF9800115565 /* pic_6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FE2C70FF9800115565 /* pic_6.jpg */; };
+		26CC87CE2C7262DB0025A134 /* CustomVideoCompositor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC87CD2C7262DB0025A134 /* CustomVideoCompositor.swift */; };
+		26CC87D02C7266500025A134 /* CustomTransitionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC87CF2C7266500025A134 /* CustomTransitionTest.swift */; };
 		B64C6D592C5C4D6000BD1883 /* VEUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64C6D582C5C4D6000BD1883 /* VEUtil.swift */; };
 		B6A0F83B2C5DA476009741EF /* Love Paradise.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B6A0F83A2C5DA476009741EF /* Love Paradise.mp3 */; };
 		B6A0F83D2C5DA48F009741EF /* Saddle of My Heart.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B6A0F83C2C5DA48F009741EF /* Saddle of My Heart.mp3 */; };
@@ -117,6 +119,8 @@
 		2677D0FC2C70FF9800115565 /* pic_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_2.jpg; sourceTree = "<group>"; };
 		2677D0FD2C70FF9800115565 /* pic_3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_3.jpg; sourceTree = "<group>"; };
 		2677D0FE2C70FF9800115565 /* pic_6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_6.jpg; sourceTree = "<group>"; };
+		26CC87CD2C7262DB0025A134 /* CustomVideoCompositor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoCompositor.swift; sourceTree = "<group>"; };
+		26CC87CF2C7266500025A134 /* CustomTransitionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransitionTest.swift; sourceTree = "<group>"; };
 		B64C6D582C5C4D6000BD1883 /* VEUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VEUtil.swift; sourceTree = "<group>"; };
 		B6A0F83A2C5DA476009741EF /* Love Paradise.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Love Paradise.mp3"; sourceTree = "<group>"; };
 		B6A0F83C2C5DA48F009741EF /* Saddle of My Heart.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Saddle of My Heart.mp3"; sourceTree = "<group>"; };
@@ -174,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				2677D0E42C69885800115565 /* SessionUtilties.swift */,
+				26CC87CD2C7262DB0025A134 /* CustomVideoCompositor.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -268,6 +273,7 @@
 			children = (
 				B6B5D0AD2C580FD700D2FA37 /* VideoEditorTests.swift */,
 				2677D0EC2C70FDAB00115565 /* TestEditingAPIs.swift */,
+				26CC87CF2C7266500025A134 /* CustomTransitionTest.swift */,
 			);
 			path = VideoEditorTests;
 			sourceTree = "<group>";
@@ -486,6 +492,7 @@
 				2677D0E72C69885800115565 /* EditSession.swift in Sources */,
 				B6B5D0CC2C585F1700D2FA37 /* VideoPlayerView.swift in Sources */,
 				2677D0E92C69885800115565 /* SessionUtilties.swift in Sources */,
+				26CC87CE2C7262DB0025A134 /* CustomVideoCompositor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,6 +501,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6B5D0AE2C580FD700D2FA37 /* VideoEditorTests.swift in Sources */,
+				26CC87D02C7266500025A134 /* CustomTransitionTest.swift in Sources */,
 				2677D0ED2C70FDAB00115565 /* TestEditingAPIs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
