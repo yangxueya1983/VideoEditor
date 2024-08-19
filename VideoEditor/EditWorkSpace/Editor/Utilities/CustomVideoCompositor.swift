@@ -55,6 +55,19 @@ class CircleEnlargerCompositionInstruction : CustomVideoCompositionInstructionBa
     }
 }
 
+class MoveLeftInstruction : CustomVideoCompositionInstructionBase {
+    override func compose(_ frontSample: CIImage, _ backgroundSample: CIImage, _ process: CGFloat, _ size: CGSize) -> CIImage? {
+        let offset = -size.width * process
+        let transform = CGAffineTransformMakeTranslation(offset, 0)
+        let transformImage = frontSample.applyingFilter("CIAffineTransform", parameters: [kCIInputTransformKey : transform])
+        let outImage = transformImage.applyingFilter("CISourceAtopCompositing", parameters: [
+            kCIInputBackgroundImageKey : backgroundSample
+        ])
+        
+        return outImage
+    }
+}
+
 
 
 class CustomVideoCompositor: NSObject, AVVideoCompositing {
