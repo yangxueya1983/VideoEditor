@@ -68,7 +68,50 @@ class MoveLeftInstruction : CustomVideoCompositionInstructionBase {
     }
 }
 
+class DissolveMoveInstruction : CustomVideoCompositionInstructionBase {
+    var mask : CIImage?
+    func getDirX() -> CGFloat { return 0 }
+    func getDirY() -> CGFloat { return 0 }
+    
+    override func compose(_ frontSample: CIImage, _ backgroundSample: CIImage, _ process: CGFloat, _ size: CGSize) -> CIImage? {
+        // mask must be already set
+        if mask == nil {
+            // create the mask
+            mask = CIImage(color: CIColor(red: 1, green: 1, blue: 1)).cropped(to: frontSample.extent)
+        }
+        
+        let offsetX = size.width  * getDirX() * process
+        let offsetY = size.height * getDirY() * process
+        let transform = CGAffineTransformMakeTranslation(offsetX, offsetY)
+        let offsetMask = mask!.applyingFilter("CIAffineTransform", parameters: [
+            kCIInputTransformKey: transform
+        ])
+        
+        let blendedImage = frontSample.applyingFilter("CIBlendWithAlphaMask", parameters: [
+            kCIInputBackgroundImageKey: backgroundSample,
+            kCIInputMaskImageKey: offsetMask
+        ])
+        return blendedImage
+    }
+}
 
+class DissolveMoveLeftInstruction : DissolveMoveInstruction {
+    override func getDirX() -> CGFloat { return -1 }
+}
+
+class DissolveMoveRightInstruction : DissolveMoveInstruction {
+    override func getDirX() -> CGFloat { return 1 }
+}
+
+class DissolveMoveUpInstruction : DissolveMoveInstruction {
+    // TODO: what is the coordinates? if up y positive?
+    override func getDirY() -> CGFloat { return 1 }
+}
+
+class DissolveMoveDownInstruction : DissolveMoveInstruction {
+    // TODO: still not right at the end of transition
+    override func getDirY() -> CGFloat { return -1 }
+}
 
 class CustomVideoCompositor: NSObject, AVVideoCompositing {
     private let renderContextQueue = DispatchQueue(label: "com.example.CustomVideoCompositor.renderContextQueue")

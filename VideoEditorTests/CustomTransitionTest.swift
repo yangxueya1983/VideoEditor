@@ -87,7 +87,7 @@ final class CustomTransitionTest : XCTestCase {
         videoComposition.customVideoCompositorClass = CustomVideoCompositor.self
 
         // Define the instructions for the video composition
-        let instruction = MoveLeftInstruction()
+        let instruction = DissolveMoveDownInstruction()
         instruction.timeRange = CMTimeRange(start: CMTime(value: 0, timescale: 1), duration: CMTime(value:3, timescale: 1))
 
         // Define layer instructions for the tracks
