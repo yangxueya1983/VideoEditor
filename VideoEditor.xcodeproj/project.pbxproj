@@ -78,6 +78,7 @@
 		B6B5D0C82C5816B900D2FA37 /* VideoEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5D0C72C5816B900D2FA37 /* VideoEditView.swift */; };
 		B6B5D0CA2C584BF500D2FA37 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5D0C92C584BF500D2FA37 /* PhotoPicker.swift */; };
 		B6B5D0CC2C585F1700D2FA37 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5D0CB2C585F1700D2FA37 /* VideoPlayerView.swift */; };
+		B6C489162C75190C0043209A /* EditorToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C489152C75190C0043209A /* EditorToolView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +139,7 @@
 		B6B5D0C72C5816B900D2FA37 /* VideoEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoEditView.swift; sourceTree = "<group>"; };
 		B6B5D0C92C584BF500D2FA37 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		B6B5D0CB2C585F1700D2FA37 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		B6C489152C75190C0043209A /* EditorToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorToolView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 		2677D0E62C69885800115565 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
+				B6C489142C75189C0043209A /* EditorToolView */,
 				2677D0E32C69885800115565 /* DataStructure */,
 				2677D0E52C69885800115565 /* Utilities */,
 			);
@@ -297,6 +300,14 @@
 				B64C6D582C5C4D6000BD1883 /* VEUtil.swift */,
 			);
 			path = EditWorkSpace;
+			sourceTree = "<group>";
+		};
+		B6C489142C75189C0043209A /* EditorToolView */ = {
+			isa = PBXGroup;
+			children = (
+				B6C489152C75190C0043209A /* EditorToolView.swift */,
+			);
+			path = EditorToolView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -489,6 +500,7 @@
 				2677D0E82C69885800115565 /* Items.swift in Sources */,
 				B6B5D0CA2C584BF500D2FA37 /* PhotoPicker.swift in Sources */,
 				B6B5D09B2C580FD600D2FA37 /* VideoEditorApp.swift in Sources */,
+				B6C489162C75190C0043209A /* EditorToolView.swift in Sources */,
 				2677D0E72C69885800115565 /* EditSession.swift in Sources */,
 				B6B5D0CC2C585F1700D2FA37 /* VideoPlayerView.swift in Sources */,
 				2677D0E92C69885800115565 /* SessionUtilties.swift in Sources */,
