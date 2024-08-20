@@ -9,6 +9,7 @@ import Foundation
 import AVFoundation
 import CoreVideo
 import CoreImage
+import UIKit
 
 class CustomVideoCompositionInstructionBase : AVMutableVideoCompositionInstruction {
     func compose(_ frontSample: CIImage, _ backgroundSample: CIImage, _ process : CGFloat, _ size: CGSize) -> CIImage? {
@@ -112,6 +113,41 @@ class DissolveMoveDownInstruction : DissolveMoveInstruction {
     // TODO: still not right at the end of transition
     override func getDirY() -> CGFloat { return -1 }
 }
+
+class RadiusDissolveInstruction : CustomVideoCompositionInstructionBase {
+    
+    private func createMaskImage(size: CGSize, process: CGFloat) -> CIImage {
+        let radius = sqrt(size.width * size.width + size.height * size.height) / 2
+         
+        let format = UIGraphicsImageRendererFormat.default()
+        format.scale = 1.0 // need to set 1 as the CIImage use pixel level
+        
+        let renderer = UIGraphicsImageRenderer(size: size, format: format)
+        let image = renderer.image { context in
+            let ctx = context.cgContext
+            let center = CGPointMake(size.width/2, size.height/2)
+            ctx.move(to: center)
+            ctx.addArc(center: center, radius: radius, startAngle: 0, endAngle: 2 * Double.pi * process, clockwise: false)
+            ctx.closePath()
+            ctx.fillPath()
+        }
+        
+        let transform = CGAffineTransform(scaleX: 1, y: -1).translatedBy(x: 0, y: -size.height)
+        return CIImage(cgImage: image.cgImage!).transformed(by: transform)
+    }
+    
+    override func compose(_ frontSample: CIImage, _ backgroundSample: CIImage, _ process: CGFloat, _ size: CGSize) -> CIImage? {
+        let maskImage = createMaskImage(size: size, process: process)
+        
+        let blendedImage = backgroundSample.applyingFilter("CIBlendWithAlphaMask", parameters: [
+            kCIInputBackgroundImageKey: frontSample,
+            kCIInputMaskImageKey: maskImage
+        ])
+        
+        return blendedImage
+    }
+}
+
 
 class CustomVideoCompositor: NSObject, AVVideoCompositing {
     private let renderContextQueue = DispatchQueue(label: "com.example.CustomVideoCompositor.renderContextQueue")

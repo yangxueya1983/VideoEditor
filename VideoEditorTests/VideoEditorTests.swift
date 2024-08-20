@@ -32,5 +32,24 @@ final class VideoEditorTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+    
+    func testGenerateImage() throws  {
+        let size = CGSizeMake(100, 100)
+        let radius = min(size.width, size.height) / 2
+        let process = 0.5
+         
+        let renderer = UIGraphicsImageRenderer(size: size)
+        let image = renderer.image { context in
+            let ctx = context.cgContext
+            let center = CGPointMake(size.width/2, size.height/2)
+            ctx.move(to: center)
+            ctx.addArc(center: center, radius: radius, startAngle: 0, endAngle: 2 * Double.pi * process, clockwise: false)
+            ctx.closePath()
+            ctx.fillPath()
+        }
+        
+        let savePath = FileManager.default.temporaryDirectory.appendingPathComponent("out.png");
+        try image.pngData()!.write(to: savePath)
+    }
 
 }
