@@ -148,6 +148,30 @@ class RadiusDissolveInstruction : CustomVideoCompositionInstructionBase {
     }
 }
 
+/**
+ 相片切换 in 剪映
+ */
+class PhotoTransitionInstruction1 : CustomVideoCompositionInstructionBase {
+    override func compose(_ frontSample: CIImage, _ backgroundSample: CIImage, _ process: CGFloat, _ size: CGSize) -> CIImage? {
+        let angle = Double.pi / 4 * process
+        let translateX = -size.width * process
+        let translateY = size.height / 2 * process
+        
+        // front image translation
+        let transform = CGAffineTransformMakeRotation(angle).translatedBy(x: translateX, y: translateY)
+        let transformImage = frontSample.applyingFilter("CIAffineTransform", parameters: [kCIInputTransformKey : transform])
+        
+        // back image translation
+        let scale = 0.8 + 0.2 * process
+        let translateBack = CGAffineTransform(translationX: size.width/2, y: size.height/2)
+        let transform2 = translateBack.scaledBy(x: scale, y: scale).translatedBy(x: -size.width/2, y: -size.height/2)
+        
+        let outImage = transformImage.applyingFilter("CISourceAtopCompositing", parameters: [
+            kCIInputBackgroundImageKey : backgroundSample.applyingFilter("CIAffineTransform", parameters: [kCIInputTransformKey : transform2])
+        ])
+        return outImage
+    }
+}
 
 class CustomVideoCompositor: NSObject, AVVideoCompositing {
     private let renderContextQueue = DispatchQueue(label: "com.example.CustomVideoCompositor.renderContextQueue")
