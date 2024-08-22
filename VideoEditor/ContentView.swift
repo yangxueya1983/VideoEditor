@@ -37,6 +37,8 @@ struct ContentView: View {
                     }
                 }
             }
+            
+            EditorToolView()
         } detail: {
             Text("Select an item")
         }

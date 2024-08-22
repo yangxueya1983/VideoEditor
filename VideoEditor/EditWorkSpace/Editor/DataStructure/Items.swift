@@ -22,11 +22,14 @@ struct AudioItem {
     var positionTime: CMTime
 }
 
-enum TransitionType {
-    case None
-    case Translate_Up
-    case ScaleUp
-    case Opacity
+enum TransitionType:String, CaseIterable, Identifiable {
+    case None = "None"
+    case Translate_Up = "Translate_Up"
+    case ScaleUp = "ScaleUp"
+    case Opacity = "Opacity"
+    
+    var id:String {self.rawValue}
+    
 }
 
 struct TransitionCfg {
