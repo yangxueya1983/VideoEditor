@@ -10,9 +10,10 @@ import AVFoundation
 import CoreVideo
 import CoreImage
 import UIKit
+import CoreImage.CIFilterBuiltins
 
 class CustomVideoCompositionInstructionBase : AVMutableVideoCompositionInstruction {
-    func compose(_ frontSample: CIImage, _ backgroundSample: CIImage, _ process : CGFloat, _ size: CGSize) -> CIImage? {
+    func compose(_ frontSample: CIImage, _ backgroundSample: CIImage, _ progress : CGFloat, _ size: CGSize) -> CIImage? {
         return nil
     }
 }
@@ -172,6 +173,74 @@ class PhotoTransitionInstruction1 : CustomVideoCompositionInstructionBase {
         return outImage
     }
 }
+
+class EnlargeTransitionInstruction : CustomVideoCompositionInstructionBase {
+    override func compose(_ frontSample: CIImage, _ backgroundSample: CIImage, _ progress: CGFloat, _ size: CGSize) -> CIImage? {
+        let changeThreshold = 0.2
+        let frontChangeToScale = 1.2
+        let translateBack = CGAffineTransform(translationX: size.width/2, y: size.height/2)
+        if progress < changeThreshold {
+            // 1 -> 1.2 in changeThreshold progess
+            let frontScale = 1 + (frontChangeToScale - 1) * progress / changeThreshold
+            
+            let transform = translateBack.scaledBy(x: frontScale, y: frontScale).translatedBy(x: -size.width/2, y: -size.height/2)
+            return frontSample.applyingFilter("CIAffineTransform", parameters: [kCIInputTransformKey : transform])
+        }
+        
+        // TODO: add a custom filter to cover the whole background
+        let backInitialScale = 0.7
+        let backScale = backInitialScale + ( 1 - backInitialScale) * (progress - changeThreshold) / ( 1 - changeThreshold)
+        let transform = translateBack.scaledBy(x: backScale, y: backScale).translatedBy(x: -size.width/2, y: -size.height/2)
+        
+        return backgroundSample.applyingFilter("CIAffineTransform", parameters: [kCIInputTransformKey : transform])
+    }
+}
+
+class PageCurlTransitionInstruction : CustomVideoCompositionInstructionBase {
+    override func compose(_ frontSample: CIImage, _ backgroundSample: CIImage, _ progress: CGFloat, _ size: CGSize) -> CIImage? {
+        let transitionFilter = CIFilter.pageCurlTransition()
+        transitionFilter.inputImage = frontSample
+        transitionFilter.targetImage = backgroundSample
+        transitionFilter.time = Float(progress) // Adjust the time from 0 to 1 to control the transition progress
+        transitionFilter.angle = Float(Double.pi) // Control the angle of the curl
+        transitionFilter.radius = 100.0 // Control the radius of the curl
+        transitionFilter.extent = frontSample.extent // Set the extent of the transition
+        return transitionFilter.outputImage
+    }
+}
+
+//class Cube3DTransitionInstruction : CustomVideoCompositionInstructionBase {
+//    override func compose(_ frontSample: CIImage, _ backgroundSample: CIImage, _ progress: CGFloat, _ size: CGSize) -> CIImage? {
+//        let transform = CIFilter.perspectiveTransform()
+//        
+//        transform.inputImage = progress < 0.5 ? frontSample : backgroundSample
+//
+//        let width = size.width
+//        let height = size.height
+//        let angle = Double.pi * progress
+//
+//        let xOffset = width * 0.5 * cos(angle)
+//        let zOffset = height * sin(angle)
+//        
+//        let isEntering = progress < 0.5
+//        
+//        if isEntering {
+//            // Perspective for the entering image
+//            transform.topLeft = CGPoint(x: width - xOffset, y: height + zOffset)
+//            transform.topRight = CGPoint(x: width + xOffset, y: height - zOffset)
+//            transform.bottomLeft = CGPoint(x: width - xOffset, y: zOffset)
+//            transform.bottomRight = CGPoint(x: width + xOffset, y: -zOffset)
+//        } else {
+//            // Perspective for the exiting image
+//            transform.topLeft = CGPoint(x: xOffset, y: height - zOffset)
+//            transform.topRight = CGPoint(x: -xOffset, y: height + zOffset)
+//            transform.bottomLeft = CGPoint(x: xOffset, y: zOffset)
+//            transform.bottomRight = CGPoint(x: -xOffset, y: -zOffset)
+//        }
+//
+//        return transform.outputImage
+//    }
+//}
 
 class CustomVideoCompositor: NSObject, AVVideoCompositing {
     private let renderContextQueue = DispatchQueue(label: "com.example.CustomVideoCompositor.renderContextQueue")
