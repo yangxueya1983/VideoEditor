@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 
 struct VideoEditView: View {
-    @State private var showPicker = false
+    @State private var showPicker = true
     @State private var selectedImages: [UIImage] = []
     @State private var videoPath:URL?
 

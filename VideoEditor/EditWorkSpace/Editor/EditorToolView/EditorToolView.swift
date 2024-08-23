@@ -21,7 +21,7 @@ struct EditorToolView: View {
             ScrollView([.horizontal], showsIndicators: true) {
                 HStack(spacing: 2, content: {
                     ForEach(Array(imageSrcURLArray.enumerated()), id: \.offset) {index, imgUrl in
-                        ClipView(path: imgUrl, hasTransition: index == 0 ? false : true, showTransitionMenu: $showTransitionMenu)
+                        ClipView(path: imgUrl, hasTransitionBtn: index > 0, showTransitionMenu: $showTransitionMenu)
                     }
                 })
                 HStack {
@@ -29,16 +29,14 @@ struct EditorToolView: View {
                 }
             }
             .frame(height: kThumbImgSize.height)
-            .background(.red)
             
             Spacer().frame(height: 100)
             
             if showTransitionMenu {
-                ZStack {
-                    Color.black
-                    TransitionMenuView(showTransitionMenu: $showTransitionMenu, focusedTransType: $focusedTransType)
-                }
+                TransitionMenuView(showTransitionMenu: $showTransitionMenu, focusedTransType: $focusedTransType)
+                .frame(height: 150)
                 .edgesIgnoringSafeArea(.all)
+                .background(Color("BlackColor_27"))
                 .transition(.move(edge: .bottom))
                 .animation(.easeInOut, value: 0.3)
             }
@@ -48,7 +46,7 @@ struct EditorToolView: View {
  
 struct ClipView: View {
     let path:URL
-    let hasTransition:Bool
+    let hasTransitionBtn:Bool
     @Binding var showTransitionMenu:Bool
     @State var transType = TransitionType.None
     @State var thumbImages:[UIImage] = []
@@ -65,7 +63,7 @@ struct ClipView: View {
                 }
             })
             
-            if hasTransition {
+            if hasTransitionBtn {
                 Button {
                     showTransitionMenu = true
                 } label: {
@@ -109,12 +107,15 @@ struct TransitionMenuView: View {
                     }
                 })
             }
+            .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+            
             Button {
                 showTransitionMenu = false
             } label: {
                 Text("Done")
             }.padding(10)
-
+            
+            Spacer()
         }
     }
 
@@ -124,13 +125,13 @@ struct TransitionItemView: View {
     let type:TransitionType
     @Binding var focusedTransType:TransitionType?
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: 3) {
             Button {
                 focusedTransType = type
             } label: {
-                Image(systemName: focusedTransType == type ? "book.fill" : "book")
-//                    .resizable()
-//                    .scaledToFill()
+                Image("avatar")
+                    .resizable()
+                    .scaledToFill()
                     .frame(width: 56, height: 56)
             }
             .clipShape(RoundedRectangle(cornerRadius: 12))
@@ -141,10 +142,9 @@ struct TransitionItemView: View {
             .padding(2)
             
             Text(type.rawValue)
-                .font(.body)
+                .font(.system(size: 14))
                 .lineLimit(1)
-                .frame(width: 56, height: 12)
-                .padding(EdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 0))
+                .frame(width: 56)
         }
     }
 }
