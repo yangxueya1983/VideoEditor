@@ -6,18 +6,24 @@
 //
 
 import Foundation
+import PhotosUI
+import SwiftyJSON
 
 class EditSession {
+    let id = UUID().uuidString
     var photoItems: [PhotoItem] = []
     var audioItems: [AudioItem] = []
     var transitions: [TransitionCfg] = []
 
-    var videoWidth: Int
-    var videoHeight: Int
+    var videoWidth: Int = 1080
+    var videoHeight: Int = 1920
     
-    init(videoWidth: Int, videoHeight: Int) {
-        self.videoWidth = videoWidth
-        self.videoHeight = videoHeight
+    func loadWithImages(images:[UIImage]) -> Bool {
+        return true
+    }
+
+    func hasPhoto() -> Bool {
+        return photoItems.count > 0
     }
     
     func hasTransition() -> Bool {
@@ -94,6 +100,5 @@ class EditSession {
         
         return nil
     }
-    
     
 }

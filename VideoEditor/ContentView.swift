@@ -12,8 +12,6 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
     
-    @State var editSession = EditSession(videoWidth: 1080, videoHeight: 1920)
-
     var body: some View {
         NavigationSplitView {
             List {
@@ -39,9 +37,6 @@ struct ContentView: View {
                     }
                 }
             }
-            
-            EditorToolView()
-
         } detail: {
             Text("Select an item")
         }

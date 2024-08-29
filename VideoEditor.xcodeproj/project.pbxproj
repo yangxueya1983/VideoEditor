@@ -65,6 +65,7 @@
 		26CC87CE2C7262DB0025A134 /* CustomVideoCompositor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC87CD2C7262DB0025A134 /* CustomVideoCompositor.swift */; };
 		26CC87D02C7266500025A134 /* CustomTransitionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC87CF2C7266500025A134 /* CustomTransitionTest.swift */; };
 		B64C6D592C5C4D6000BD1883 /* VEUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64C6D582C5C4D6000BD1883 /* VEUtil.swift */; };
+		B679F18A2C7FD1DB00A061C8 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B679F1892C7FD1DB00A061C8 /* Extension.swift */; };
 		B6A0F83B2C5DA476009741EF /* Love Paradise.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B6A0F83A2C5DA476009741EF /* Love Paradise.mp3 */; };
 		B6A0F83D2C5DA48F009741EF /* Saddle of My Heart.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B6A0F83C2C5DA48F009741EF /* Saddle of My Heart.mp3 */; };
 		B6B5D09B2C580FD600D2FA37 /* VideoEditorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5D09A2C580FD600D2FA37 /* VideoEditorApp.swift */; };
@@ -79,6 +80,10 @@
 		B6B5D0CA2C584BF500D2FA37 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5D0C92C584BF500D2FA37 /* PhotoPicker.swift */; };
 		B6B5D0CC2C585F1700D2FA37 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5D0CB2C585F1700D2FA37 /* VideoPlayerView.swift */; };
 		B6C489162C75190C0043209A /* EditorToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C489152C75190C0043209A /* EditorToolView.swift */; };
+		B6E44C2E2C7951C300A5B59C /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E44C2D2C7951C300A5B59C /* FileManager.swift */; };
+		B6EE59122C7D4333006E66B4 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = B6EE59112C7D4333006E66B4 /* SwiftyJSON */; };
+		B6EE59142C7D4398006E66B4 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = B6EE59132C7D4398006E66B4 /* SwiftyJSON */; };
+		B6EE59162C7D43AD006E66B4 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = B6EE59152C7D43AD006E66B4 /* SwiftyJSON */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +128,7 @@
 		26CC87CD2C7262DB0025A134 /* CustomVideoCompositor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoCompositor.swift; sourceTree = "<group>"; };
 		26CC87CF2C7266500025A134 /* CustomTransitionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransitionTest.swift; sourceTree = "<group>"; };
 		B64C6D582C5C4D6000BD1883 /* VEUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VEUtil.swift; sourceTree = "<group>"; };
+		B679F1892C7FD1DB00A061C8 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		B6A0F83A2C5DA476009741EF /* Love Paradise.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Love Paradise.mp3"; sourceTree = "<group>"; };
 		B6A0F83C2C5DA48F009741EF /* Saddle of My Heart.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Saddle of My Heart.mp3"; sourceTree = "<group>"; };
 		B6B5D0972C580FD600D2FA37 /* VideoEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,6 +146,7 @@
 		B6B5D0C92C584BF500D2FA37 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		B6B5D0CB2C585F1700D2FA37 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		B6C489152C75190C0043209A /* EditorToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorToolView.swift; sourceTree = "<group>"; };
+		B6E44C2D2C7951C300A5B59C /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6EE59122C7D4333006E66B4 /* SwiftyJSON in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6EE59142C7D4398006E66B4 /* SwiftyJSON in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6EE59162C7D43AD006E66B4 /* SwiftyJSON in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +182,8 @@
 			children = (
 				2677D0E12C69885800115565 /* EditSession.swift */,
 				2677D0E22C69885800115565 /* Items.swift */,
+				B6E44C2D2C7951C300A5B59C /* FileManager.swift */,
+				B679F1892C7FD1DB00A061C8 /* Extension.swift */,
 			);
 			path = DataStructure;
 			sourceTree = "<group>";
@@ -326,6 +338,9 @@
 			dependencies = (
 			);
 			name = VideoEditor;
+			packageProductDependencies = (
+				B6EE59112C7D4333006E66B4 /* SwiftyJSON */,
+			);
 			productName = VideoEditor;
 			productReference = B6B5D0972C580FD600D2FA37 /* VideoEditor.app */;
 			productType = "com.apple.product-type.application";
@@ -344,6 +359,9 @@
 				B6B5D0AB2C580FD700D2FA37 /* PBXTargetDependency */,
 			);
 			name = VideoEditorTests;
+			packageProductDependencies = (
+				B6EE59132C7D4398006E66B4 /* SwiftyJSON */,
+			);
 			productName = VideoEditorTests;
 			productReference = B6B5D0A92C580FD700D2FA37 /* VideoEditorTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -362,6 +380,9 @@
 				B6B5D0B52C580FD700D2FA37 /* PBXTargetDependency */,
 			);
 			name = VideoEditorUITests;
+			packageProductDependencies = (
+				B6EE59152C7D43AD006E66B4 /* SwiftyJSON */,
+			);
 			productName = VideoEditorUITests;
 			productReference = B6B5D0B32C580FD700D2FA37 /* VideoEditorUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -398,6 +419,9 @@
 				Base,
 			);
 			mainGroup = B6B5D08E2C580FD600D2FA37;
+			packageReferences = (
+				B6EE590F2C7D3D06006E66B4 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+			);
 			productRefGroup = B6B5D0982C580FD600D2FA37 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -501,6 +525,8 @@
 				B6B5D0CA2C584BF500D2FA37 /* PhotoPicker.swift in Sources */,
 				B6B5D09B2C580FD600D2FA37 /* VideoEditorApp.swift in Sources */,
 				B6C489162C75190C0043209A /* EditorToolView.swift in Sources */,
+				B6E44C2E2C7951C300A5B59C /* FileManager.swift in Sources */,
+				B679F18A2C7FD1DB00A061C8 /* Extension.swift in Sources */,
 				2677D0E72C69885800115565 /* EditSession.swift in Sources */,
 				B6B5D0CC2C585F1700D2FA37 /* VideoPlayerView.swift in Sources */,
 				2677D0E92C69885800115565 /* SessionUtilties.swift in Sources */,
@@ -768,7 +794,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8N5XM3EBGN;
+				DEVELOPMENT_TEAM = 7BAQN6N7FK;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
@@ -787,7 +813,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8N5XM3EBGN;
+				DEVELOPMENT_TEAM = 7BAQN6N7FK;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
@@ -840,6 +866,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B6EE590F2C7D3D06006E66B4 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B6EE59112C7D4333006E66B4 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6EE590F2C7D3D06006E66B4 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+		B6EE59132C7D4398006E66B4 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6EE590F2C7D3D06006E66B4 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+		B6EE59152C7D43AD006E66B4 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6EE590F2C7D3D06006E66B4 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B6B5D08F2C580FD600D2FA37 /* Project object */;
 }

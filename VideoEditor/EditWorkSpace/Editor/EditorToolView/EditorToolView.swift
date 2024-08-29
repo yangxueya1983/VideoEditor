@@ -6,22 +6,40 @@
 //
 
 import SwiftUI
-let kThumbImgSize = CGSize(width: 40, height: 40)
+let kThumbImgSize = CGSize(width: 50, height: 50)
+let kTransitionBtnSize = CGSize(width: 20, height: 20)
+
 struct EditorToolView: View {
-    let imageSrcURLArray = [Bundle.main.url(forResource: "pic_1", withExtension: "jpg")!,
-                            Bundle.main.url(forResource: "pic_2", withExtension: "jpg")!,
-                            Bundle.main.url(forResource: "pic_3", withExtension: "jpg")!,
-                            Bundle.main.url(forResource: "pic_4", withExtension: "jpg")!]
+    let imageSrcURLArray:[URL]?
+    @State var imageArray:[UIImage] = []
+    
     @State var showTransitionMenu:Bool = false
     @State var focusedTransType:TransitionType?
+    
+    
+    init(imageSrcURLArray: [URL]) {
+        self.imageSrcURLArray = imageSrcURLArray
+        
+        imageSrcURLArray.forEach { url in
+            if let image = UIImage(contentsOfFile: url.path()) {
+                self.imageArray.append(image)
+            }
+        }
+    }
+        
+    init(imageArray: [UIImage]) {
+        self._imageArray = State(initialValue:imageArray)
+        self.imageSrcURLArray = nil
+    }
     
     var body: some View {
         ZStack {
             Spacer()
             ScrollView([.horizontal], showsIndicators: true) {
                 HStack(spacing: 2, content: {
-                    ForEach(Array(imageSrcURLArray.enumerated()), id: \.offset) {index, imgUrl in
-                        ClipView(path: imgUrl, hasTransitionBtn: index > 0, showTransitionMenu: $showTransitionMenu)
+                    ForEach(Array(imageArray.enumerated()), id: \.offset) {index, image in
+                        ClipView(image: image, hasTransitionBtn: index > 0, showTransitionMenu: $showTransitionMenu)
+                        //ClipView(path: imgUrl, hasTransitionBtn: index > 0, showTransitionMenu: $showTransitionMenu)
                     }
                 })
                 HStack {
@@ -45,11 +63,33 @@ struct EditorToolView: View {
 }
  
 struct ClipView: View {
-    let path:URL
+    let path:URL?
     let hasTransitionBtn:Bool
     @Binding var showTransitionMenu:Bool
     @State var transType = TransitionType.None
     @State var thumbImages:[UIImage] = []
+    
+    init(path: URL,
+         hasTransitionBtn: Bool,
+         showTransitionMenu: Binding<Bool>,
+         transType: TransitionType = TransitionType.None) {
+        self.path = path
+        self.hasTransitionBtn = hasTransitionBtn
+        self._showTransitionMenu = showTransitionMenu
+        self._transType = State(initialValue: transType)
+    }
+    
+    init(image: UIImage,
+         hasTransitionBtn: Bool,
+         showTransitionMenu: Binding<Bool>,
+         transType: TransitionType = TransitionType.None) {
+        self.path = nil
+        self.hasTransitionBtn = hasTransitionBtn
+        self._showTransitionMenu = showTransitionMenu
+        self._transType = State(initialValue: transType)
+        self._thumbImages = State(initialValue: [image, image, image])
+    }
+    
     var body: some View {
         ZStack(alignment: .leading) {
             HStack(spacing: 0, content: {
@@ -69,17 +109,17 @@ struct ClipView: View {
                 } label: {
                     Image(systemName: transType == .None ? "checkmark.square" : "checkmark.square.fill")
                 }
-                .frame(width: 20, height: 20)
-                .offset(x: -10)
+                .frame(width: kTransitionBtnSize.width, height: kTransitionBtnSize.height)
+                .offset(x: -kTransitionBtnSize.width/2.0)
             }
         }
         .task {
             if thumbImages.count == 0 {
-                thumbImages = getThumbImages(filePath: path)
+                if let path {
+                    thumbImages = getThumbImages(filePath: path)
+                }
             }
         }
-        
-        
     }
     
     func getThumbImages(filePath:URL) -> [UIImage] {
@@ -93,6 +133,7 @@ struct ClipView: View {
         return imgArr
     }
     
+
 }
 
 struct TransitionMenuView: View {
@@ -149,7 +190,9 @@ struct TransitionItemView: View {
     }
 }
 
-
 #Preview {
-    EditorToolView()
+    EditorToolView(imageSrcURLArray: [Bundle.main.url(forResource: "pic_1", withExtension: "jpg")!,
+                                      Bundle.main.url(forResource: "pic_2", withExtension: "jpg")!,
+                                      Bundle.main.url(forResource: "pic_3", withExtension: "jpg")!,
+                                      Bundle.main.url(forResource: "pic_4", withExtension: "jpg")!])
 }

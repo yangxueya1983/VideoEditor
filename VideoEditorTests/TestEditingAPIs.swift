@@ -26,8 +26,7 @@ final class EditAPITest : XCTestCase {
         }
         
         let duration = CMTime(value: 3, timescale: 1)
-        
-        let photoItem = PhotoItem(url: url, duration: duration)
+        let photoItem = PhotoItem(url: url, image: UIImage(), duration: duration)
         return photoItem
     }
     
@@ -69,7 +68,9 @@ final class EditAPITest : XCTestCase {
             XCTAssert(false)
             return
         }
-        let session = EditSession(videoWidth: 720, videoHeight: 480)
+        let session = EditSession()
+        session.videoWidth = 720
+        session.videoHeight = 480
         session.photoItems = [photoItem1, photoItem2]
         
         // create the transition action
