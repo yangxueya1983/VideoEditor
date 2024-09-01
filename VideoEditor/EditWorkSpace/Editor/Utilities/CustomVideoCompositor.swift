@@ -209,38 +209,91 @@ class PageCurlTransitionInstruction : CustomVideoCompositionInstructionBase {
     }
 }
 
-//class Cube3DTransitionInstruction : CustomVideoCompositionInstructionBase {
-//    override func compose(_ frontSample: CIImage, _ backgroundSample: CIImage, _ progress: CGFloat, _ size: CGSize) -> CIImage? {
-//        let transform = CIFilter.perspectiveTransform()
-//        
-//        transform.inputImage = progress < 0.5 ? frontSample : backgroundSample
-//
-//        let width = size.width
-//        let height = size.height
-//        let angle = Double.pi * progress
-//
-//        let xOffset = width * 0.5 * cos(angle)
-//        let zOffset = height * sin(angle)
-//        
-//        let isEntering = progress < 0.5
-//        
-//        if isEntering {
-//            // Perspective for the entering image
-//            transform.topLeft = CGPoint(x: width - xOffset, y: height + zOffset)
-//            transform.topRight = CGPoint(x: width + xOffset, y: height - zOffset)
-//            transform.bottomLeft = CGPoint(x: width - xOffset, y: zOffset)
-//            transform.bottomRight = CGPoint(x: width + xOffset, y: -zOffset)
-//        } else {
-//            // Perspective for the exiting image
-//            transform.topLeft = CGPoint(x: xOffset, y: height - zOffset)
-//            transform.topRight = CGPoint(x: -xOffset, y: height + zOffset)
-//            transform.bottomLeft = CGPoint(x: xOffset, y: zOffset)
-//            transform.bottomRight = CGPoint(x: -xOffset, y: -zOffset)
-//        }
-//
-//        return transform.outputImage
-//    }
-//}
+
+// below method is not correct, need to use 3d model to determine the z position
+// will try to use mental + core image
+class Cube3DTransitionInstruction : CustomVideoCompositionInstructionBase {
+    private var projectionMatrix : simd_float4x4?
+    
+    private func computeCoordinate(origPos: simd_float3, rotationCenter: simd_float3, rotationAxis: simd_float3, rotationAngle: Float, width: CGFloat, height: CGFloat) -> CGPoint {
+        let quaternion = simd_quaternion(rotationAngle, rotationAxis)
+        let translatePos = origPos - rotationCenter
+        let rotationVec = simd_act(quaternion, translatePos)
+        let finalPos = rotationVec + rotationCenter // map to original
+        let homogenVec = simd_float4(finalPos, 1.0)
+        
+        let projectVec = projectionMatrix! * homogenVec
+        let ndcVec = projectVec / projectVec.w
+        
+        let screenX = (ndcVec.x + 1) / 2 * Float(width)
+        // CIImage coordinate
+        let screenY = (ndcVec.y + 1) / 2 * Float(height)
+        return CGPointMake(CGFloat(screenX), CGFloat(screenY))
+    }
+    
+    override func compose(_ frontSample: CIImage, _ backgroundSample: CIImage, _ progress: CGFloat, _ size: CGSize) -> CIImage? {
+        let aspectRatio: Float = Float(size.width) / Float(size.height)
+        let fov : Float = .pi / 2
+        let nearPlane : Float = 0.1
+        let farPlane : Float  = 100
+        
+        if projectionMatrix == nil {
+            projectionMatrix = simd_float4x4(
+                simd_float4(1 / (aspectRatio * tan(fov / 2)), 0, 0, 0),
+                simd_float4(0, 1 / tan(fov / 2), 0, 0),
+                simd_float4(0, 0, -(farPlane + nearPlane) / (farPlane - nearPlane), -1),
+                simd_float4(0, 0, -2 * farPlane * nearPlane / (farPlane - nearPlane), 0)
+            )
+        }
+        
+        let frontLeftTop = simd_float3(-aspectRatio, 1, -1)
+        let frontLeftBot = simd_float3(-aspectRatio, -1, -1)
+        let frontRightTop = simd_float3(aspectRatio, 1, -1)
+        let frontRightBot = simd_float3(aspectRatio, -1, -1)
+        
+        let rotationCenter = simd_float3(0, 0, -1 - aspectRatio)
+        let rotationAxis = simd_float3(0, 1, 0)
+        
+        // right hand rule
+        let angle = Float.pi/2 * Float(progress)
+        let frontMapLT = computeCoordinate(origPos: frontLeftTop, rotationCenter: rotationCenter, rotationAxis: rotationAxis, rotationAngle: angle, width: size.width, height: size.height)
+        let frontMapLB = computeCoordinate(origPos: frontLeftBot, rotationCenter: rotationCenter, rotationAxis: rotationAxis, rotationAngle: angle, width: size.width, height: size.height)
+        let frontMapRT = computeCoordinate(origPos: frontRightTop, rotationCenter: rotationCenter, rotationAxis: rotationAxis, rotationAngle: angle, width: size.width, height: size.height)
+        let frontMapRB = computeCoordinate(origPos: frontRightBot, rotationCenter: rotationCenter, rotationAxis: rotationAxis, rotationAngle: angle, width: size.width, height: size.height)
+        
+        let perspectiveFilter1 = CIFilter(name: "CIPerspectiveTransform")
+        perspectiveFilter1?.setValue(frontSample, forKey: kCIInputImageKey)
+        
+        perspectiveFilter1?.setValue(CIVector(cgPoint: frontMapLT), forKey: "inputTopLeft")
+        perspectiveFilter1?.setValue(CIVector(cgPoint: frontMapRT), forKey: "inputTopRight")
+        perspectiveFilter1?.setValue(CIVector(cgPoint: frontMapLB), forKey: "inputBottomLeft")
+        perspectiveFilter1?.setValue(CIVector(cgPoint: frontMapRB), forKey: "inputBottomRight")
+        
+        
+        // to display image
+        let backLeftTop = simd_float3(-aspectRatio, 1, -1 - 2 * aspectRatio)
+        let backLeftBot = simd_float3(-aspectRatio, -1, -1 - 2 * aspectRatio)
+        let backRightTop = frontLeftTop
+        let backRightBot = frontLeftBot
+        
+        let backMapLT = computeCoordinate(origPos: backLeftTop, rotationCenter: rotationCenter, rotationAxis: rotationAxis, rotationAngle: angle, width: size.width, height: size.height)
+        let backMapLB = computeCoordinate(origPos: backLeftBot, rotationCenter: rotationCenter, rotationAxis: rotationAxis, rotationAngle: angle, width: size.width, height: size.height)
+        let backMapRT = computeCoordinate(origPos: backRightTop, rotationCenter: rotationCenter, rotationAxis: rotationAxis, rotationAngle: angle, width: size.width, height: size.height)
+        let backMapRB = computeCoordinate(origPos: backRightBot, rotationCenter: rotationCenter, rotationAxis: rotationAxis, rotationAngle: angle, width: size.width, height: size.height)
+        let perspectiveFilter2 = CIFilter(name: "CIPerspectiveTransform")
+        perspectiveFilter2?.setValue(backgroundSample, forKey: kCIInputImageKey)
+        
+        perspectiveFilter2?.setValue(CIVector(cgPoint: backMapLT), forKey: "inputTopLeft")
+        perspectiveFilter2?.setValue(CIVector(cgPoint: backMapRT), forKey: "inputTopRight")
+        perspectiveFilter2?.setValue(CIVector(cgPoint: backMapLB), forKey: "inputBottomLeft")
+        perspectiveFilter2?.setValue(CIVector(cgPoint: backMapRB), forKey: "inputBottomRight")
+        
+        return perspectiveFilter2?.outputImage
+        
+//        return perspectiveFilter2?.outputImage?.applyingFilter("CISourceAtopCompositing", parameters: [
+//            kCIInputBackgroundImageKey : perspectiveFilter1?.outputImage])
+    }
+}
 
 class CustomVideoCompositor: NSObject, AVVideoCompositing {
     private let renderContextQueue = DispatchQueue(label: "com.example.CustomVideoCompositor.renderContextQueue")

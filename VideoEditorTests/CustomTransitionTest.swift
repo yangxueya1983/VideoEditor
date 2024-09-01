@@ -16,14 +16,17 @@ final class CustomTransitionTest : XCTestCase {
     var video1Name = "video1.mp4"
     
     
-    func createPhotoVideo(imageName: String, outURL: URL) async {
+    func createPhotoVideo(imageName: String, outURL: URL) async throws {
         guard let url = Bundle.main.url(forResource: imageName, withExtension: "jpg") else {
             return
         }
         
         let duration = CMTime(value: 3, timescale: 1)
         
-        let photoItem = PhotoItem(url: url, duration: duration)
+        let imageData = try Data(contentsOf: url)
+        let image = UIImage(data: imageData)
+        
+        let photoItem = PhotoItem(url: url, image: image!, duration: duration)
         let error = await SessionUtilties.concatenatePhotoWithoutTransition(width: 1024, height: 768, photoItems: [photoItem], outURL: outURL)
         if let error {
             print("create photo video fail with error \(error)")
@@ -61,8 +64,8 @@ final class CustomTransitionTest : XCTestCase {
         let url1 = transitionDir.appending(path: video0Name)
         let url2 = transitionDir.appending(path: video1Name)
         
-        await createPhotoVideo(imageName: "pic_1", outURL: url1)
-        await createPhotoVideo(imageName: "pic_2", outURL: url2)
+        try await createPhotoVideo(imageName: "pic_1", outURL: url1)
+        try await createPhotoVideo(imageName: "pic_2", outURL: url2)
         
         let composition = AVMutableComposition()
         

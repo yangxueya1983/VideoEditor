@@ -6,6 +6,8 @@
 //
 
 import XCTest
+import simd
+import MetalKit
 @testable import VideoEditor
 
 final class VideoEditorTests: XCTestCase {
@@ -50,6 +52,48 @@ final class VideoEditorTests: XCTestCase {
         
         let savePath = FileManager.default.temporaryDirectory.appendingPathComponent("out.png");
         try image.pngData()!.write(to: savePath)
+    }
+    
+    func test3DCoordinateRotation() throws {
+        let screenWidth : Float = 200
+        let screenHeight: Float = 100
+        let aspectRatio: Float = screenWidth / screenHeight
+        let fov : Float = .pi / 2
+        let nearPlane : Float = 0.1
+        let farPlane : Float  = 100
+
+        let projectionMatrix = simd_float4x4(
+            simd_float4(1 / (aspectRatio * tan(fov / 2)), 0, 0, 0),
+            simd_float4(0, 1 / tan(fov / 2), 0, 0),
+            simd_float4(0, 0, -(farPlane + nearPlane) / (farPlane - nearPlane), -1),
+            simd_float4(0, 0, -2 * farPlane * nearPlane / (farPlane - nearPlane), 0)
+        )
+        
+        let leftTop = simd_float3(-1 * aspectRatio, 1, -1)
+        let rightTop = simd_float3(aspectRatio, 1, -1)
+        let center = simd_float3(0,0,-3)
+        
+        let axisOfRotation = simd_normalize(simd_float3(0, 1, 0))
+        for i in 0...100 {
+            let percent = Float(i) / 100
+            let angle : Float = .pi  * percent
+            let quaternion = simd_quaternion(angle, axisOfRotation)
+            let translatePosition = leftTop - center
+            let rotateVector = simd_act(quaternion, translatePosition)
+            let finalCoordinate = rotateVector + center
+            
+//            print("\(percent) => ( \(finalCoordinate.x) \(finalCoordinate.y) \(finalCoordinate.z)")
+            let homogenousVector = simd_float4(finalCoordinate, 1.0)
+            
+            let projectVector = projectionMatrix * homogenousVector
+            let ndcVector = projectVector / projectVector.w
+//            print("ndc vector : \(ndcVector.x) \(ndcVector.y)")
+            
+            let screenX = (ndcVector.x + 1) / 2 * screenWidth
+            let screenY = (1 - ndcVector.y) / 2 * screenHeight
+            
+            print("\(percent) -> ( \(screenX) : \(screenY)  )")
+        }
     }
 
 }
