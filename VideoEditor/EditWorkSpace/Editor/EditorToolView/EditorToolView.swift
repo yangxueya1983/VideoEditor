@@ -10,27 +10,15 @@ let kThumbImgSize = CGSize(width: 50, height: 50)
 let kTransitionBtnSize = CGSize(width: 20, height: 20)
 
 struct EditorToolView: View {
-    let imageSrcURLArray:[URL]?
-    @State var imageArray:[UIImage] = []
+    @Binding var imageArray:[UIImage]
     
-    @State var showTransitionMenu:Bool = false
+    var imageSrcURLArray:[URL]?
     @State var focusedTransType:TransitionType?
-    @State var crtScrollPosition = 0.0
     
-    init(imageSrcURLArray: [URL]) {
-        self.imageSrcURLArray = imageSrcURLArray
-        
-        imageSrcURLArray.forEach { url in
-            if let image = UIImage(contentsOfFile: url.path()) {
-                self.imageArray.append(image)
-            }
-        }
-    }
-        
-    init(imageArray: [UIImage]) {
-        self._imageArray = State(initialValue:imageArray)
-        self.imageSrcURLArray = nil
-    }
+    
+    @State private var showTransitionMenu:Bool = false
+    @State private var crtScrollPosition = 0.0
+    
     
     var body: some View {
         GeometryReader { geometry in
@@ -219,9 +207,9 @@ struct ScrollViewOffsetKey: PreferenceKey {
     }
 }
 
-#Preview {
-    EditorToolView(imageSrcURLArray: [Bundle.main.url(forResource: "pic_1", withExtension: "jpg")!,
-                                      Bundle.main.url(forResource: "pic_2", withExtension: "jpg")!,
-                                      Bundle.main.url(forResource: "pic_3", withExtension: "jpg")!,
-                                      Bundle.main.url(forResource: "pic_4", withExtension: "jpg")!])
-}
+//#Preview {
+//    EditorToolView(imageSrcURLArray: [Bundle.main.url(forResource: "pic_1", withExtension: "jpg")!,
+//                                      Bundle.main.url(forResource: "pic_2", withExtension: "jpg")!,
+//                                      Bundle.main.url(forResource: "pic_3", withExtension: "jpg")!,
+//                                      Bundle.main.url(forResource: "pic_4", withExtension: "jpg")!])
+//}

@@ -23,7 +23,7 @@ struct VideoEditView: View {
             }
             Spacer()
             if editImages.count > 0 {
-                EditorToolView(imageArray: editImages)
+                EditorToolView(imageArray:$editImages)
             } else {
                 Text("No images selected")
                 Button(action: {
@@ -103,6 +103,7 @@ struct VideoEditView: View {
                     Button("Add text") {
                         
                     }
+                    Text("\(editImages.count)")
                 }
                 
             }
