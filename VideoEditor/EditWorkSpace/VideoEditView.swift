@@ -12,18 +12,14 @@ struct VideoEditView: View {
     @State private var isAddMode = false
     @State private var showPicker = false
     @State private var editImages: [UIImage] = []
-    @State private var videoPath:URL?
+    @StateObject private var playerVM = VideoPlayerViewModel()
     
     @State var editSession:EditSession?
 
     var body: some View {
         VStack {
             VStack {
-                if let url = videoPath {
-                    VideoPlayerView(url: url)
-                } else {
-                    EmptyView().frame(height: 300)
-                }
+                VideoPlayerView(viewModel: playerVM)
             }
             Spacer()
             if editImages.count > 0 {
@@ -64,7 +60,7 @@ struct VideoEditView: View {
                         print("yxy Error creating video: \(error)")
                     } else {
                         print("yxy Video created successfully at \(outputURL)")
-                        let fileName = Date().formattedDateString() + ".mp4"
+                        let fileName = Date().formattedDateString() + "_comp.mp4"
                         let finalURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
                         if let audioURL = Bundle.main.url(forResource: "Saddle of My Heart", withExtension: "mp3") {
                             print("yxy Video added Audio successfully at \(finalURL)")
@@ -72,7 +68,7 @@ struct VideoEditView: View {
                             let error = await addAudioToVideo(videoURL: outputURL, audioURL: audioURL, outputURL: finalURL)
                             if error == nil {
                                 print("yxy Video added Audio successfully at \(finalURL)")
-                                videoPath = finalURL
+                                playerVM.updatePlayer(with: finalURL)
                             } else {
                                 print("Export error")
                             }
@@ -146,7 +142,7 @@ struct VideoEditView: View {
                     
                     let error = await addAudioToVideo(videoURL: outputURL, audioURL: audioURL, outputURL: finalURL)
                     if error == nil {
-                        videoPath = finalURL
+                        playerVM.updatePlayer(with: finalURL)
                     } else {
                         print("Export error")
                     }

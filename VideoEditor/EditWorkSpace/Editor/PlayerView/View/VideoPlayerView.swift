@@ -9,23 +9,19 @@ import SwiftUI
 import AVKit
 
 struct VideoPlayerView: View {
-    let url:URL
-    @State private var player: AVPlayer
+    @ObservedObject var viewModel: VideoPlayerViewModel
+    
     @State private var isPlaying: Bool = false
     @State private var currentTime: Double = 0.0
     @State private var duration: Float64 = 0.0
     @State private var playerObserver: Any?
     
-    init(url: URL) {
-        self.url = url
-        _player = State(initialValue: AVPlayer(url: url))
-    }
 
 
     var body: some View {
         VStack {
             // Video Player
-            VideoPlayer(player: player)
+            VideoPlayer(player: viewModel.player)
                 .frame(height: 300)
                 .cornerRadius(10)
                 .onAppear {
@@ -33,7 +29,7 @@ struct VideoPlayerView: View {
                     updateDuration()
                 }
                 .onDisappear {
-                    player.pause()
+                    viewModel.pause()
                     removePlayerObserver()
                 }
                 .background(Color.black)
@@ -56,9 +52,10 @@ struct VideoPlayerView: View {
             .padding()
         }
         .task {
-            let asset = AVAsset(url: self.url)
-            duration = asset.duration.seconds
-            print("yxy get duration \(duration)")
+//            let asset = AVAsset(url: self.url)
+//            duration = asset.duration.seconds
+//            print("yxy get duration \(duration)")
+            
 //            asset.loadMetadata(for: AVMetadataFormat.)
 //            asset.load(.duration) { duration, error in
 //                if let error = error {
@@ -74,10 +71,10 @@ struct VideoPlayerView: View {
     // Toggle play/pause
     private func togglePlayPause() {
         if isPlaying {
-            player.pause()
+            viewModel.pause()
         } else {
-            player.seek(to: CMTime.zero)
-            player.play()
+            viewModel.player.seek(to: CMTime.zero)
+            viewModel.play()
         }
         isPlaying.toggle()
     }
@@ -85,12 +82,12 @@ struct VideoPlayerView: View {
     // Slider editing changed
     private func sliderEditingChanged(editingStarted: Bool) {
         if editingStarted {
-            player.pause()
+            viewModel.pause()
         } else {
             let newTime = CMTime(seconds: currentTime, preferredTimescale: 600)
-            player.seek(to: newTime) { _ in
+            viewModel.player.seek(to: newTime) { _ in
                 if isPlaying {
-                    player.play()
+                    viewModel.play()
                 }
             }
         }
@@ -98,14 +95,14 @@ struct VideoPlayerView: View {
 
     // Setup player observer for time changes
     private func setupPlayerObserver() {
-        playerObserver = player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 600), queue: .main) { time in
+        playerObserver = viewModel.player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 600), queue: .main) { time in
             currentTime = time.seconds
         }
     }
 
     // Update duration
     private func updateDuration() {
-        if let duration = player.currentItem?.duration.seconds, duration > 0 {
+        if let duration = viewModel.player.currentItem?.duration.seconds, duration > 0 {
             self.duration = duration
         }
     }
@@ -113,7 +110,7 @@ struct VideoPlayerView: View {
     // Remove player observer
     private func removePlayerObserver() {
         if let observer = playerObserver {
-            player.removeTimeObserver(observer)
+            viewModel.player.removeTimeObserver(observer)
             playerObserver = nil
         }
     }
@@ -127,8 +124,9 @@ extension Double {
     }
 }
 
-struct VideoPlayerView_Previews: PreviewProvider {
-    static var previews: some View {
-        VideoPlayerView(url: URL(string: "https://www.apple.com/105/media/us/services/2024/416d7ef9-e5f1-4bdb-9443-3b7a1958236f/anim/hero/large.mp4")!)
-    }
-}
+//struct VideoPlayerView_Previews: PreviewProvider {
+//    static var previews: some View {
+//    let url = URL(string: "https://www.apple.com/105/media/us/services/2024/416d7ef9-e5f1-4bdb-9443-3b7a1958236f/anim/hero/large.mp4")!
+//        VideoPlayerView()
+//    }
+//}
