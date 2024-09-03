@@ -236,16 +236,16 @@
 			isa = PBXGroup;
 			children = (
 				B679F1912C876C0B00A061C8 /* View */,
-				B679F1902C876BFC00A061C8 /* Model */,
+				B679F1902C876BFC00A061C8 /* ViewModel */,
 			);
 			path = PlayerView;
 			sourceTree = "<group>";
 		};
-		B679F1902C876BFC00A061C8 /* Model */ = {
+		B679F1902C876BFC00A061C8 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Model;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		B679F1912C876C0B00A061C8 /* View */ = {
