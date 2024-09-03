@@ -9,11 +9,11 @@ import Foundation
 import PhotosUI
 import SwiftyJSON
 
-class EditSession {
+class EditSession: ObservableObject {
     let id = UUID().uuidString
-    var photoItems: [PhotoItem] = []
-    var audioItems: [AudioItem] = []
-    var transitions: [TransitionCfg] = []
+    @Published var photoItems: [PhotoItem] = []
+    @Published var audioItems: [AudioItem] = []
+    @Published var transitions: [TransitionCfg] = []
 
     var videoWidth: Int = 1080
     var videoHeight: Int = 1920

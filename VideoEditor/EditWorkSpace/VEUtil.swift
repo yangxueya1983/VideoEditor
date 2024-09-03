@@ -7,10 +7,14 @@
 import AVFoundation
 import UIKit
 
-func createVideoFromImages(images: [UIImage], outputURL: URL, completion: @escaping (Error?) -> Void) {
+let kErrorDomain = "VEUtil"
+let kDateFormatter = DateFormatter()
+
+func createVideoFromImages(images: [UIImage], outputURL: URL) async -> Error?{
     guard !images.isEmpty else {
-        completion(NSError(domain: "NoImages", code: 0, userInfo: [NSLocalizedDescriptionKey: "No images provided"]))
-        return
+        return NSError(domain: kErrorDomain,
+                       code: 0,
+                       userInfo: [NSLocalizedDescriptionKey: "No images provided"])
     }
     
     // Set up the video writer
@@ -65,17 +69,12 @@ func createVideoFromImages(images: [UIImage], outputURL: URL, completion: @escap
     }
     
     writerInput.markAsFinished()
-    writer.finishWriting {
-        if let error = writer.error {
-            completion(error)
-        } else {
-            completion(nil)
-        }
-    }
+    await writer.finishWriting()
+    return writer.error
 }
 
 
-func addAudioToVideo(videoURL: URL, audioURL: URL, outputURL: URL, completion: @escaping (Bool) -> Void) async {
+func addAudioToVideo(videoURL: URL, audioURL: URL, outputURL: URL) async -> Error? {
     let composition = AVMutableComposition()
     
     // Video track
@@ -96,8 +95,9 @@ func addAudioToVideo(videoURL: URL, audioURL: URL, outputURL: URL, completion: @
             
             // Export the composition
             guard let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality) else {
-                completion(false)
-                return
+                return NSError(domain: kErrorDomain,
+                               code: 0,
+                               userInfo: [NSLocalizedDescriptionKey: "AVAssetExportSession init failed"])
             }
             
             exportSession.outputURL = outputURL
@@ -107,27 +107,35 @@ func addAudioToVideo(videoURL: URL, audioURL: URL, outputURL: URL, completion: @
             await exportSession.export()
             switch exportSession.status {
             case .completed:
-                print("Export completed")
-                completion(true)
+                return nil
             case .failed:
-                print("Export failed: \(String(describing: exportSession.error))")
-                completion(false)
+                return exportSession.error
             case .cancelled:
-                print("Export cancelled")
-                completion(false)
+                return nil
             default:
-                break
+                return nil
             }
         } else {
-            completion(false)
+            return NSError(domain: kErrorDomain,
+                           code: 0,
+                           userInfo: [NSLocalizedDescriptionKey: "videoTracks or audioTrack load failed"])
         }
         
     } catch {
-        completion(false)
+        return error
     }
     
 }
 
+
+
+extension Date {
+    
+    func formattedDateString() -> String {
+        kDateFormatter.dateFormat = "yyyy_MM_dd_HH_mm_ss"
+        return kDateFormatter.string(from: self)
+    }
+}
 extension UIImage {
     func correctedOrientation() -> UIImage {
         // No need to adjust if the image is already upright

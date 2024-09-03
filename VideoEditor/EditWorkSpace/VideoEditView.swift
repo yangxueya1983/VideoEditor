@@ -9,8 +9,9 @@ import UIKit
 import SwiftUI
 
 struct VideoEditView: View {
-    @State private var showPicker = true
-    @State private var selectedImages: [UIImage] = []
+    @State private var isAddMode = false
+    @State private var showPicker = false
+    @State private var editImages: [UIImage] = []
     @State private var videoPath:URL?
     
     @State var editSession:EditSession?
@@ -25,9 +26,8 @@ struct VideoEditView: View {
                 }
             }
             Spacer()
-            if let editSession {
-                let images = editSession.photoItems.map { $0.image }
-                EditorToolView(imageArray: selectedImages)
+            if editImages.count > 0 {
+                EditorToolView(imageArray: editImages)
             } else {
                 Text("No images selected")
                 Button(action: {
@@ -38,11 +38,13 @@ struct VideoEditView: View {
             }
         }
         .sheet(isPresented: $showPicker) {
-            PhotoPicker(selectedImages: $selectedImages) { selectedImages in
+            PhotoPicker { selectedImages in
                 
                 if let editSession {//add
-                    
+                    editImages.append(contentsOf: selectedImages)
                 } else {//new
+                    editImages = selectedImages
+                    
                     editSession = EditSession()
                     let array = selectedImages.map { image in
                         PhotoItem(url: Bundle.main.url(forResource: "pic_1", withExtension: "jpg")!,
@@ -53,32 +55,30 @@ struct VideoEditView: View {
                 }
                 
                 
-                let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent(Date().formatted() + ".mp4")
-                
-                createVideoFromImages(images: selectedImages, outputURL: outputURL) { error in
-                    if let error = error {
-                        print("Error creating video: \(error)")
+                Task {
+                    let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent(Date().formattedDateString() + ".mp4")
+                    
+                    let error = await createVideoFromImages(images: editImages, outputURL: outputURL)
+                    
+                    if let error {
+                        print("yxy Error creating video: \(error)")
                     } else {
-                        print("Video created successfully at \(outputURL)")
-                        let fileName = Date().formatted() + "composition.mp4"
+                        print("yxy Video created successfully at \(outputURL)")
+                        let fileName = Date().formattedDateString() + ".mp4"
                         let finalURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
                         if let audioURL = Bundle.main.url(forResource: "Saddle of My Heart", withExtension: "mp3") {
-                            print("Video added Audio successfully at \(finalURL)")
+                            print("yxy Video added Audio successfully at \(finalURL)")
                             
-                            Task(priority: .high) {
-                                await addAudioToVideo(videoURL: outputURL, audioURL: audioURL, outputURL: finalURL) { success in
-                                    if success {
-                                        videoPath = finalURL
-                                    } else {
-                                        print("Export error")
-                                    }
-                                }
+                            let error = await addAudioToVideo(videoURL: outputURL, audioURL: audioURL, outputURL: finalURL)
+                            if error == nil {
+                                print("yxy Video added Audio successfully at \(finalURL)")
+                                videoPath = finalURL
+                            } else {
+                                print("Export error")
                             }
-                            
                         } else {
                             print("Resource not found.")
                         }
-                        
                     }
                 }
             }
@@ -97,7 +97,63 @@ struct VideoEditView: View {
             })
             
             ToolbarItem(placement: .bottomBar) {
+                HStack {
+                    Button("Add image") {
+                        showPicker = true
+                    }
+                    Button("Add music") {
+                        
+                    }
+                    Button("Add text") {
+                        
+                    }
+                }
                 
+            }
+        }
+        .task {
+            let imageSrcURLArray =  [Bundle.main.url(forResource: "pic_1", withExtension: "jpg")!,
+                                     Bundle.main.url(forResource: "pic_2", withExtension: "jpg")!,
+                                     Bundle.main.url(forResource: "pic_3", withExtension: "jpg")!,
+                                     Bundle.main.url(forResource: "pic_4", withExtension: "jpg")!]
+            
+            editSession = EditSession()
+            let array = imageSrcURLArray.map { path in
+                PhotoItem(url: path,
+                          image: UIImage(contentsOfFile: path.path())!,
+                          duration: CMTime(value: 3, timescale: 1))
+            }
+            editSession?.photoItems = array
+            
+            let imgArray = imageSrcURLArray.map { path in
+                UIImage(contentsOfFile: path.path())!
+            }
+            editImages = imgArray
+            
+            
+            let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent(Date().formatted() + ".mp4")
+            
+            let error = await createVideoFromImages(images: editImages, outputURL: outputURL)
+            
+            if let error {
+                print("Error creating video: \(error)")
+            } else {
+                print("Video created successfully at \(outputURL)")
+                let fileName = Date().formatted() + "composition.mp4"
+                let finalURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
+                if let audioURL = Bundle.main.url(forResource: "Saddle of My Heart", withExtension: "mp3") {
+                    print("Video added Audio successfully at \(finalURL)")
+                    
+                    let error = await addAudioToVideo(videoURL: outputURL, audioURL: audioURL, outputURL: finalURL)
+                    if error == nil {
+                        videoPath = finalURL
+                    } else {
+                        print("Export error")
+                    }
+                    
+                } else {
+                    print("Resource not found.")
+                }
             }
         }
     }

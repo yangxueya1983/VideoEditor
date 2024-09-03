@@ -9,7 +9,6 @@ import SwiftUI
 import PhotosUI
 
 struct PhotoPicker: UIViewControllerRepresentable {
-    @Binding var selectedImages: [UIImage]
     let pickerDone: (_ selectedImages: [UIImage]) -> Void
 
     func makeUIViewController(context: Context) -> PHPickerViewController {
@@ -36,7 +35,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
         }
 
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-            parent.selectedImages = []
+            var selectedImages:[UIImage] = []
 
             let itemProviders = results.map(\.itemProvider)
             
@@ -47,14 +46,14 @@ struct PhotoPicker: UIViewControllerRepresentable {
                     disGroup.enter()
                     itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
                         
-                        guard let self = self else {
+                        guard self != nil else {
                             disGroup.leave()
                             return
                         }
                         if let image = image as? UIImage {
                             let correctedImage = image.correctedOrientation()
                             DispatchQueue.main.async {
-                                self.parent.selectedImages.append(correctedImage)
+                                selectedImages.append(correctedImage)
                                 disGroup.leave()
                             }
                         } else {
@@ -65,7 +64,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
                 }
             }
             disGroup.notify(queue: .main) {
-                self.parent.pickerDone(self.parent.selectedImages)
+                self.parent.pickerDone(selectedImages)
             }
 
             picker.dismiss(animated: true)

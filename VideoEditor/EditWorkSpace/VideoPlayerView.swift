@@ -9,15 +9,18 @@ import SwiftUI
 import AVKit
 
 struct VideoPlayerView: View {
+    let url:URL
     @State private var player: AVPlayer
     @State private var isPlaying: Bool = false
     @State private var currentTime: Double = 0.0
-    @State private var duration: Double = 0.0
+    @State private var duration: Float64 = 0.0
     @State private var playerObserver: Any?
-
+    
     init(url: URL) {
+        self.url = url
         _player = State(initialValue: AVPlayer(url: url))
     }
+
 
     var body: some View {
         VStack {
@@ -52,6 +55,20 @@ struct VideoPlayerView: View {
             }
             .padding()
         }
+        .task {
+            let asset = AVAsset(url: self.url)
+            duration = asset.duration.seconds
+            print("yxy get duration \(duration)")
+//            asset.loadMetadata(for: AVMetadataFormat.)
+//            asset.load(.duration) { duration, error in
+//                if let error = error {
+//                    print("Failed to load duration: \(error)")
+//                } else if let duration = duration {
+//                    let durationInSeconds = CMTimeGetSeconds(duration)
+//                    print("Video duration: \(durationInSeconds) seconds")
+//                }
+//            }
+        }
     }
 
     // Toggle play/pause
@@ -59,6 +76,7 @@ struct VideoPlayerView: View {
         if isPlaying {
             player.pause()
         } else {
+            player.seek(to: CMTime.zero)
             player.play()
         }
         isPlaying.toggle()

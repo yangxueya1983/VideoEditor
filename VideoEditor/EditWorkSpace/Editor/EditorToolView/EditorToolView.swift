@@ -15,7 +15,7 @@ struct EditorToolView: View {
     
     @State var showTransitionMenu:Bool = false
     @State var focusedTransType:TransitionType?
-    
+    @State var crtScrollPosition = 0.0
     
     init(imageSrcURLArray: [URL]) {
         self.imageSrcURLArray = imageSrcURLArray
@@ -33,30 +33,49 @@ struct EditorToolView: View {
     }
     
     var body: some View {
-        ZStack {
-            Spacer()
-            ScrollView([.horizontal], showsIndicators: true) {
-                HStack(spacing: 2, content: {
-                    ForEach(Array(imageArray.enumerated()), id: \.offset) {index, image in
-                        ClipView(image: image, hasTransitionBtn: index > 0, showTransitionMenu: $showTransitionMenu)
-                        //ClipView(path: imgUrl, hasTransitionBtn: index > 0, showTransitionMenu: $showTransitionMenu)
+        GeometryReader { geometry in
+            ZStack {
+                VStack {
+                    //timeBar
+                    ScrollViewReader { scrollViewProxy in
+                        ScrollView([.horizontal], showsIndicators: true) {
+                            
+                        }.onChange(of: crtScrollPosition) { oldValue, newValue in
+                            scrollViewProxy.scrollTo(newValue, anchor: .top)
+                        }
                     }
-                })
-                HStack {
-                    //music
+                    
+                    ScrollViewReader { ScrollViewProxy in
+                        ScrollView([.horizontal], showsIndicators: true) {
+                            HStack(spacing: 2, content: {
+                                ForEach(Array(imageArray.enumerated()), id: \.offset) {index, image in
+                                    ClipView(image: image, hasTransitionBtn: index > 0, showTransitionMenu: $showTransitionMenu)
+                                }
+                            })
+                            .background(GeometryReader { geo in
+                                Color.clear
+                                    .preference(key: ScrollViewOffsetKey.self, value: geo.frame(in: .global).minY)
+                            })
+                            .padding(EdgeInsets(top: 0, leading: geometry.size.width/2.0, bottom: 0, trailing: geometry.size.width/2.0))
+                        }
+                        .onPreferenceChange(ScrollViewOffsetKey.self) { value in
+                            crtScrollPosition = value
+                        }
+                        .frame(height: kThumbImgSize.height)
+                    }
+                    
+                    Spacer().frame(height: 100)
+                    
                 }
-            }
-            .frame(height: kThumbImgSize.height)
-            
-            Spacer().frame(height: 100)
-            
-            if showTransitionMenu {
-                TransitionMenuView(showTransitionMenu: $showTransitionMenu, focusedTransType: $focusedTransType)
-                .frame(height: 150)
-                .edgesIgnoringSafeArea(.all)
-                .background(Color("BlackColor_27"))
-                .transition(.move(edge: .bottom))
-                .animation(.easeInOut, value: 0.3)
+                
+                if showTransitionMenu {
+                    TransitionMenuView(showTransitionMenu: $showTransitionMenu, focusedTransType: $focusedTransType)
+                        .frame(height: 150)
+                        .edgesIgnoringSafeArea(.all)
+                        .background(Color("BlackColor_27"))
+                        .transition(.move(edge: .bottom))
+                        .animation(.easeInOut, value: 0.3)
+                }
             }
         }
     }
@@ -187,6 +206,16 @@ struct TransitionItemView: View {
                 .lineLimit(1)
                 .frame(width: 56)
         }
+    }
+}
+
+
+// Custom PreferenceKey to track the scroll offset
+struct ScrollViewOffsetKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
     }
 }
 

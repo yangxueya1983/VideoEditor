@@ -27,6 +27,7 @@ final class CustomTransitionTest : XCTestCase {
         let image = UIImage(data: imageData)
         
         let photoItem = PhotoItem(url: url, image: image!, duration: duration)
+
         let error = await SessionUtilties.concatenatePhotoWithoutTransition(width: 1024, height: 768, photoItems: [photoItem], outURL: outURL)
         if let error {
             print("create photo video fail with error \(error)")
