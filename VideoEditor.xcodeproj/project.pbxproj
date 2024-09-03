@@ -200,6 +200,7 @@
 		2677D0E62C69885800115565 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
+				B679F18F2C876BF100A061C8 /* PlayerView */,
 				B6C489142C75189C0043209A /* EditorToolView */,
 				2677D0E32C69885800115565 /* DataStructure */,
 				2677D0E52C69885800115565 /* Utilities */,
@@ -229,6 +230,30 @@
 				2677D0F72C70FF9800115565 /* pic_17.jpg */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		B679F18F2C876BF100A061C8 /* PlayerView */ = {
+			isa = PBXGroup;
+			children = (
+				B679F1912C876C0B00A061C8 /* View */,
+				B679F1902C876BFC00A061C8 /* Model */,
+			);
+			path = PlayerView;
+			sourceTree = "<group>";
+		};
+		B679F1902C876BFC00A061C8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B679F1912C876C0B00A061C8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B6B5D0CB2C585F1700D2FA37 /* VideoPlayerView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		B6A0F8392C5DA3F8009741EF /* AudioAssets */ = {
@@ -308,7 +333,6 @@
 				2677D0E62C69885800115565 /* Editor */,
 				B6B5D0C72C5816B900D2FA37 /* VideoEditView.swift */,
 				B6B5D0C92C584BF500D2FA37 /* PhotoPicker.swift */,
-				B6B5D0CB2C585F1700D2FA37 /* VideoPlayerView.swift */,
 				B64C6D582C5C4D6000BD1883 /* VEUtil.swift */,
 			);
 			path = EditWorkSpace;
