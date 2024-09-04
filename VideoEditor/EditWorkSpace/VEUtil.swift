@@ -131,7 +131,8 @@ class VEUtil {
     }
     
     
-    //MARK: trancistion
+    //MARK: Transition
+    //TODO: yy
     static func preview(by transition:TransitionType,
                         canvasSize: CGSize,
                         upImage: UIImage,
