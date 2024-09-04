@@ -54,7 +54,7 @@ struct VideoEditView: View {
                 Task {
                     let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent(Date().formattedDateString() + ".mp4")
                     
-                    let error = await createVideoFromImages(images: editImages, outputURL: outputURL)
+                    let error = await VEUtil.createVideoFromImages(images: editImages, outputURL: outputURL)
                     
                     if let error {
                         print("yxy Error creating video: \(error)")
@@ -65,7 +65,7 @@ struct VideoEditView: View {
                         if let audioURL = Bundle.main.url(forResource: "Saddle of My Heart", withExtension: "mp3") {
                             print("yxy Video added Audio successfully at \(finalURL)")
                             
-                            let error = await addAudioToVideo(videoURL: outputURL, audioURL: audioURL, outputURL: finalURL)
+                            let error = await VEUtil.addAudioToVideo(videoURL: outputURL, audioURL: audioURL, outputURL: finalURL)
                             if error == nil {
                                 print("yxy Video added Audio successfully at \(finalURL)")
                                 playerVM.updatePlayer(with: finalURL)
@@ -130,7 +130,7 @@ struct VideoEditView: View {
             
             let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent(Date().formatted() + ".mp4")
             
-            let error = await createVideoFromImages(images: editImages, outputURL: outputURL)
+            let error = await VEUtil.createVideoFromImages(images: editImages, outputURL: outputURL)
             
             if let error {
                 print("Error creating video: \(error)")
@@ -141,7 +141,7 @@ struct VideoEditView: View {
                 if let audioURL = Bundle.main.url(forResource: "Saddle of My Heart", withExtension: "mp3") {
                     print("Video added Audio successfully at \(finalURL)")
                     
-                    let error = await addAudioToVideo(videoURL: outputURL, audioURL: audioURL, outputURL: finalURL)
+                    let error = await VEUtil.addAudioToVideo(videoURL: outputURL, audioURL: audioURL, outputURL: finalURL)
                     if error == nil {
                         playerVM.updatePlayer(with: finalURL)
                     } else {
