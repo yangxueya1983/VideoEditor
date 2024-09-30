@@ -6,8 +6,7 @@
 //
 
 import SwiftUI
-let kThumbImgSize = CGSize(width: 50, height: 50)
-let kTransitionBtnSize = CGSize(width: 20, height: 20)
+
 
 struct EditorToolView: View {
     @Binding var imageArray:[UIImage]
@@ -69,79 +68,7 @@ struct EditorToolView: View {
     }
 }
  
-struct ClipView: View {
-    let path:URL?
-    let hasTransitionBtn:Bool
-    @Binding var showTransitionMenu:Bool
-    @State var transType = TransitionType.None
-    @State var thumbImages:[UIImage] = []
-    
-    init(path: URL,
-         hasTransitionBtn: Bool,
-         showTransitionMenu: Binding<Bool>,
-         transType: TransitionType = TransitionType.None) {
-        self.path = path
-        self.hasTransitionBtn = hasTransitionBtn
-        self._showTransitionMenu = showTransitionMenu
-        self._transType = State(initialValue: transType)
-    }
-    
-    init(image: UIImage,
-         hasTransitionBtn: Bool,
-         showTransitionMenu: Binding<Bool>,
-         transType: TransitionType = TransitionType.None) {
-        self.path = nil
-        self.hasTransitionBtn = hasTransitionBtn
-        self._showTransitionMenu = showTransitionMenu
-        self._transType = State(initialValue: transType)
-        self._thumbImages = State(initialValue: [image, image, image])
-    }
-    
-    var body: some View {
-        ZStack(alignment: .leading) {
-            HStack(spacing: 0, content: {
-                ForEach(thumbImages, id: \.self) { item in
-                    Image(uiImage:item)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: kThumbImgSize.width, height: kThumbImgSize.height)
-                        .clipped()
-                    
-                }
-            })
-            
-            if hasTransitionBtn {
-                Button {
-                    showTransitionMenu = true
-                } label: {
-                    Image(systemName: transType == .None ? "checkmark.square" : "checkmark.square.fill")
-                }
-                .frame(width: kTransitionBtnSize.width, height: kTransitionBtnSize.height)
-                .offset(x: -kTransitionBtnSize.width/2.0)
-            }
-        }
-        .task {
-            if thumbImages.count == 0 {
-                if let path {
-                    thumbImages = getThumbImages(filePath: path)
-                }
-            }
-        }
-    }
-    
-    func getThumbImages(filePath:URL) -> [UIImage] {
-        var imgArr:[UIImage] = []
-        let img = UIImage(contentsOfFile: filePath.path())
-        for _ in 0..<3 {
-            if let img {
-                imgArr.append(img)
-            }
-        }
-        return imgArr
-    }
-    
 
-}
 
 struct TransitionMenuView: View {
     @Binding var showTransitionMenu:Bool
