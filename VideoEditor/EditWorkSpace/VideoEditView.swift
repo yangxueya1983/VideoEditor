@@ -128,7 +128,7 @@ struct VideoEditView: View {
             editImages = imgArray
             
             
-            let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent(Date().formatted() + ".mp4")
+            let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent(Date().formattedDateString() + ".mp4")
             
             let error = await VEUtil.createVideoFromImages(images: editImages, outputURL: outputURL)
             
@@ -136,7 +136,7 @@ struct VideoEditView: View {
                 print("Error creating video: \(error)")
             } else {
                 print("Video created successfully at \(outputURL)")
-                let fileName = Date().formatted() + "composition.mp4"
+                let fileName = Date().formattedDateString() + "composition.mp4"
                 let finalURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
                 if let audioURL = Bundle.main.url(forResource: "Saddle of My Heart", withExtension: "mp3") {
                     print("Video added Audio successfully at \(finalURL)")

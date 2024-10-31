@@ -65,6 +65,12 @@
 		26CC87CE2C7262DB0025A134 /* CustomVideoCompositor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC87CD2C7262DB0025A134 /* CustomVideoCompositor.swift */; };
 		26CC87D02C7266500025A134 /* CustomTransitionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC87CF2C7266500025A134 /* CustomTransitionTest.swift */; };
 		B64C6D592C5C4D6000BD1883 /* VEUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64C6D582C5C4D6000BD1883 /* VEUtil.swift */; };
+		B66CB2C12CD4047700C8CF0B /* EditModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66CB2BF2CD4047700C8CF0B /* EditModels.swift */; };
+		B66CB2C22CD4047700C8CF0B /* ClipsEditingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66CB2BD2CD4047700C8CF0B /* ClipsEditingVM.swift */; };
+		B66CB2C32CD4047700C8CF0B /* ClipDragView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66CB2BC2CD4047700C8CF0B /* ClipDragView.swift */; };
+		B66CB2C42CD4047700C8CF0B /* VEViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66CB2C02CD4047700C8CF0B /* VEViewLayout.swift */; };
+		B66CB2C52CD4047700C8CF0B /* ClipsEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66CB2BE2CD4047700C8CF0B /* ClipsEditView.swift */; };
+		B66CB2C72CD4052400C8CF0B /* TestUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66CB2C62CD4051800C8CF0B /* TestUIView.swift */; };
 		B679F18A2C7FD1DB00A061C8 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B679F1892C7FD1DB00A061C8 /* Extension.swift */; };
 		B679F1932C876C9400A061C8 /* VideoPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B679F1922C876C9400A061C8 /* VideoPlayerViewModel.swift */; };
 		B679F1952C88CDB800A061C8 /* ClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B679F1942C88CDB800A061C8 /* ClipView.swift */; };
@@ -133,6 +139,12 @@
 		26CC87CD2C7262DB0025A134 /* CustomVideoCompositor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoCompositor.swift; sourceTree = "<group>"; };
 		26CC87CF2C7266500025A134 /* CustomTransitionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransitionTest.swift; sourceTree = "<group>"; };
 		B64C6D582C5C4D6000BD1883 /* VEUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VEUtil.swift; sourceTree = "<group>"; };
+		B66CB2BC2CD4047700C8CF0B /* ClipDragView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipDragView.swift; sourceTree = "<group>"; };
+		B66CB2BD2CD4047700C8CF0B /* ClipsEditingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipsEditingVM.swift; sourceTree = "<group>"; };
+		B66CB2BE2CD4047700C8CF0B /* ClipsEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipsEditView.swift; sourceTree = "<group>"; };
+		B66CB2BF2CD4047700C8CF0B /* EditModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditModels.swift; sourceTree = "<group>"; };
+		B66CB2C02CD4047700C8CF0B /* VEViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VEViewLayout.swift; sourceTree = "<group>"; };
+		B66CB2C62CD4051800C8CF0B /* TestUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUIView.swift; sourceTree = "<group>"; };
 		B679F1892C7FD1DB00A061C8 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		B679F1922C876C9400A061C8 /* VideoPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewModel.swift; sourceTree = "<group>"; };
 		B679F1942C88CDB800A061C8 /* ClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipView.swift; sourceTree = "<group>"; };
@@ -210,6 +222,7 @@
 		2677D0E62C69885800115565 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
+				B66CB29A2CD4035800C8CF0B /* EditTimeLineView */,
 				B679F18F2C876BF100A061C8 /* PlayerView */,
 				B6C489142C75189C0043209A /* EditorToolView */,
 				2677D0E32C69885800115565 /* DataStructure */,
@@ -240,6 +253,26 @@
 				2677D0F72C70FF9800115565 /* pic_17.jpg */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		B66CB29A2CD4035800C8CF0B /* EditTimeLineView */ = {
+			isa = PBXGroup;
+			children = (
+				B66CB2BB2CD4042B00C8CF0B /* ClipEditView */,
+			);
+			path = EditTimeLineView;
+			sourceTree = "<group>";
+		};
+		B66CB2BB2CD4042B00C8CF0B /* ClipEditView */ = {
+			isa = PBXGroup;
+			children = (
+				B66CB2BC2CD4047700C8CF0B /* ClipDragView.swift */,
+				B66CB2BD2CD4047700C8CF0B /* ClipsEditingVM.swift */,
+				B66CB2BE2CD4047700C8CF0B /* ClipsEditView.swift */,
+				B66CB2BF2CD4047700C8CF0B /* EditModels.swift */,
+				B66CB2C02CD4047700C8CF0B /* VEViewLayout.swift */,
+			);
+			path = ClipEditView;
 			sourceTree = "<group>";
 		};
 		B679F18F2C876BF100A061C8 /* PlayerView */ = {
@@ -304,6 +337,7 @@
 				B6B5D0C62C58166B00D2FA37 /* EditWorkSpace */,
 				B6B5D09A2C580FD600D2FA37 /* VideoEditorApp.swift */,
 				B6B5D09C2C580FD600D2FA37 /* ContentView.swift */,
+				B66CB2C62CD4051800C8CF0B /* TestUIView.swift */,
 				B6B5D09E2C580FD600D2FA37 /* Item.swift */,
 				B6B5D0A02C580FD700D2FA37 /* Assets.xcassets */,
 				B6B5D0A22C580FD700D2FA37 /* Preview Content */,
@@ -571,6 +605,12 @@
 				B679F18A2C7FD1DB00A061C8 /* Extension.swift in Sources */,
 				2677D0E72C69885800115565 /* EditSession.swift in Sources */,
 				B679F1952C88CDB800A061C8 /* ClipView.swift in Sources */,
+				B66CB2C12CD4047700C8CF0B /* EditModels.swift in Sources */,
+				B66CB2C22CD4047700C8CF0B /* ClipsEditingVM.swift in Sources */,
+				B66CB2C32CD4047700C8CF0B /* ClipDragView.swift in Sources */,
+				B66CB2C42CD4047700C8CF0B /* VEViewLayout.swift in Sources */,
+				B66CB2C72CD4052400C8CF0B /* TestUIView.swift in Sources */,
+				B66CB2C52CD4047700C8CF0B /* ClipsEditView.swift in Sources */,
 				B679F1972C88D3F100A061C8 /* ResizeView.swift in Sources */,
 				B6B5D0CC2C585F1700D2FA37 /* VideoPlayerView.swift in Sources */,
 				2677D0E92C69885800115565 /* SessionUtilties.swift in Sources */,
