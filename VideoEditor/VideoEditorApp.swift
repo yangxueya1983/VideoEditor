@@ -25,8 +25,7 @@ struct VideoEditorApp: App {
 
     var body: some Scene {
         WindowGroup {
-            //ContentView()
-            TestUIView()
+            ContentView()
         }
         .modelContainer(sharedModelContainer)
     }
