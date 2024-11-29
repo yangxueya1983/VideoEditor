@@ -17,7 +17,7 @@ import SwiftUI
 
 class VEViewLayout : UICollectionViewLayout {
     weak open var delegate: (any VELayoutDelegate)?
-    
+           
     open var minimumLineSpacing: CGFloat = 0
     open var minimumInteritemSpacing: CGFloat = 0
     open var itemSize: CGSize = CGSizeZero

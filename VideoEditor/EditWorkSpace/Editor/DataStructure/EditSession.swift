@@ -8,11 +8,13 @@
 import Foundation
 import PhotosUI
 import SwiftyJSON
+import SwiftData
 
+//@Model
 class EditSession: ObservableObject {
     let id = UUID().uuidString
-    @Published var photoItems: [PhotoItem] = []
-    @Published var audioItems: [AudioItem] = []
+    @Published var photos: [PhotoItem] = []
+    @Published var audios: [AudioItem] = []
     @Published var transitions: [TransitionCfg] = []
 
     var videoWidth: Int = 1080
@@ -23,7 +25,7 @@ class EditSession: ObservableObject {
     }
 
     func hasPhoto() -> Bool {
-        return photoItems.count > 0
+        return photos.count > 0
     }
     
     func hasTransition() -> Bool {
@@ -56,7 +58,7 @@ class EditSession: ObservableObject {
         var trans: [TransitionCfg] = []
         
         var oneGroup: [PhotoItem] = []
-        for itm in photoItems {
+        for itm in photos {
             if oneGroup.isEmpty {
                 oneGroup.append(itm)
                 continue
@@ -101,4 +103,66 @@ class EditSession: ObservableObject {
         return nil
     }
     
+    func exportVideo(outputURL: URL) async -> Error? {
+        let videoURL = FileManager.default.temporaryDirectory.appendingPathComponent(Date().formattedDateString() + "video.mp4")
+        let editImages = photos.map{$0.image}
+        let error = await VEUtil.createVideoFromImages(images: editImages, outputURL: videoURL)
+        
+        if let error {
+            return error
+        } else {
+            print("Video created successfully at \(videoURL)")
+            if audios.count > 0 {
+                if let audioURL = audios.first?.url {
+                    let error = await VEUtil.addAudioToVideo(videoURL: videoURL, audioURL: audioURL, outputURL: outputURL)
+                    if let error {
+                        return error
+                    }
+                    print("Video added Audio successfully at \(outputURL)")
+                } else {
+                    return NSError(domain: "", code: 0, userInfo: ["error" : "Resource not found."])
+                }
+            } else {
+                do {
+                    try FileManager.default.moveItem(at: videoURL, to: outputURL)
+                } catch {
+                    return error
+                }
+            }
+            
+        }
+        return nil
+    }
+}
+
+extension EditSession {
+    static func testSession() -> EditSession {
+        let imageSrcURLArray = Array(1...17).map { i in
+            let path = Bundle.main.url(forResource: "pic_\(i)", withExtension: "jpg")!
+            return path
+        }
+        let audioSrcURLArray = [Bundle.main.url(forResource: "Saddle of My Heart", withExtension: "mp3")!]
+                                
+        let editSession = EditSession()
+        
+        //photos
+        let photoArr = imageSrcURLArray.map { path in
+            PhotoItem(url: path,
+                      image: UIImage(contentsOfFile: path.path())!,
+                      duration: CMTime(value: 3, timescale: 1))
+        }
+        editSession.photos = photoArr
+        
+        //audios
+        let audioArr = audioSrcURLArray.map { path in
+            let audioItem = AudioItem(url: path,
+                                      selectRange: CMTimeRange(start: .zero, duration: .invalid),
+                                      positionTime: .zero)
+            return audioItem
+        }
+        editSession.audios = audioArr
+        
+        
+        return editSession
+    }
 }

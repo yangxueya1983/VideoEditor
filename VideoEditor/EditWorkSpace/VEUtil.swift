@@ -81,7 +81,7 @@ class VEUtil {
         let composition = AVMutableComposition()
         
         // Video track
-        let videoAsset = AVAsset(url: videoURL)
+         let videoAsset = AVAsset(url: videoURL)
         let audioAsset = AVAsset(url: audioURL)
         let videoDuration = videoAsset.duration
         

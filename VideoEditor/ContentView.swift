@@ -32,14 +32,13 @@ struct ContentView: View {
                     ToolbarItem {
                         
                         NavigationLink {
-                            VideoEditView()
+                            VideoEditView(editSession: EditSession.testSession())
                         } label: {
                             Label("Add Item", systemImage: "plus")
                         }
                     }
                 }
                 Spacer()
-                ClipsEditView()
                     .frame(height: 100)
                 Spacer(minLength: 100)
             }

@@ -27,6 +27,8 @@ struct SwiftUIView: View {
         .background(.red)
         .frame(width: 200, height: kSize.height)
         
+        
+        
     }
 }
 

@@ -71,7 +71,7 @@ final class EditAPITest : XCTestCase {
         let session = EditSession()
         session.videoWidth = 720
         session.videoHeight = 480
-        session.photoItems = [photoItem1, photoItem2]
+        session.photos = [photoItem1, photoItem2]
         
         // create the transition action
         let config = TransitionCfg(item1Id: photoItem1.id, item2Id: photoItem2.id, type: .Opacity, duration: CMTime(value: 1, timescale: 1))

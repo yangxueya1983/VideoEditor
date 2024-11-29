@@ -245,10 +245,10 @@ struct SessionUtilties {
         
         videoCompositions.instructions = instructions
         
-        if !sess.audioItems.isEmpty {
+        if !sess.audios.isEmpty {
             // add audio track, make sure the audio item time ranges have no overlap
             let audioTrack = mixComposition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
-            for itm in sess.audioItems {
+            for itm in sess.audios {
                 let audioAsset = AVAsset(url: itm.url)
                 // load audio track
                 guard let t = try await audioAsset.loadTracks(withMediaType: .audio).first else {

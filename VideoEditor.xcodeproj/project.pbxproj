@@ -92,6 +92,7 @@
 		B6C489162C75190C0043209A /* EditorToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C489152C75190C0043209A /* EditorToolView.swift */; };
 		B6D1874D2C9E237E006FEAAB /* ClipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D1874C2C9E237E006FEAAB /* ClipsView.swift */; };
 		B6E44C2E2C7951C300A5B59C /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E44C2D2C7951C300A5B59C /* FileManager.swift */; };
+		B6EB6EB02CF151CC0098F357 /* groupTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EB6EAF2CF151B60098F357 /* groupTask.swift */; };
 		B6EE59122C7D4333006E66B4 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = B6EE59112C7D4333006E66B4 /* SwiftyJSON */; };
 		B6EE59142C7D4398006E66B4 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = B6EE59132C7D4398006E66B4 /* SwiftyJSON */; };
 		B6EE59162C7D43AD006E66B4 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = B6EE59152C7D43AD006E66B4 /* SwiftyJSON */; };
@@ -169,6 +170,7 @@
 		B6C489152C75190C0043209A /* EditorToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorToolView.swift; sourceTree = "<group>"; };
 		B6D1874C2C9E237E006FEAAB /* ClipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipsView.swift; sourceTree = "<group>"; };
 		B6E44C2D2C7951C300A5B59C /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		B6EB6EAF2CF151B60098F357 /* groupTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = groupTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -338,6 +340,7 @@
 				B6B5D09A2C580FD600D2FA37 /* VideoEditorApp.swift */,
 				B6B5D09C2C580FD600D2FA37 /* ContentView.swift */,
 				B66CB2C62CD4051800C8CF0B /* TestUIView.swift */,
+				B6EB6EAF2CF151B60098F357 /* groupTask.swift */,
 				B6B5D09E2C580FD600D2FA37 /* Item.swift */,
 				B6B5D0A02C580FD700D2FA37 /* Assets.xcassets */,
 				B6B5D0A22C580FD700D2FA37 /* Preview Content */,
@@ -600,6 +603,7 @@
 				B6B5D0CA2C584BF500D2FA37 /* PhotoPicker.swift in Sources */,
 				B6B5D09B2C580FD600D2FA37 /* VideoEditorApp.swift in Sources */,
 				B6D1874D2C9E237E006FEAAB /* ClipsView.swift in Sources */,
+				B6EB6EB02CF151CC0098F357 /* groupTask.swift in Sources */,
 				B6C489162C75190C0043209A /* EditorToolView.swift in Sources */,
 				B6E44C2E2C7951C300A5B59C /* FileManager.swift in Sources */,
 				B679F18A2C7FD1DB00A061C8 /* Extension.swift in Sources */,
@@ -788,7 +792,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -818,7 +822,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

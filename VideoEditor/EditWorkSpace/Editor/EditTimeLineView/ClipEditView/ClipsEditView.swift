@@ -10,8 +10,14 @@ import AVFoundation
 import SwiftUI
 
 struct ClipsEditView:UIViewControllerRepresentable {
-    let vc = ClipsEditViewController()
+    @Binding var editingSession: EditSession
+    let vc:ClipsEditViewController
+    init(editSession: Binding<EditSession>) {
+        _editingSession = editSession
+        self.vc  = ClipsEditViewController(editSession: editSession)
+    }
     func makeUIViewController(context: Context) -> some UIViewController {
+        let vc = ClipsEditViewController(editSession: $editingSession)
         return vc
     }
     
@@ -32,10 +38,20 @@ class ClipsEditViewController: UIViewController,
     var dragView:ClipDragView!
     var needUpdateDragView = false
     var editVM = ClipEditVM(videoClips: [])
-                                   
-    
     private var draggingVertically : Bool = true
     private var initialContentOffset = CGPoint.zero
+    
+    @Binding var editSession: EditSession
+    init (editSession: Binding<EditSession>) {
+        self._editSession = editSession
+        super .init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+
                        
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
