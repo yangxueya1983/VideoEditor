@@ -24,7 +24,8 @@ class ClipData {
     var endTime: CMTime = .zero
     var duration: CMTime
     var type: ClipType
-
+    var thumbnails: [UIImage] = []
+    
     init(id: UUID = UUID(), duration: CMTime, type: ClipType) {
         self.id = id
         self.duration = duration

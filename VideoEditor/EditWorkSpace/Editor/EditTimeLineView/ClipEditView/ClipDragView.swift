@@ -36,6 +36,21 @@ class ClipDragView: UIView {
         self.layer.borderWidth = 1.0
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1)
         
+        addHandleViews(frame: frame)
+        
+       
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        self.addGestureRecognizer(tapGesture)
+        
+        let rightPanGesture = UIPanGestureRecognizer(target: self, action: #selector(handleRightPan(_:)))
+        self.rightHandleView.addGestureRecognizer(rightPanGesture)
+        //self.addGestureRecognizer(panGesture)
+        
+        let leftPanGesture = UIPanGestureRecognizer(target: self, action: #selector(handleLeftPan(_:)))
+        self.leftHandleView.addGestureRecognizer(leftPanGesture)
+    }
+    
+    func addHandleViews(frame: CGRect) {
         let handleFrame = CGRect(x:frame.size.width-ClipDragView.handleWidth, y: 0, width: ClipDragView.handleWidth, height: frame.height)
         self.rightHandleView = UIView(frame: handleFrame)
         self.rightHandleView.backgroundColor = UIColor.red
@@ -58,17 +73,6 @@ class ClipDragView: UIView {
             leftHandleView.widthAnchor.constraint(equalToConstant: ClipDragView.handleWidth),
             leftHandleView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
         ])
-        
-       
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        self.addGestureRecognizer(tapGesture)
-        
-        let rightPanGesture = UIPanGestureRecognizer(target: self, action: #selector(handleRightPan(_:)))
-        self.rightHandleView.addGestureRecognizer(rightPanGesture)
-        //self.addGestureRecognizer(panGesture)
-        
-        let leftPanGesture = UIPanGestureRecognizer(target: self, action: #selector(handleLeftPan(_:)))
-        self.leftHandleView.addGestureRecognizer(leftPanGesture)
     }
     
     //MARK: GestureRecognizer

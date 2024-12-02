@@ -10,11 +10,8 @@ import SwiftUI
 
 struct EditorToolView: View {
     @Binding var imageArray:[UIImage]
-    
-    var imageSrcURLArray:[URL]?
+
     @State var focusedTransType:TransitionType?
-    
-    
     @State private var showTransitionMenu:Bool = false
     @State private var crtScrollPosition = 0.0
     
@@ -23,35 +20,19 @@ struct EditorToolView: View {
         GeometryReader { geometry in
             ZStack {
                 VStack {
-                    //timeBar
-                    ScrollViewReader { scrollViewProxy in
-                        ScrollView([.horizontal], showsIndicators: true) {
-                            
-                        }.onChange(of: crtScrollPosition) { oldValue, newValue in
-                            scrollViewProxy.scrollTo(newValue, anchor: .top)
-                        }
+                    ScrollView([.horizontal], showsIndicators: true) {
+                        HStack(spacing: 2, content: {
+                            ForEach(Array(imageArray.enumerated()), id: \.offset) {index, image in
+                                ClipView(image: image, hasTransitionBtn: index > 0, showTransitionMenu: $showTransitionMenu)
+                            }
+                        })
+                        .background(GeometryReader { geo in
+                            Color.clear
+                                .preference(key: ScrollViewOffsetKey.self, value: geo.frame(in: .global).minY)
+                        })
                     }
                     
-                    ScrollViewReader { ScrollViewProxy in
-                        ScrollView([.horizontal], showsIndicators: true) {
-                            HStack(spacing: 2, content: {
-                                ForEach(Array(imageArray.enumerated()), id: \.offset) {index, image in
-                                    ClipView(image: image, hasTransitionBtn: index > 0, showTransitionMenu: $showTransitionMenu)
-                                }
-                            })
-                            .background(GeometryReader { geo in
-                                Color.clear
-                                    .preference(key: ScrollViewOffsetKey.self, value: geo.frame(in: .global).minY)
-                            })
-                            .padding(EdgeInsets(top: 0, leading: geometry.size.width/2.0, bottom: 0, trailing: geometry.size.width/2.0))
-                        }
-                        .onPreferenceChange(ScrollViewOffsetKey.self) { value in
-                            crtScrollPosition = value
-                        }
-                        .frame(height: kThumbImgSize.height)
-                    }
-                    
-                    Spacer().frame(height: 100)
+                    Spacer().frame(height: 150)
                     
                 }
                 

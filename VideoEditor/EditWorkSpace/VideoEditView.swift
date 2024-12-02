@@ -18,47 +18,46 @@ struct VideoEditView: View {
     
     init(editSession: EditSession) {
         self.editSession = editSession
-        editImages = editSession.photos.map{$0.image}
     }
-
+    
+    func refreshVideoByTask() {
+        Task {
+            //load image
+            editImages = editSession.photos.map{$0.image}
+            
+            
+            //make the video
+            let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent(Date().formattedDateString() + ".mp4")
+            let error = await editSession.exportVideo(outputURL: outputURL)
+            if error == nil {
+                playerVM.updatePlayer(with: outputURL)
+            }
+        }
+    }
+    
     var body: some View {
         VStack {
-            VStack {
-                VideoPlayerView(viewModel: playerVM)
-            }
+             
+            VideoPlayerView(viewModel: playerVM)
+            
             Spacer()
-            ClipsEditView(editSession: $editSession)
-
+            EditorToolView(imageArray: $editImages)
+            
+            
+            
+            //TODO: add more complex interaction
+            //ClipsEditView(editSession: $editSession)
         }
         .sheet(isPresented: $showPicker) {
             PhotoPicker { selectedImages in
                 editImages.append(contentsOf: selectedImages)
                 
-                Task {
-                    let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent(Date().formattedDateString() + ".mp4")
-                    
-                    let error = await VEUtil.createVideoFromImages(images: editImages, outputURL: outputURL)
-                    
-                    if let error {
-                        print("yxy Error creating video: \(error)")
-                    } else {
-                        print("yxy Video created successfully at \(outputURL)")
-                        let fileName = Date().formattedDateString() + "_comp.mp4"
-                        let finalURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
-                        if let audioURL = Bundle.main.url(forResource: "Saddle of My Heart", withExtension: "mp3") {
-                            print("yxy Video added Audio successfully at \(finalURL)")
-                            
-                            let error = await VEUtil.addAudioToVideo(videoURL: outputURL, audioURL: audioURL, outputURL: finalURL)
-                            if error == nil {
-                                print("yxy Video added Audio successfully at \(finalURL)")
-                                playerVM.updatePlayer(with: finalURL)
-                            } else {
-                                print("Export error")
-                            }
-                        } else {
-                            print("Resource not found.")
-                        }
-                    }
+                for image in selectedImages {
+                    let path = URL.documentsDirectory.appendingPathComponent(Date().formattedDateString() + ".jpg")
+                    let photo = PhotoItem(url: path,
+                                          image: image,
+                                          duration: CMTime(value: 3, timescale: 1))
+                    editSession.photos.append(photo)
                 }
             }
             .ignoresSafeArea()
@@ -92,15 +91,10 @@ struct VideoEditView: View {
             }
         }
         .task {
-            let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent(Date().formattedDateString() + ".mp4")
-            
-            let error = await editSession.exportVideo(outputURL: outputURL)
-            if error == nil {
-                playerVM.updatePlayer(with: outputURL)
-            }
-            
+            refreshVideoByTask()
         }
     }
+
 }
 
 //#Preview {

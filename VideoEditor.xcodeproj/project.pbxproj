@@ -74,8 +74,6 @@
 		B679F18A2C7FD1DB00A061C8 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B679F1892C7FD1DB00A061C8 /* Extension.swift */; };
 		B679F1932C876C9400A061C8 /* VideoPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B679F1922C876C9400A061C8 /* VideoPlayerViewModel.swift */; };
 		B679F1952C88CDB800A061C8 /* ClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B679F1942C88CDB800A061C8 /* ClipView.swift */; };
-		B679F1972C88D3F100A061C8 /* ResizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B679F1962C88D3F100A061C8 /* ResizeView.swift */; };
-		B679F1992C8975D000A061C8 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B679F1982C8975D000A061C8 /* SwiftUIView.swift */; };
 		B6A0F83B2C5DA476009741EF /* Love Paradise.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B6A0F83A2C5DA476009741EF /* Love Paradise.mp3 */; };
 		B6A0F83D2C5DA48F009741EF /* Saddle of My Heart.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B6A0F83C2C5DA48F009741EF /* Saddle of My Heart.mp3 */; };
 		B6B5D09B2C580FD600D2FA37 /* VideoEditorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5D09A2C580FD600D2FA37 /* VideoEditorApp.swift */; };
@@ -90,7 +88,6 @@
 		B6B5D0CA2C584BF500D2FA37 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5D0C92C584BF500D2FA37 /* PhotoPicker.swift */; };
 		B6B5D0CC2C585F1700D2FA37 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5D0CB2C585F1700D2FA37 /* VideoPlayerView.swift */; };
 		B6C489162C75190C0043209A /* EditorToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C489152C75190C0043209A /* EditorToolView.swift */; };
-		B6D1874D2C9E237E006FEAAB /* ClipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D1874C2C9E237E006FEAAB /* ClipsView.swift */; };
 		B6E44C2E2C7951C300A5B59C /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E44C2D2C7951C300A5B59C /* FileManager.swift */; };
 		B6EB6EB02CF151CC0098F357 /* groupTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EB6EAF2CF151B60098F357 /* groupTask.swift */; };
 		B6EE59122C7D4333006E66B4 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = B6EE59112C7D4333006E66B4 /* SwiftyJSON */; };
@@ -149,8 +146,6 @@
 		B679F1892C7FD1DB00A061C8 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		B679F1922C876C9400A061C8 /* VideoPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewModel.swift; sourceTree = "<group>"; };
 		B679F1942C88CDB800A061C8 /* ClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipView.swift; sourceTree = "<group>"; };
-		B679F1962C88D3F100A061C8 /* ResizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizeView.swift; sourceTree = "<group>"; };
-		B679F1982C8975D000A061C8 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		B6A0F83A2C5DA476009741EF /* Love Paradise.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Love Paradise.mp3"; sourceTree = "<group>"; };
 		B6A0F83C2C5DA48F009741EF /* Saddle of My Heart.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Saddle of My Heart.mp3"; sourceTree = "<group>"; };
 		B6B5D0972C580FD600D2FA37 /* VideoEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -168,7 +163,6 @@
 		B6B5D0C92C584BF500D2FA37 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		B6B5D0CB2C585F1700D2FA37 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		B6C489152C75190C0043209A /* EditorToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorToolView.swift; sourceTree = "<group>"; };
-		B6D1874C2C9E237E006FEAAB /* ClipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipsView.swift; sourceTree = "<group>"; };
 		B6E44C2D2C7951C300A5B59C /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		B6EB6EAF2CF151B60098F357 /* groupTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = groupTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -391,9 +385,6 @@
 			children = (
 				B6C489152C75190C0043209A /* EditorToolView.swift */,
 				B679F1942C88CDB800A061C8 /* ClipView.swift */,
-				B679F1962C88D3F100A061C8 /* ResizeView.swift */,
-				B679F1982C8975D000A061C8 /* SwiftUIView.swift */,
-				B6D1874C2C9E237E006FEAAB /* ClipsView.swift */,
 			);
 			path = EditorToolView;
 			sourceTree = "<group>";
@@ -595,14 +586,12 @@
 			files = (
 				B679F1932C876C9400A061C8 /* VideoPlayerViewModel.swift in Sources */,
 				B64C6D592C5C4D6000BD1883 /* VEUtil.swift in Sources */,
-				B679F1992C8975D000A061C8 /* SwiftUIView.swift in Sources */,
 				B6B5D09D2C580FD600D2FA37 /* ContentView.swift in Sources */,
 				B6B5D09F2C580FD600D2FA37 /* Item.swift in Sources */,
 				B6B5D0C82C5816B900D2FA37 /* VideoEditView.swift in Sources */,
 				2677D0E82C69885800115565 /* Items.swift in Sources */,
 				B6B5D0CA2C584BF500D2FA37 /* PhotoPicker.swift in Sources */,
 				B6B5D09B2C580FD600D2FA37 /* VideoEditorApp.swift in Sources */,
-				B6D1874D2C9E237E006FEAAB /* ClipsView.swift in Sources */,
 				B6EB6EB02CF151CC0098F357 /* groupTask.swift in Sources */,
 				B6C489162C75190C0043209A /* EditorToolView.swift in Sources */,
 				B6E44C2E2C7951C300A5B59C /* FileManager.swift in Sources */,
@@ -615,7 +604,6 @@
 				B66CB2C42CD4047700C8CF0B /* VEViewLayout.swift in Sources */,
 				B66CB2C72CD4052400C8CF0B /* TestUIView.swift in Sources */,
 				B66CB2C52CD4047700C8CF0B /* ClipsEditView.swift in Sources */,
-				B679F1972C88D3F100A061C8 /* ResizeView.swift in Sources */,
 				B6B5D0CC2C585F1700D2FA37 /* VideoPlayerView.swift in Sources */,
 				2677D0E92C69885800115565 /* SessionUtilties.swift in Sources */,
 				26CC87CE2C7262DB0025A134 /* CustomVideoCompositor.swift in Sources */,
@@ -845,7 +833,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8N5XM3EBGN;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yangxueya.VideoEditorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -865,7 +853,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8N5XM3EBGN;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yangxueya.VideoEditorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -884,7 +872,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7BAQN6N7FK;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yangxueya.VideoEditorUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -903,7 +891,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7BAQN6N7FK;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yangxueya.VideoEditorUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

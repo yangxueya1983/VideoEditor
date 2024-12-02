@@ -59,21 +59,21 @@ class ClipsEditViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let typeArr = [ClipData.ClipType.video, ClipData.ClipType.audio]
-        let countArr = [3, 3]
-        var data : [[ClipData]] = []
-        for (index, type) in typeArr.enumerated() {
-            let clipCount = countArr[index]
-            var rowData: [ClipData] = []
-            for _ in 0..<clipCount {
-                let duration =  CMTime(seconds: 2, preferredTimescale: kDefaultTimeScale)
-                let clip = ClipData(duration: duration, type: type)
-                rowData.append(clip)
+    
+        for photo in editSession.photos {
+            let duration =  CMTime(seconds: 2, preferredTimescale: kDefaultTimeScale)
+            let clip = ClipData(duration: duration, type: .video)
+            for i in 0..<2 {
+                clip.thumbnails.append(photo.image)
             }
-            data.append(rowData)
+            editVM.videoClips.append(clip)
         }
-        editVM.videoClips = data[0]
-        editVM.audioClips = data[1]
+        
+        for audio in editSession.audios {
+            let duration =  CMTime(seconds: 2, preferredTimescale: kDefaultTimeScale)
+            let clip = ClipData(duration: duration, type: .audio)
+            editVM.audioClips?.append(clip)
+        }
 
         
         // Setup the layout

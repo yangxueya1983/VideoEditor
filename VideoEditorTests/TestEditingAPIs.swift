@@ -57,7 +57,8 @@ final class EditAPITest : XCTestCase {
     }
     
     func testAddAudio() throws {
-        
+        _ = printAnimal(animal: dog)
+        _ = printAnimal(animal: cat)
     }
     
     func testTransition1() async throws {
