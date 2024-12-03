@@ -10,12 +10,26 @@ import PhotosUI
 import SwiftyJSON
 import SwiftData
 
-//@Model
-class EditSession: ObservableObject {
-    let id = UUID().uuidString
-    @Published var photos: [PhotoItem] = []
-    @Published var audios: [AudioItem] = []
-    @Published var transitions: [TransitionCfg] = []
+@Model
+class EditSession {
+    @Attribute(.unique) var id: UUID
+    var photos: [PhotoItem] = []
+    var audios: [AudioItem] = []
+    var transCfgs: [TransitionCfg] = []
+    
+    init(id: UUID = UUID(),
+         photos: [PhotoItem] = [],
+         audios: [AudioItem] = [],
+         transitions: [TransitionCfg] = [],
+         videoWidth: Int = 1080,
+         videoHeight: Int = 1920) {
+        self.id = id
+        self.photos = photos
+        self.audios = audios
+        self.transCfgs = transitions
+        self.videoWidth = videoWidth
+        self.videoHeight = videoHeight
+    }
 
     var videoWidth: Int = 1080
     var videoHeight: Int = 1920
@@ -29,11 +43,11 @@ class EditSession: ObservableObject {
     }
     
     func hasTransition() -> Bool {
-        if transitions.isEmpty {
+        if transCfgs.isEmpty {
             return false
         }
         
-        for t in transitions {
+        for t in transCfgs {
             if t.type != .None {
                 return true
             }
@@ -91,10 +105,10 @@ class EditSession: ObservableObject {
     
     
     private func findTransitionType(item1: PhotoItem, item2: PhotoItem) -> TransitionCfg? {
-        let id1 = item1.id
-        let id2 = item2.id
+        let id1 = item1.itemID
+        let id2 = item2.itemID
         
-        for itm in transitions {
+        for itm in transCfgs {
             if itm.item1Id == id1 && itm.item2Id == id2 {
                 return itm
             }
@@ -137,7 +151,7 @@ class EditSession: ObservableObject {
 
 extension EditSession {
     static func testSession() -> EditSession {
-        let imageSrcURLArray = Array(1...17).map { i in
+        let imageSrcURLArray = Array(1...3).map { i in
             let path = Bundle.main.url(forResource: "pic_\(i)", withExtension: "jpg")!
             return path
         }

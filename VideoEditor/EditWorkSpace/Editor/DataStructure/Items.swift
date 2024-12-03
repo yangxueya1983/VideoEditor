@@ -8,21 +8,38 @@
 import Foundation
 import AVFoundation
 import UIKit
+import SwiftData
 
-struct PhotoItem {
-    let id = UUID()
-    let url: URL
-    let image: UIImage
-    let duration: CMTime
+
+@Model
+class PhotoItem {
+    var itemID: UUID = UUID()
+    var url: URL
+    @Transient var image: UIImage = UIImage()
+    @Transient var duration: CMTime = .positiveInfinity
+    
+    init(url: URL, image: UIImage, duration: CMTime) {
+        self.url = url
+        self.image = image
+        self.duration = duration
+    }
 }
 
-struct AudioItem {
-    let url: URL
-    var selectRange: CMTimeRange
-    var positionTime: CMTime
+@Model
+class AudioItem {
+    var itemID: UUID = UUID()
+    var url: URL
+    @Transient var selectRange: CMTimeRange = CMTimeRange(start: .zero, duration: .positiveInfinity)
+    @Transient var positionTime: CMTime = .zero
+    
+    init(url: URL, selectRange: CMTimeRange, positionTime: CMTime) {
+        self.url = url
+        self.selectRange = selectRange
+        self.positionTime = positionTime
+    }
 }
 
-enum TransitionType:String, CaseIterable, Identifiable {
+enum TransitionType:String, CaseIterable, Identifiable, Codable {
     case None = "None"
     case Translate_Up = "Translate_Up"
     case ScaleUp = "ScaleUp"
@@ -32,15 +49,19 @@ enum TransitionType:String, CaseIterable, Identifiable {
     
 }
 
-struct TransitionCfg {
-    let item1Id: UUID
-    let item2Id: UUID
-    let type : TransitionType
-    let duration: CMTime
-}
+@Model
+class TransitionCfg {
+    var item1Id: UUID
+    var item2Id: UUID
+    var type : TransitionType
+    @Transient var duration: CMTime = .positiveInfinity
+    
+    init(item1Id: UUID, item2Id: UUID, type: TransitionType, duration: CMTime) {
+        self.item1Id = item1Id
+        self.item2Id = item2Id
+        self.type = type
+        self.duration = duration
 
-struct TextItem {
-    var attrStr: AttributedString
-    var rect: CGRect
+    }
 }
 

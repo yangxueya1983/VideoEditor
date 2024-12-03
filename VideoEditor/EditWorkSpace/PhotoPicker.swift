@@ -8,6 +8,13 @@
 import SwiftUI
 import PhotosUI
 
+typealias ImageResult = Result<UIImage, Error>
+
+func errorWithDes(_ description: String) -> Error {
+    return NSError(domain: "ImagePickerError", code: 0, userInfo: [NSLocalizedDescriptionKey: description])
+}
+
+
 struct PhotoPicker: UIViewControllerRepresentable {
     let pickerDone: (_ selectedImages: [UIImage]) -> Void
 
@@ -26,7 +33,51 @@ struct PhotoPicker: UIViewControllerRepresentable {
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
-
+    
+    //MARK: - Image Loading
+    func loadImage(result: PHPickerResult) async -> ImageResult {
+        guard result.itemProvider.canLoadObject(ofClass: UIImage.self) else {
+            return .failure(errorWithDes("canLoadObject Error"))
+        }
+        
+        return await withCheckedContinuation { continuation in
+            result.itemProvider.loadObject(ofClass: UIImage.self) { object, error in
+                if let image = object as? UIImage {
+                    let correctedImage = image.correctedOrientation()
+                    continuation.resume(returning: ImageResult.success(correctedImage))
+                } else if let error = error {
+                    continuation.resume(returning: .failure(error))
+                } else {
+                    continuation.resume(returning: .failure(errorWithDes("unknown error")))
+                }
+            }
+        }
+    }
+    
+    func fetchImages(results: [PHPickerResult]) async -> [ImageResult] {
+        let defError = NSError(domain: "ImageDownloadError", code: 0, userInfo: nil)
+        var imagesResults:[ImageResult] = Array(repeating: .failure(defError), count: results.count)
+        
+        return await withTaskGroup(of: (Int, ImageResult).self) { group in
+            let itemProviders = results.map(\.itemProvider)
+            
+            for (index, itemProvider) in itemProviders.enumerated() {
+                if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                    group.addTask {
+                        return await (index, self.loadImage(result: results[index]))
+                    }
+                }
+            }
+            
+            for await (index, imageResult) in group {
+                imagesResults[index] = imageResult
+            }
+            
+            return imagesResults
+        }
+    }
+                                   
+    //MARK: Coordinator
     class Coordinator: NSObject, PHPickerViewControllerDelegate {
         let parent: PhotoPicker
 
@@ -35,39 +86,24 @@ struct PhotoPicker: UIViewControllerRepresentable {
         }
 
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-            var selectedImages:[UIImage] = []
-
-            let itemProviders = results.map(\.itemProvider)
-            
-            let disGroup = DispatchGroup()
-
-            for itemProvider in itemProviders {
-                if itemProvider.canLoadObject(ofClass: UIImage.self) {
-                    disGroup.enter()
-                    itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
-                        
-                        guard self != nil else {
-                            disGroup.leave()
-                            return
-                        }
-                        if let image = image as? UIImage {
-                            let correctedImage = image.correctedOrientation()
-                            DispatchQueue.main.async {
-                                selectedImages.append(correctedImage)
-                                disGroup.leave()
-                            }
-                        } else {
-                            disGroup.leave()
-                            print("Error loading image: \(String(describing: error))")
-                        }
+            Task {
+                var selectedImages:[UIImage] = []
+                let imagesResults = await self.parent.fetchImages(results: results)
+                
+                for imageResult in imagesResults {
+                    switch imageResult {
+                    case .success(let image):
+                        selectedImages.append(image)
+                    case .failure:
+                        break
                     }
                 }
+                
+                await MainActor.run {
+                    self.parent.pickerDone(selectedImages)
+                    picker.dismiss(animated: true)
+                }
             }
-            disGroup.notify(queue: .main) {
-                self.parent.pickerDone(selectedImages)
-            }
-
-            picker.dismiss(animated: true)
         }
     }
 }

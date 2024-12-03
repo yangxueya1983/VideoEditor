@@ -59,6 +59,8 @@ struct VideoEditView: View {
                                           duration: CMTime(value: 3, timescale: 1))
                     editSession.photos.append(photo)
                 }
+                
+                refreshVideoByTask()
             }
             .ignoresSafeArea()
         }

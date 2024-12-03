@@ -6,22 +6,22 @@
 //
 import SwiftUI
 
-struct ImageResult {
+struct TestImageResult {
     let url: URL
     let image: UIImage?
     let error: Error?
 }
 
-func downloadImages(imageURLs: [URL])  async -> [ImageResult] {
+func downloadImages(imageURLs: [URL])  async -> [TestImageResult] {
 
-    return await withTaskGroup(of: (Int, ImageResult).self) { group in
-        var results: [ImageResult] = Array(repeating: ImageResult(url: URL(fileURLWithPath: ""), image: nil, error: nil), count: imageURLs.count)
+    return await withTaskGroup(of: (Int, TestImageResult).self) { group in
+        var results: [TestImageResult] = Array(repeating: TestImageResult(url: URL(fileURLWithPath: ""), image: nil, error: nil), count: imageURLs.count)
         
         for (index, url) in imageURLs.enumerated() {
             group.addTask {
                 let filename = "\(index).jpeg"
                 let (image, error) = await downloadSingleImage(url: url, fileName: filename)
-                return (index, ImageResult(url: url, image: image, error: error))
+                return (index, TestImageResult(url: url, image: image, error: error))
             }
         }
         

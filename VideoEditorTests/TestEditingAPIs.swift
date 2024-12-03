@@ -76,7 +76,7 @@ final class EditAPITest : XCTestCase {
         
         // create the transition action
         let config = TransitionCfg(item1Id: photoItem1.id, item2Id: photoItem2.id, type: .Opacity, duration: CMTime(value: 1, timescale: 1))
-        session.transitions = [config]
+        session.transCfgs = [config]
         
         let outURL = getOutputURL()
         print("the generated video will be exported to \(outURL)")
