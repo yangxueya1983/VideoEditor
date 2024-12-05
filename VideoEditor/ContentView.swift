@@ -10,7 +10,7 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @Query private var items: [EditSession]
     
     var body: some View {
         NavigationSplitView {
@@ -18,9 +18,9 @@ struct ContentView: View {
                 List {
                     ForEach(items) { item in
                         NavigationLink {
-                            Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                            Text("Item at \(item.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))")
                         } label: {
-                            Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                            Text(item.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))
                         }
                     }
                     .onDelete(perform: deleteItems)

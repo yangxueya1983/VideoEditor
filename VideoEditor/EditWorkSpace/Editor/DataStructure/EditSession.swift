@@ -13,6 +13,8 @@ import SwiftData
 @Model
 class EditSession {
     @Attribute(.unique) var id: UUID
+    var createdAt: Date
+
     var photos: [PhotoItem] = []
     var audios: [AudioItem] = []
     var transCfgs: [TransitionCfg] = []
@@ -24,6 +26,7 @@ class EditSession {
          videoWidth: Int = 1080,
          videoHeight: Int = 1920) {
         self.id = id
+        self.createdAt = .now
         self.photos = photos
         self.audios = audios
         self.transCfgs = transitions
@@ -158,8 +161,7 @@ extension EditSession {
         let audioSrcURLArray = [Bundle.main.url(forResource: "Saddle of My Heart", withExtension: "mp3")!]
                                 
         let editSession = EditSession()
-        
-        //photos
+
         let photoArr = imageSrcURLArray.map { path in
             PhotoItem(url: path,
                       image: UIImage(contentsOfFile: path.path())!,

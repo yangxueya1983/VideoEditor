@@ -7,8 +7,10 @@
 import PhotosUI
 import UIKit
 import SwiftUI
+import SwiftData
 
 struct VideoEditView: View {
+    @Environment(\.modelContext) private var modelContext
     @State private var isAddMode = false
     @State private var showPicker = false
     @State private var editImages: [UIImage] = []
@@ -35,6 +37,16 @@ struct VideoEditView: View {
         }
     }
     
+    func saveEditSession() {
+        modelContext.insert(editSession)
+        do {
+            try modelContext.save()
+            print("save success")
+        } catch {
+            print("save failed \(error.localizedDescription)")
+        }
+    }
+    
     var body: some View {
         VStack {
              
@@ -47,6 +59,9 @@ struct VideoEditView: View {
             
             //TODO: add more complex interaction
             //ClipsEditView(editSession: $editSession)
+        }
+        .onDisappear {
+            saveEditSession()
         }
         .sheet(isPresented: $showPicker) {
             PhotoPicker { selectedImages in
