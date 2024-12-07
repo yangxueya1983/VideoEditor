@@ -8,6 +8,18 @@
 import SwiftUI
 import SwiftData
 
+
+struct DetailView: View {
+    var item: EditSession
+
+    var body: some View {
+        Text("Item at \(Date(), format: Date.FormatStyle(date: .numeric, time: .standard))")
+            .task {
+                item.createdAt = Date()
+            }
+    }
+}
+
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [EditSession]
@@ -18,7 +30,8 @@ struct ContentView: View {
                 List {
                     ForEach(items) { item in
                         NavigationLink {
-                            Text("Item at \(item.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                            DetailView(item: item)
+                            //Text("Item at \(item.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))")
                         } label: {
                             Text(item.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))
                         }
@@ -38,9 +51,6 @@ struct ContentView: View {
                         }
                     }
                 }
-                Spacer()
-                    .frame(height: 100)
-                Spacer(minLength: 100)
             }
         } detail: {
             Text("Select an item")
