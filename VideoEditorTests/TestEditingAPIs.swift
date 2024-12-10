@@ -75,7 +75,7 @@ final class EditAPITest : XCTestCase {
         session.photos = [photoItem1, photoItem2]
         
         // create the transition action
-        let config = TransitionCfg(item1Id: photoItem1.id, item2Id: photoItem2.id, type: .Opacity, duration: CMTime(value: 1, timescale: 1))
+        let config = TransitionCfg(item1Id: photoItem1.itemID, item2Id: photoItem2.itemID, type: .Opacity, duration: CMTime(value: 1, timescale: 1))
         session.transCfgs = [config]
         
         let outURL = getOutputURL()

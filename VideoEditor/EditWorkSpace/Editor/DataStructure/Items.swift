@@ -15,10 +15,12 @@ import SwiftData
 class PhotoItem {
     var itemID: UUID = UUID()
     var url: URL
+    var cacheKey: String = ""
     @Transient var image: UIImage = UIImage()
     @Transient var duration: CMTime = .positiveInfinity
     
-    init(url: URL, image: UIImage, duration: CMTime) {
+    init(cacheKey: String, url: URL, image: UIImage, duration: CMTime) {
+        self.cacheKey = cacheKey
         self.url = url
         self.image = image
         self.duration = duration

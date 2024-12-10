@@ -64,6 +64,9 @@
 		2677D1312C70FF9800115565 /* pic_6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FE2C70FF9800115565 /* pic_6.jpg */; };
 		26CC87CE2C7262DB0025A134 /* CustomVideoCompositor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC87CD2C7262DB0025A134 /* CustomVideoCompositor.swift */; };
 		26CC87D02C7266500025A134 /* CustomTransitionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC87CF2C7266500025A134 /* CustomTransitionTest.swift */; };
+		B64BE1352D066A810013C598 /* PicStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64BE1342D066A6F0013C598 /* PicStorage.swift */; };
+		B64BE1382D076C7B0013C598 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = B64BE1372D076C7B0013C598 /* SDWebImage */; };
+		B64BE13A2D076C7B0013C598 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B64BE1392D076C7B0013C598 /* SDWebImageMapKit */; };
 		B64C6D592C5C4D6000BD1883 /* VEUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64C6D582C5C4D6000BD1883 /* VEUtil.swift */; };
 		B66CB2C12CD4047700C8CF0B /* EditModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66CB2BF2CD4047700C8CF0B /* EditModels.swift */; };
 		B66CB2C22CD4047700C8CF0B /* ClipsEditingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66CB2BD2CD4047700C8CF0B /* ClipsEditingVM.swift */; };
@@ -136,6 +139,7 @@
 		2677D0FE2C70FF9800115565 /* pic_6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_6.jpg; sourceTree = "<group>"; };
 		26CC87CD2C7262DB0025A134 /* CustomVideoCompositor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoCompositor.swift; sourceTree = "<group>"; };
 		26CC87CF2C7266500025A134 /* CustomTransitionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransitionTest.swift; sourceTree = "<group>"; };
+		B64BE1342D066A6F0013C598 /* PicStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicStorage.swift; sourceTree = "<group>"; };
 		B64C6D582C5C4D6000BD1883 /* VEUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VEUtil.swift; sourceTree = "<group>"; };
 		B66CB2BC2CD4047700C8CF0B /* ClipDragView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipDragView.swift; sourceTree = "<group>"; };
 		B66CB2BD2CD4047700C8CF0B /* ClipsEditingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipsEditingVM.swift; sourceTree = "<group>"; };
@@ -172,6 +176,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B64BE1382D076C7B0013C598 /* SDWebImage in Frameworks */,
+				B64BE13A2D076C7B0013C598 /* SDWebImageMapKit in Frameworks */,
 				B6EE59122C7D4333006E66B4 /* SwiftyJSON in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -210,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				2677D0E42C69885800115565 /* SessionUtilties.swift */,
+				B64BE1342D066A6F0013C598 /* PicStorage.swift */,
 				26CC87CD2C7262DB0025A134 /* CustomVideoCompositor.swift */,
 			);
 			path = Utilities;
@@ -407,6 +414,8 @@
 			name = VideoEditor;
 			packageProductDependencies = (
 				B6EE59112C7D4333006E66B4 /* SwiftyJSON */,
+				B64BE1372D076C7B0013C598 /* SDWebImage */,
+				B64BE1392D076C7B0013C598 /* SDWebImageMapKit */,
 			);
 			productName = VideoEditor;
 			productReference = B6B5D0972C580FD600D2FA37 /* VideoEditor.app */;
@@ -488,6 +497,7 @@
 			mainGroup = B6B5D08E2C580FD600D2FA37;
 			packageReferences = (
 				B6EE590F2C7D3D06006E66B4 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				B64BE1362D076C7B0013C598 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = B6B5D0982C580FD600D2FA37 /* Products */;
 			projectDirPath = "";
@@ -604,6 +614,7 @@
 				B66CB2C42CD4047700C8CF0B /* VEViewLayout.swift in Sources */,
 				B66CB2C72CD4052400C8CF0B /* TestUIView.swift in Sources */,
 				B66CB2C52CD4047700C8CF0B /* ClipsEditView.swift in Sources */,
+				B64BE1352D066A810013C598 /* PicStorage.swift in Sources */,
 				B6B5D0CC2C585F1700D2FA37 /* VideoPlayerView.swift in Sources */,
 				2677D0E92C69885800115565 /* SessionUtilties.swift in Sources */,
 				26CC87CE2C7262DB0025A134 /* CustomVideoCompositor.swift in Sources */,
@@ -944,6 +955,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B64BE1362D076C7B0013C598 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = exactVersion;
+				version = 5.20.0;
+			};
+		};
 		B6EE590F2C7D3D06006E66B4 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
@@ -955,6 +974,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B64BE1372D076C7B0013C598 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B64BE1362D076C7B0013C598 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		B64BE1392D076C7B0013C598 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B64BE1362D076C7B0013C598 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
 		B6EE59112C7D4333006E66B4 /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B6EE590F2C7D3D06006E66B4 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;

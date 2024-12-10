@@ -9,6 +9,8 @@ import Foundation
 import PhotosUI
 import SwiftyJSON
 import SwiftData
+import SDWebImage
+import CryptoKit
 
 @Model
 class EditSession {
@@ -153,6 +155,16 @@ class EditSession {
 }
 
 extension EditSession {
+    static func md5Hash(for string: String) -> String {
+        // Convert the input string to data
+        let inputData = Data(string.utf8)
+        
+        // Compute the MD5 digest
+        let digest = Insecure.MD5.hash(data: inputData)
+        
+        // Convert the digest to a hexadecimal string
+        return digest.map { String(format: "%02hhx", $0) }.joined()
+    }
     static func testSession() -> EditSession {
         let imageSrcURLArray = Array(1...3).map { i in
             let path = Bundle.main.url(forResource: "pic_\(i)", withExtension: "jpg")!
@@ -161,13 +173,27 @@ extension EditSession {
         let audioSrcURLArray = [Bundle.main.url(forResource: "Saddle of My Heart", withExtension: "mp3")!]
                                 
         let editSession = EditSession()
-
-        let photoArr = imageSrcURLArray.map { path in
-            PhotoItem(url: path,
-                      image: UIImage(contentsOfFile: path.path())!,
-                      duration: CMTime(value: 3, timescale: 1))
+        
+        for path in imageSrcURLArray {
+            if let image = UIImage(contentsOfFile: path.path()) {
+                do {
+                    let key = md5Hash(for: path.path())
+                    let url = PicStorage.shared.cachePathForKey(key: key)
+                    if !PicStorage.shared.containsDataForKey(key:key) {
+                        _ = try PicStorage.shared.save(image: image, key: key)
+                    }
+                    
+                    let item = PhotoItem(cacheKey:key,
+                                         url: url,
+                                         image: image,
+                                         duration: CMTime(value: 3, timescale: 1))
+                    editSession.photos.append(item)
+                } catch {
+                    
+                }
+            }
         }
-        editSession.photos = photoArr
+        
         
         //audios
         let audioArr = audioSrcURLArray.map { path in

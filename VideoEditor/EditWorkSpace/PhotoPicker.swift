@@ -10,13 +10,19 @@ import PhotosUI
 
 typealias ImageResult = Result<UIImage, Error>
 
+struct PickedPhoto {
+    let image: UIImage?
+    let error: Error?
+    let key: String
+}
+
 func errorWithDes(_ description: String) -> Error {
     return NSError(domain: "ImagePickerError", code: 0, userInfo: [NSLocalizedDescriptionKey: description])
 }
 
 
 struct PhotoPicker: UIViewControllerRepresentable {
-    let pickerDone: (_ selectedImages: [UIImage]) -> Void
+    let pickerDone: (_ selectedPhotos: [PickedPhoto]) -> Void
 
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var configuration = PHPickerConfiguration()
@@ -54,23 +60,30 @@ struct PhotoPicker: UIViewControllerRepresentable {
         }
     }
     
-    func fetchImages(results: [PHPickerResult]) async -> [ImageResult] {
+    func fetchImages(results: [PHPickerResult]) async -> [PickedPhoto] {
         let defError = NSError(domain: "ImageDownloadError", code: 0, userInfo: nil)
-        var imagesResults:[ImageResult] = Array(repeating: .failure(defError), count: results.count)
+        var imagesResults:[PickedPhoto] = Array(repeating: PickedPhoto(image: nil, error: defError, key: ""), count: results.count)
         
-        return await withTaskGroup(of: (Int, ImageResult).self) { group in
-            let itemProviders = results.map(\.itemProvider)
-            
-            for (index, itemProvider) in itemProviders.enumerated() {
-                if itemProvider.canLoadObject(ofClass: UIImage.self) {
+        return await withTaskGroup(of: (Int, PickedPhoto).self) { group in
+            for (index, result) in results.enumerated() {
                     group.addTask {
-                        return await (index, self.loadImage(result: results[index]))
+                        let key = result.assetIdentifier ?? UUID().uuidString
+                        let imgResult = await self.loadImage(result: result)
+                        
+                        switch imgResult {
+                        case .success(let image):
+                            if !PicStorage.shared.containsDataForKey(key: key) {
+                                _ = try? PicStorage.shared.save(image: image, key: key)
+                            }
+                            return (index, PickedPhoto(image: image, error: nil, key: key))
+                        case .failure(let error):
+                            return (index, PickedPhoto(image: nil, error: error, key: key))
+                        }
                     }
-                }
             }
             
-            for await (index, imageResult) in group {
-                imagesResults[index] = imageResult
+            for await (index, pickedImage) in group {
+                imagesResults[index] = pickedImage
             }
             
             return imagesResults
@@ -87,20 +100,9 @@ struct PhotoPicker: UIViewControllerRepresentable {
 
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
             Task {
-                var selectedImages:[UIImage] = []
                 let imagesResults = await self.parent.fetchImages(results: results)
-                
-                for imageResult in imagesResults {
-                    switch imageResult {
-                    case .success(let image):
-                        selectedImages.append(image)
-                    case .failure:
-                        break
-                    }
-                }
-                
                 await MainActor.run {
-                    self.parent.pickerDone(selectedImages)
+                    self.parent.pickerDone(imagesResults)
                     picker.dismiss(animated: true)
                 }
             }

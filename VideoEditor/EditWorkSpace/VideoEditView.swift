@@ -64,15 +64,19 @@ struct VideoEditView: View {
             saveEditSession()
         }
         .sheet(isPresented: $showPicker) {
-            PhotoPicker { selectedImages in
-                editImages.append(contentsOf: selectedImages)
-                
-                for image in selectedImages {
-                    let path = URL.documentsDirectory.appendingPathComponent(Date().formattedDateString() + ".jpg")
-                    let photo = PhotoItem(url: path,
-                                          image: image,
-                                          duration: CMTime(value: 3, timescale: 1))
-                    editSession.photos.append(photo)
+            PhotoPicker { selectedPhotos in
+                let validPhotos = selectedPhotos.filter { $0.image != nil }
+            
+                for photo in validPhotos {
+                    if let image = photo.image {
+                        editImages.append(image)
+                        let path = PicStorage.shared.cachePathForKey(key: photo.key)
+                        let item = PhotoItem(cacheKey: photo.key,
+                                             url: path,
+                                             image: image,
+                                             duration: CMTime(value: 3, timescale: 1))
+                        editSession.photos.append(item)
+                    }
                 }
                 
                 refreshVideoByTask()
