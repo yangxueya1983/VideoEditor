@@ -30,8 +30,7 @@ struct ContentView: View {
                 List {
                     ForEach(items) { item in
                         NavigationLink {
-                            DetailView(item: item)
-                            //Text("Item at \(item.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                            VideoEditView(editSession: item, needPreLoad: true)
                         } label: {
                             Text(item.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))
                         }

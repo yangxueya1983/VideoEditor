@@ -14,14 +14,16 @@ import SwiftData
 @Model
 class PhotoItem {
     var itemID: UUID = UUID()
-    var url: URL
     var cacheKey: String = ""
     @Transient var image: UIImage = UIImage()
     @Transient var duration: CMTime = .positiveInfinity
     
-    init(cacheKey: String, url: URL, image: UIImage, duration: CMTime) {
+    var url: URL {
+        return PicStorage.shared.cachePathForKey(key: cacheKey)
+    }
+    
+    init(cacheKey: String, image: UIImage, duration: CMTime) {
         self.cacheKey = cacheKey
-        self.url = url
         self.image = image
         self.duration = duration
     }

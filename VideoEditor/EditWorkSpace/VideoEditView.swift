@@ -11,6 +11,7 @@ import SwiftData
 
 struct VideoEditView: View {
     @Environment(\.modelContext) private var modelContext
+    private var needPreLoad = false
     @State private var isAddMode = false
     @State private var showPicker = false
     @State private var editImages: [UIImage] = []
@@ -18,8 +19,9 @@ struct VideoEditView: View {
     
     @State var editSession:EditSession
     
-    init(editSession: EditSession) {
+    init(editSession: EditSession, needPreLoad: Bool = false) {
         self.editSession = editSession
+        self.needPreLoad = needPreLoad
     }
     
     func refreshVideoByTask() {
@@ -36,6 +38,8 @@ struct VideoEditView: View {
             }
         }
     }
+    
+    
     
     func saveEditSession() {
         modelContext.insert(editSession)
@@ -70,9 +74,7 @@ struct VideoEditView: View {
                 for photo in validPhotos {
                     if let image = photo.image {
                         editImages.append(image)
-                        let path = PicStorage.shared.cachePathForKey(key: photo.key)
                         let item = PhotoItem(cacheKey: photo.key,
-                                             url: path,
                                              image: image,
                                              duration: CMTime(value: 3, timescale: 1))
                         editSession.photos.append(item)
@@ -112,6 +114,9 @@ struct VideoEditView: View {
             }
         }
         .task {
+            if needPreLoad {
+                try? await editSession.preLoadAsserts()
+            }
             refreshVideoByTask()
         }
     }

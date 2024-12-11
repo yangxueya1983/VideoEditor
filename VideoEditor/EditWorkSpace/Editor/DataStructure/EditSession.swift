@@ -72,6 +72,17 @@ class EditSession {
         return true
     }
     
+    func preLoadAsserts() async throws {
+        for photo in photos {
+            photo.image = try PicStorage.shared.imageForKey(key: photo.cacheKey)
+            photo.duration = CMTime(value: 3, timescale: 1)
+        }
+        for audio in audios {
+            audio.selectRange = CMTimeRange(start: .zero, duration: .positiveInfinity)
+            audio.positionTime = .zero
+        }
+    }
+    
     func groupPhotoItemsWithoutTransition() -> ([[PhotoItem]], [TransitionCfg]) {
         var groups: [[PhotoItem]] = []
         var trans: [TransitionCfg] = []
@@ -155,16 +166,42 @@ class EditSession {
 }
 
 extension EditSession {
-    static func md5Hash(for string: String) -> String {
-        // Convert the input string to data
-        let inputData = Data(string.utf8)
-        
-        // Compute the MD5 digest
-        let digest = Insecure.MD5.hash(data: inputData)
-        
-        // Convert the digest to a hexadecimal string
-        return digest.map { String(format: "%02hhx", $0) }.joined()
+
+    static func getBundlePhotoItem(bundleUrl: URL) -> PhotoItem? {
+        let key = PicStorage.shared.cacheKeyForIDString(string: bundleUrl.absoluteString)
+        if !PicStorage.shared.containsDataForKey(key:key) {
+            if let image = UIImage(contentsOfFile: bundleUrl.path()) {
+                do {
+                    _ = try PicStorage.shared.save(image: image, key: key)
+                    
+                    let item = PhotoItem(cacheKey:key,
+                                         image: image,
+                                         duration: CMTime(value: 3, timescale: 1))
+                    return item
+                } catch {
+                }
+            }
+        }
+        return nil
     }
+    static func getBundleAudioItem(bundleUrl: URL) -> AudioItem? {
+        let key = PicStorage.shared.cacheKeyForIDString(string: bundleUrl.absoluteString)
+        if !PicStorage.shared.containsDataForKey(key:key) {
+            if let data = try? Data(contentsOf:bundleUrl) {
+                do {
+                    let url = try PicStorage.shared.save(data: data, key: key)
+                    
+                    let item = AudioItem(url: url,
+                                         selectRange: CMTimeRange(start: .zero, duration: .positiveInfinity),
+                                         positionTime: .zero)
+                    return item
+                } catch {
+                }
+            }
+        }
+        return nil
+    }
+    
     static func testSession() -> EditSession {
         let imageSrcURLArray = Array(1...3).map { i in
             let path = Bundle.main.url(forResource: "pic_\(i)", withExtension: "jpg")!
@@ -175,34 +212,18 @@ extension EditSession {
         let editSession = EditSession()
         
         for path in imageSrcURLArray {
-            if let image = UIImage(contentsOfFile: path.path()) {
-                do {
-                    let key = md5Hash(for: path.path())
-                    let url = PicStorage.shared.cachePathForKey(key: key)
-                    if !PicStorage.shared.containsDataForKey(key:key) {
-                        _ = try PicStorage.shared.save(image: image, key: key)
-                    }
-                    
-                    let item = PhotoItem(cacheKey:key,
-                                         url: url,
-                                         image: image,
-                                         duration: CMTime(value: 3, timescale: 1))
-                    editSession.photos.append(item)
-                } catch {
-                    
-                }
+            if let item = getBundlePhotoItem(bundleUrl: path) {
+                editSession.photos.append(item)
             }
         }
         
         
         //audios
-        let audioArr = audioSrcURLArray.map { path in
-            let audioItem = AudioItem(url: path,
-                                      selectRange: CMTimeRange(start: .zero, duration: .invalid),
-                                      positionTime: .zero)
-            return audioItem
+        for path in audioSrcURLArray {
+            if let audioItem = getBundleAudioItem(bundleUrl: path) {
+                editSession.audios.append(audioItem)
+            }
         }
-        editSession.audios = audioArr
         
         
         return editSession

@@ -8,8 +8,19 @@
 import Foundation
 import AVFoundation
 import UIKit
+import CryptoKit
 
 struct CommonUtilities {
+    static func md5Hash(for string: String) -> String {
+        // Convert the input string to data
+        let inputData = Data(string.utf8)
+        
+        // Compute the MD5 digest
+        let digest = Insecure.MD5.hash(data: inputData)
+        
+        // Convert the digest to a hexadecimal string
+        return digest.map { String(format: "%02hhx", $0) }.joined()
+    }
     static func imageWithURL(url: URL) -> UIImage? {
         guard let imageData = try? Data(contentsOf: url) else {
             return nil

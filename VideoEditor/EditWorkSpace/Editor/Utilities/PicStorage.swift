@@ -7,6 +7,7 @@
 import Foundation
 import UIKit
 import SDWebImage
+import CryptoKit
 
 class PicStorage {
     static var shared = PicStorage()
@@ -20,7 +21,14 @@ class PicStorage {
         let exists = fileManager.fileExists(atPath: url.path())
         return exists;
     }
-    
+    func cacheKeyForIDString(string: String) -> String {
+        var finalKey = md5Hash(for: string)
+        let keyURL = URL(string: string)
+        if let ext = keyURL?.pathExtension {
+            finalKey = finalKey + ".\(ext)"
+        }
+        return finalKey
+    }
     func cachePathForKey(key: String) -> URL {
         let path = storagePath.appending(path: key)
         return path
@@ -36,15 +44,16 @@ class PicStorage {
     }
     
     //MARK: Image
-    func imageForKey(key: String) -> UIImage? {
-        if let data = try? retrieve(key: key) {
-            return UIImage(data: data)
+    func imageForKey(key: String) throws -> UIImage {
+        let data = try retrieve(key: key)
+        if let image = UIImage(data: data) {
+            return image
         }
-        return nil
+        throw errorWithDes(description: "Image inited with data is nil")
     }
     
     //MARK: data
-    private func save(data: Data, key: String) throws -> URL {
+    func save(data: Data, key: String) throws -> URL {
         try fileManager.createDirectory(at: storagePath, withIntermediateDirectories: true, attributes: nil)
         
         let path = cachePathForKey(key: key)
@@ -67,5 +76,17 @@ class PicStorage {
     
     private func errorWithDes(description: String) -> NSError {
         NSError(domain: "PicStorage", code: 0, userInfo: [NSLocalizedDescriptionKey : description])
+    }
+    
+    
+    private func md5Hash(for string: String) -> String {
+        // Convert the input string to data
+        let inputData = Data(string.utf8)
+        
+        // Compute the MD5 digest
+        let digest = Insecure.MD5.hash(data: inputData)
+        
+        // Convert the digest to a hexadecimal string
+        return digest.map { String(format: "%02hhx", $0) }.joined()
     }
 }

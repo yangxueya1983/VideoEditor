@@ -25,8 +25,7 @@ final class EditAPITest : XCTestCase {
             return nil
         }
         
-        let duration = CMTime(value: 3, timescale: 1)
-        let photoItem = PhotoItem(url: url, image: UIImage(), duration: duration)
+        let photoItem = EditSession.getBundlePhotoItem(bundleUrl: url)
         return photoItem
     }
     
