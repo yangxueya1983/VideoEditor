@@ -12,7 +12,9 @@ let kDateFormatter = DateFormatter()
 
 
 class VEUtil {
-    
+    static func errorWithDes(description: String) -> NSError {
+        NSError(domain: kErrorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey : description])
+    }
     static func createVideoFromImages(images: [UIImage], outputURL: URL) async -> Error?{
         guard !images.isEmpty else {
             return NSError(domain: kErrorDomain,
@@ -81,26 +83,31 @@ class VEUtil {
         let composition = AVMutableComposition()
         
         // Video track
-         let videoAsset = AVAsset(url: videoURL)
+        let videoAsset = AVAsset(url: videoURL)
         let audioAsset = AVAsset(url: audioURL)
-        let videoDuration = videoAsset.duration
         
         do {
+            let videoDuration = try await videoAsset.load(.duration)
             let videoTracks = try await videoAsset.loadTracks(withMediaType: .video)
             let audioTracks = try await audioAsset.loadTracks(withMediaType: .audio)
             
             if let videoTrack = videoTracks.first, let audioTrack = audioTracks.first {
-                let videoCompositionTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
-                try? videoCompositionTrack?.insertTimeRange(CMTimeRange(start: .zero, duration: videoDuration), of: videoTrack, at: .zero)
+                if let videoCompositionTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) {
+                    try videoCompositionTrack.insertTimeRange(CMTimeRange(start: .zero, duration: videoDuration), of: videoTrack, at: .zero)
+                } else {
+                    return errorWithDes(description:"Could not add video track")
+                }
                 
-                let audioCompositionTrack = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
-                try? audioCompositionTrack?.insertTimeRange(CMTimeRange(start: .zero, duration: videoDuration), of: audioTrack, at: .zero)
+                
+                if let audioCompositionTrack = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) {
+                    try audioCompositionTrack.insertTimeRange(CMTimeRange(start: .zero, duration: videoDuration), of: audioTrack, at: .zero)
+                } else {
+                    return errorWithDes(description: "Could not add audio track")
+                }
                 
                 // Export the composition
                 guard let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality) else {
-                    return NSError(domain: kErrorDomain,
-                                   code: 0,
-                                   userInfo: [NSLocalizedDescriptionKey: "AVAssetExportSession init failed"])
+                    return errorWithDes(description: "AVAssetExportSession init failed")
                 }
                 
                 exportSession.outputURL = outputURL
@@ -119,9 +126,7 @@ class VEUtil {
                     return nil
                 }
             } else {
-                return NSError(domain: kErrorDomain,
-                               code: 0,
-                               userInfo: [NSLocalizedDescriptionKey: "videoTracks or audioTrack load failed"])
+                return errorWithDes(description:"videoTracks or audioTrack load failed")
             }
             
         } catch {

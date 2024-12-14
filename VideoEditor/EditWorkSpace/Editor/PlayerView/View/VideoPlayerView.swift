@@ -29,8 +29,8 @@ struct VideoPlayerView: View {
                     updateDuration()
                 }
                 .onDisappear {
-                    viewModel.pause()
                     removePlayerObserver()
+                    viewModel.pause()
                 }
                 .background(Color.black)
 

@@ -32,12 +32,16 @@ class PhotoItem {
 @Model
 class AudioItem {
     var itemID: UUID = UUID()
-    var url: URL
+    var cacheKey: String = ""
     @Transient var selectRange: CMTimeRange = CMTimeRange(start: .zero, duration: .positiveInfinity)
     @Transient var positionTime: CMTime = .zero
     
-    init(url: URL, selectRange: CMTimeRange, positionTime: CMTime) {
-        self.url = url
+    var url: URL {
+        return PicStorage.shared.cachePathForKey(key: cacheKey)
+    }
+    
+    init(cacheKey: String, selectRange: CMTimeRange, positionTime: CMTime) {
+        self.cacheKey = cacheKey
         self.selectRange = selectRange
         self.positionTime = positionTime
     }

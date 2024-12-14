@@ -67,7 +67,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
         return await withTaskGroup(of: (Int, PickedPhoto).self) { group in
             for (index, result) in results.enumerated() {
                     group.addTask {
-                        let key = result.assetIdentifier ?? UUID().uuidString
+                        let key = result.assetIdentifier ?? UUID().uuidString + ".jpg"
                         let imgResult = await self.loadImage(result: result)
                         
                         switch imgResult {

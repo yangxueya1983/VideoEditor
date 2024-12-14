@@ -21,10 +21,10 @@ class PicStorage {
         let exists = fileManager.fileExists(atPath: url.path())
         return exists;
     }
-    func cacheKeyForIDString(string: String) -> String {
-        var finalKey = md5Hash(for: string)
-        let keyURL = URL(string: string)
-        if let ext = keyURL?.pathExtension {
+    func cacheKeyForURL(url: URL) -> String {
+        var finalKey = md5Hash(for: url.absoluteString)
+        let ext = url.pathExtension
+        if !ext.isEmpty {
             finalKey = finalKey + ".\(ext)"
         }
         return finalKey

@@ -116,6 +116,7 @@ struct VideoEditView: View {
         .task {
             if needPreLoad {
                 try? await editSession.preLoadAsserts()
+                print("preload done")
             }
             refreshVideoByTask()
         }

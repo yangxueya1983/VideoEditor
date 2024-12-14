@@ -167,39 +167,33 @@ class EditSession {
 
 extension EditSession {
 
-    static func getBundlePhotoItem(bundleUrl: URL) -> PhotoItem? {
-        let key = PicStorage.shared.cacheKeyForIDString(string: bundleUrl.absoluteString)
+    static func getBundlePhotoItem(bundleUrl: URL) -> PhotoItem {
+        let key = PicStorage.shared.cacheKeyForURL(url: bundleUrl)
+        let image = UIImage(contentsOfFile: bundleUrl.path())!
+        
+        //cache for recover
         if !PicStorage.shared.containsDataForKey(key:key) {
-            if let image = UIImage(contentsOfFile: bundleUrl.path()) {
-                do {
-                    _ = try PicStorage.shared.save(image: image, key: key)
-                    
-                    let item = PhotoItem(cacheKey:key,
-                                         image: image,
-                                         duration: CMTime(value: 3, timescale: 1))
-                    return item
-                } catch {
-                }
-            }
+            _ = try? PicStorage.shared.save(image: image, key: key)
         }
-        return nil
+        
+        let item = PhotoItem(cacheKey:key,
+                             image: image,
+                             duration: CMTime(value: 3, timescale: 1))
+        return item
     }
-    static func getBundleAudioItem(bundleUrl: URL) -> AudioItem? {
-        let key = PicStorage.shared.cacheKeyForIDString(string: bundleUrl.absoluteString)
+    static func getBundleAudioItem(bundleUrl: URL) -> AudioItem {
+        let key = PicStorage.shared.cacheKeyForURL(url: bundleUrl)
+        let url = PicStorage.shared.cachePathForKey(key: key)
+        
         if !PicStorage.shared.containsDataForKey(key:key) {
             if let data = try? Data(contentsOf:bundleUrl) {
-                do {
-                    let url = try PicStorage.shared.save(data: data, key: key)
-                    
-                    let item = AudioItem(url: url,
-                                         selectRange: CMTimeRange(start: .zero, duration: .positiveInfinity),
-                                         positionTime: .zero)
-                    return item
-                } catch {
-                }
+                _ = try? PicStorage.shared.save(data: data, key: key)
             }
         }
-        return nil
+        let item = AudioItem(cacheKey: key,
+                             selectRange: CMTimeRange(start: .zero, duration: .positiveInfinity),
+                             positionTime: .zero)
+        return item
     }
     
     static func testSession() -> EditSession {
@@ -212,17 +206,15 @@ extension EditSession {
         let editSession = EditSession()
         
         for path in imageSrcURLArray {
-            if let item = getBundlePhotoItem(bundleUrl: path) {
-                editSession.photos.append(item)
-            }
+            let item = getBundlePhotoItem(bundleUrl: path)
+            editSession.photos.append(item)
         }
         
         
         //audios
         for path in audioSrcURLArray {
-            if let audioItem = getBundleAudioItem(bundleUrl: path) {
-                editSession.audios.append(audioItem)
-            }
+            let audioItem = getBundleAudioItem(bundleUrl: path)
+            editSession.audios.append(audioItem)
         }
         
         
