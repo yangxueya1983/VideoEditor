@@ -23,10 +23,17 @@ struct DetailView: View {
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [EditSession]
+    let transitionTypes: [TransitionType] = TransitionType.allCases
     
     var body: some View {
         NavigationSplitView {
             VStack {
+                HStack(spacing: 0, content: {
+                    ForEach(transitionTypes, id: \.self) { type in
+                        TransitionTypeView(type: type)
+                    }
+                })
+                
                 List {
                     ForEach(items) { item in
                         NavigationLink {
@@ -69,6 +76,29 @@ struct ContentView: View {
                 modelContext.delete(items[index])
             }
         }
+    }
+}
+
+struct TransitionTypeView: View {
+    let type:TransitionType
+    var body: some View {
+        VStack(spacing: 3) {
+            Image(uiImage:UIImage(named: type.thumbImgName) ?? UIImage())
+                .resizable()
+                .scaledToFill()
+                .frame(width: 56, height: 56)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .padding()
+                .padding(.bottom, 0)
+            
+            Text(type.rawValue)
+                .font(.system(size: 14))
+                .lineLimit(1)
+                .frame(width: 56)
+            
+            Spacer()
+        }
+        .frame(height: 100)
     }
 }
 

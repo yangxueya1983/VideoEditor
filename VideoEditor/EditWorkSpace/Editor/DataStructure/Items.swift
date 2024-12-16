@@ -55,6 +55,14 @@ enum TransitionType:String, CaseIterable, Identifiable, Codable {
     
     var id:String {self.rawValue}
     
+    var thumbImgName:String {
+        switch self {
+        case .None: return "avatar0"
+        case .Translate_Up: return "avatar1"
+        case .ScaleUp: return "avatar2"
+        case .Opacity: return "avatar3"
+        }
+    }
 }
 
 @Model
