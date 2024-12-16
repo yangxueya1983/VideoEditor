@@ -67,7 +67,6 @@
 		B64BE1352D066A810013C598 /* PicStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64BE1342D066A6F0013C598 /* PicStorage.swift */; };
 		B64BE1382D076C7B0013C598 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = B64BE1372D076C7B0013C598 /* SDWebImage */; };
 		B64BE13A2D076C7B0013C598 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B64BE1392D076C7B0013C598 /* SDWebImageMapKit */; };
-		B64C33CA2D0CB7C300C55B1A /* KSPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = B64C33C92D0CB7C300C55B1A /* KSPlayer */; };
 		B64C33CD2D0CBC4400C55B1A /* VideoPlayerContainer in Frameworks */ = {isa = PBXBuildFile; productRef = B64C33CC2D0CBC4400C55B1A /* VideoPlayerContainer */; };
 		B64C340F2D0CBE3800C55B1A /* sample-20s.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = B64C340E2D0CBE3800C55B1A /* sample-20s.mp4 */; };
 		B64C34102D0CBE3800C55B1A /* sample-20s.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = B64C340E2D0CBE3800C55B1A /* sample-20s.mp4 */; };
@@ -186,7 +185,6 @@
 				B64C33CD2D0CBC4400C55B1A /* VideoPlayerContainer in Frameworks */,
 				B64BE13A2D076C7B0013C598 /* SDWebImageMapKit in Frameworks */,
 				B6EE59122C7D4333006E66B4 /* SwiftyJSON in Frameworks */,
-				B64C33CA2D0CB7C300C55B1A /* KSPlayer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,7 +423,6 @@
 				B6EE59112C7D4333006E66B4 /* SwiftyJSON */,
 				B64BE1372D076C7B0013C598 /* SDWebImage */,
 				B64BE1392D076C7B0013C598 /* SDWebImageMapKit */,
-				B64C33C92D0CB7C300C55B1A /* KSPlayer */,
 				B64C33CC2D0CBC4400C55B1A /* VideoPlayerContainer */,
 			);
 			productName = VideoEditor;
@@ -509,7 +506,6 @@
 			packageReferences = (
 				B6EE590F2C7D3D06006E66B4 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				B64BE1362D076C7B0013C598 /* XCRemoteSwiftPackageReference "SDWebImage" */,
-				B64C33C82D0CB7C300C55B1A /* XCRemoteSwiftPackageReference "KSPlayer" */,
 				B64C33CB2D0CBC4400C55B1A /* XCRemoteSwiftPackageReference "VideoPlayerContainer" */,
 			);
 			productRefGroup = B6B5D0982C580FD600D2FA37 /* Products */;
@@ -979,14 +975,6 @@
 				version = 5.20.0;
 			};
 		};
-		B64C33C82D0CB7C300C55B1A /* XCRemoteSwiftPackageReference "KSPlayer" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kingslay/KSPlayer.git";
-			requirement = {
-				kind = exactVersion;
-				version = 2.3.3;
-			};
-		};
 		B64C33CB2D0CBC4400C55B1A /* XCRemoteSwiftPackageReference "VideoPlayerContainer" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/shayanbo/VideoPlayerContainer.git";
@@ -1015,11 +1003,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B64BE1362D076C7B0013C598 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImageMapKit;
-		};
-		B64C33C92D0CB7C300C55B1A /* KSPlayer */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B64C33C82D0CB7C300C55B1A /* XCRemoteSwiftPackageReference "KSPlayer" */;
-			productName = KSPlayer;
 		};
 		B64C33CC2D0CBC4400C55B1A /* VideoPlayerContainer */ = {
 			isa = XCSwiftPackageProductDependency;

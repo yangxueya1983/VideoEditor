@@ -17,9 +17,7 @@ class VEUtil {
     }
     static func createVideoFromImages(images: [UIImage], outputURL: URL) async -> Error?{
         guard !images.isEmpty else {
-            return NSError(domain: kErrorDomain,
-                           code: 0,
-                           userInfo: [NSLocalizedDescriptionKey: "No images provided"])
+            return errorWithDes(description: "No images provided")
         }
         
         // Set up the video writer

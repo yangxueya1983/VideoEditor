@@ -183,7 +183,7 @@ extension EditSession {
     }
     static func getBundleAudioItem(bundleUrl: URL) -> AudioItem {
         let key = PicStorage.shared.cacheKeyForURL(url: bundleUrl)
-        let url = PicStorage.shared.cachePathForKey(key: key)
+        //let url = PicStorage.shared.cachePathForKey(key: key)
         
         if !PicStorage.shared.containsDataForKey(key:key) {
             if let data = try? Data(contentsOf:bundleUrl) {
