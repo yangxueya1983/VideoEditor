@@ -15,6 +15,7 @@ import SwiftData
 class PhotoItem {
     var itemID: UUID = UUID()
     var cacheKey: String = ""
+    var transitionType: TransitionType = TransitionType.None
     @Transient var image: UIImage = UIImage()
     @Transient var duration: CMTime = .positiveInfinity
     
@@ -22,7 +23,7 @@ class PhotoItem {
         return PicStorage.shared.cachePathForKey(key: cacheKey)
     }
     
-    init(cacheKey: String, image: UIImage, duration: CMTime) {
+    init(cacheKey: String, image: UIImage, duration: CMTime = CMTime(value: 3, timescale: 1), transitionType: TransitionType = TransitionType.None) {
         self.cacheKey = cacheKey
         self.image = image
         self.duration = duration
@@ -52,6 +53,7 @@ enum TransitionType:String, CaseIterable, Identifiable, Codable {
     case Translate_Up = "Translate_Up"
     case ScaleUp = "ScaleUp"
     case Opacity = "Opacity"
+    
     
     var id:String {self.rawValue}
     

@@ -175,10 +175,10 @@ extension EditSession {
         if !PicStorage.shared.containsDataForKey(key:key) {
             _ = try? PicStorage.shared.save(image: image, key: key)
         }
-        
         let item = PhotoItem(cacheKey:key,
                              image: image,
-                             duration: CMTime(value: 3, timescale: 1))
+                             duration: CMTime(value: 3, timescale: 1),
+                             transitionType: TransitionType.ScaleUp)
         return item
     }
     static func getBundleAudioItem(bundleUrl: URL) -> AudioItem {

@@ -23,7 +23,7 @@ struct DetailView: View {
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [EditSession]
-    let transitionTypes: [TransitionType] = TransitionType.allCases
+    let transitionTypes: [TransitionType] = Array(TransitionType.allCases.dropFirst())
     
     var body: some View {
         NavigationSplitView {

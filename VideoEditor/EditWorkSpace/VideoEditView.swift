@@ -13,11 +13,13 @@ struct VideoEditView: View {
     @Environment(\.modelContext) private var modelContext
     private var needPreLoad = false
     @State private var isAddMode = false
-    @State private var showPicker = false
+    @State private var showPhotoPicker = false
+    @State private var showAudioPicker = false
     @State private var editImages: [UIImage] = []
     @StateObject private var playerVM = VideoPlayerViewModel()
     
     @State var editSession:EditSession
+    var transType = TransitionType.None
     
     init(editSession: EditSession, needPreLoad: Bool = false) {
         self.editSession = editSession
@@ -67,21 +69,30 @@ struct VideoEditView: View {
         .onDisappear {
             saveEditSession()
         }
-        .sheet(isPresented: $showPicker) {
+        .sheet(isPresented: $showAudioPicker) {
+            AudioPickerView { selectedAudio in
+                print("selectedAudio \(selectedAudio)")
+            }
+        }
+        .sheet(isPresented: $showPhotoPicker) {
             PhotoPicker { selectedPhotos in
-                let validPhotos = selectedPhotos.filter { $0.image != nil }
-            
-                for photo in validPhotos {
-                    if let image = photo.image {
-                        editImages.append(image)
-                        let item = PhotoItem(cacheKey: photo.key,
-                                             image: image,
-                                             duration: CMTime(value: 3, timescale: 1))
-                        editSession.photos.append(item)
-                    }
-                }
                 
-                refreshVideoByTask()
+                if !selectedPhotos.isEmpty {
+            
+                    let validPhotos = selectedPhotos.filter { $0.image != nil }
+                    
+                    for photo in validPhotos {
+                        if let image = photo.image {
+                            editImages.append(image)
+                            let item = PhotoItem(cacheKey: photo.key,
+                                                 image: image,
+                                                 duration: CMTime(value: 3, timescale: 1))
+                            editSession.photos.append(item)
+                        }
+                    }
+                    
+                    refreshVideoByTask()
+                }
             }
             .ignoresSafeArea()
         }
@@ -100,10 +111,10 @@ struct VideoEditView: View {
             ToolbarItem(placement: .bottomBar) {
                 HStack {
                     Button("Add image") {
-                        showPicker = true
+                        showPhotoPicker = true
                     }
                     Button("Add music") {
-                        
+                        showAudioPicker = true
                     }
                     Button("Add text") {
                         
