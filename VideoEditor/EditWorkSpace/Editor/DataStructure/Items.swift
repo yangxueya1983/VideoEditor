@@ -50,7 +50,7 @@ class AudioItem {
 
 enum TransitionType:String, CaseIterable, Identifiable, Codable {
     case None = "None"
-    case Translate_Up = "Translate_Up"
+    case TranslateUp = "TranslateUp"
     case ScaleUp = "ScaleUp"
     case Opacity = "Opacity"
     
@@ -60,7 +60,7 @@ enum TransitionType:String, CaseIterable, Identifiable, Codable {
     var thumbImgName:String {
         switch self {
         case .None: return "avatar0"
-        case .Translate_Up: return "avatar1"
+        case .TranslateUp: return "avatar1"
         case .ScaleUp: return "avatar2"
         case .Opacity: return "avatar3"
         }

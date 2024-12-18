@@ -17,6 +17,7 @@ struct VideoEditView: View {
     @State private var showAudioPicker = false
     @State private var editImages: [UIImage] = []
     @StateObject private var playerVM = VideoPlayerViewModel()
+    @State private var outputVideoURL: URL?
     
     @State var editSession:EditSession
     var transType = TransitionType.None
@@ -24,6 +25,10 @@ struct VideoEditView: View {
     init(editSession: EditSession, needPreLoad: Bool = false) {
         self.editSession = editSession
         self.needPreLoad = needPreLoad
+        
+        if editSession.photos.isEmpty {
+            _showPhotoPicker = State(initialValue: true)
+        }
     }
     
     func refreshVideoByTask() {
@@ -37,6 +42,7 @@ struct VideoEditView: View {
             let error = await editSession.exportVideo(outputURL: outputURL)
             if error == nil {
                 playerVM.updatePlayer(with: outputURL)
+                self.outputVideoURL = outputURL
             }
         }
     }
@@ -71,7 +77,10 @@ struct VideoEditView: View {
         }
         .sheet(isPresented: $showAudioPicker) {
             AudioPickerView { selectedAudio in
-                print("selectedAudio \(selectedAudio)")
+                if !selectedAudio.isEmpty {
+                    editSession.audios = selectedAudio
+                    refreshVideoByTask()
+                }
             }
         }
         .sheet(isPresented: $showPhotoPicker) {
@@ -102,11 +111,12 @@ struct VideoEditView: View {
                     
                 }
             })
-            ToolbarItem(placement: .topBarTrailing, content: {
-                Button(" Export ") {
-                    
-                }
-            })
+            if let url = self.outputVideoURL {
+                ToolbarItem(placement: .topBarTrailing, content: {
+                    ShareLink(item: url, label: { Text("Share") })
+                })
+            }
+            
             
             ToolbarItem(placement: .bottomBar) {
                 HStack {
@@ -116,10 +126,7 @@ struct VideoEditView: View {
                     Button("Add music") {
                         showAudioPicker = true
                     }
-                    Button("Add text") {
-                        
-                    }
-                    Text("\(editImages.count)")
+                    Text("\(editImages.count) photos")
                 }
                 
             }

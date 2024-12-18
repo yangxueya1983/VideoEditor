@@ -9,7 +9,6 @@ import Foundation
 import AVKit
 class VideoPlayerViewModel: ObservableObject {
     @Published var player: AVPlayer
-    
     init() {
         self.player = AVPlayer()
     }

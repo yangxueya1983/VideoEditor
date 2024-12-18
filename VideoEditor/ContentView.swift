@@ -34,27 +34,35 @@ struct ContentView: View {
                     }
                 })
                 
-                List {
-                    ForEach(items) { item in
-                        NavigationLink {
-                            VideoEditView(editSession: item, needPreLoad: true)
-                        } label: {
-                            Text(item.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))
+                if items.isEmpty {
+                    ContentUnavailableView.init("No items", image: "book.pages.fill", description: Text("Click the plus button to add items"))
+                } else {
+                    List {
+                        ForEach(items) { item in
+                            NavigationLink {
+                                VideoEditView(editSession: item, needPreLoad: true)
+                            } label: {
+                                HStack {
+                                    Text(item.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))
+                                }
+                                
+                            }
                         }
+                        .onDelete(perform: deleteItems)
                     }
-                    .onDelete(perform: deleteItems)
+                    
                 }
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        EditButton()
-                    }
-                    ToolbarItem {
-                        
-                        NavigationLink {
-                            VideoEditView(editSession: EditSession.testSession())
-                        } label: {
-                            Label("Add Item", systemImage: "plus")
-                        }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    EditButton()
+                }
+                ToolbarItem {
+                    
+                    NavigationLink {
+                        VideoEditView(editSession: EditSession())
+                    } label: {
+                        Label("Add Item", systemImage: "plus")
                     }
                 }
             }
@@ -67,6 +75,7 @@ struct ContentView: View {
         withAnimation {
             let newItem = Item(timestamp: Date())
             modelContext.insert(newItem)
+            try? modelContext.save()
         }
     }
 
@@ -74,6 +83,7 @@ struct ContentView: View {
         withAnimation {
             for index in offsets {
                 modelContext.delete(items[index])
+                try? modelContext.save()
             }
         }
     }
@@ -94,7 +104,7 @@ struct TransitionTypeView: View {
             Text(type.rawValue)
                 .font(.system(size: 14))
                 .lineLimit(1)
-                .frame(width: 56)
+                .frame(width: 80)
             
             Spacer()
         }
