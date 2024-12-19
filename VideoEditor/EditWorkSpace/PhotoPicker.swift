@@ -25,8 +25,8 @@ struct PhotoPicker: UIViewControllerRepresentable {
     let pickerDone: (_ selectedPhotos: [PickedPhoto]) -> Void
 
     func makeUIViewController(context: Context) -> PHPickerViewController {
-        var configuration = PHPickerConfiguration()
-        configuration.filter = .images // Only allow images to be picked
+        var configuration = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
+        configuration.filter = PHPickerFilter.images // Only allow images to be picked
         configuration.selectionLimit = 0 // 0 means no limit
 
         let picker = PHPickerViewController(configuration: configuration)
@@ -67,17 +67,25 @@ struct PhotoPicker: UIViewControllerRepresentable {
         return await withTaskGroup(of: (Int, PickedPhoto).self) { group in
             for (index, result) in results.enumerated() {
                     group.addTask {
-                        let key = result.assetIdentifier ?? UUID().uuidString + ".jpg"
-                        let imgResult = await self.loadImage(result: result)
+                        let idString = result.assetIdentifier ?? UUID().uuidString
+                        let key = PicStorage.md5Hash(for: idString) + ".jpg"
                         
-                        switch imgResult {
-                        case .success(let image):
-                            if !PicStorage.shared.containsDataForKey(key: key) {
-                                _ = try? PicStorage.shared.save(image: image, key: key)
+                        if PicStorage.shared.containsDataForKey(key: key) {//get from local
+                            do {
+                                let image = try PicStorage.shared.imageForKey(key: key)
+                                return (index, PickedPhoto(image: image, error: nil, key: key))
+                            } catch {
+                                return (index, PickedPhoto(image: nil, error: error, key: key))
                             }
-                            return (index, PickedPhoto(image: image, error: nil, key: key))
-                        case .failure(let error):
-                            return (index, PickedPhoto(image: nil, error: error, key: key))
+                        } else {//load from lib
+                            let imgResult = await self.loadImage(result: result)
+                            switch imgResult {
+                            case .success(let image):
+                                _ = try? PicStorage.shared.save(image: image, key: key)
+                                return (index, PickedPhoto(image: image, error: nil, key: key))
+                            case .failure(let error):
+                                return (index, PickedPhoto(image: nil, error: error, key: key))
+                            }
                         }
                     }
             }

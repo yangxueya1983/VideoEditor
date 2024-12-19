@@ -22,7 +22,7 @@ class PicStorage {
         return exists;
     }
     func cacheKeyForURL(url: URL) -> String {
-        var finalKey = md5Hash(for: url.absoluteString)
+        var finalKey = PicStorage.md5Hash(for: url.absoluteString)
         let ext = url.pathExtension
         if !ext.isEmpty {
             finalKey = finalKey + ".\(ext)"
@@ -79,7 +79,7 @@ class PicStorage {
     }
     
     
-    private func md5Hash(for string: String) -> String {
+    static func md5Hash(for string: String) -> String {
         // Convert the input string to data
         let inputData = Data(string.utf8)
         
