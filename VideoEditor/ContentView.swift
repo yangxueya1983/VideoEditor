@@ -30,7 +30,11 @@ struct ContentView: View {
             VStack {
                 HStack(spacing: 0, content: {
                     ForEach(transitionTypes, id: \.self) { type in
-                        TransitionTypeView(type: type)
+                        NavigationLink {
+                            VideoEditView(transitionType: type)
+                        } label: {
+                            TransitionTypeView(type: type)
+                        }
                     }
                 })
                 
@@ -40,7 +44,7 @@ struct ContentView: View {
                     List {
                         ForEach(items) { item in
                             NavigationLink {
-                                VideoEditView(editSession: item, needPreLoad: true)
+                                VideoEditView(storageSession: item)
                             } label: {
                                 HStack {
                                     Text(item.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))
@@ -60,7 +64,7 @@ struct ContentView: View {
                 ToolbarItem {
                     
                     NavigationLink {
-                        VideoEditView(editSession: EditSession())
+                        VideoEditView()
                     } label: {
                         Label("Add Item", systemImage: "plus")
                     }

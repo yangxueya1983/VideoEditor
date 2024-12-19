@@ -12,7 +12,7 @@ import SwiftData
 struct VideoEditView: View {
     @Environment(\.modelContext) private var modelContext
     private var needPreLoad = false
-    @State private var isAddMode = false
+    
     @State private var showPhotoPicker = false
     @State private var showAudioPicker = false
     @State private var editImages: [UIImage] = []
@@ -22,13 +22,27 @@ struct VideoEditView: View {
     @State var editSession:EditSession
     var transType = TransitionType.None
     
-    init(editSession: EditSession, needPreLoad: Bool = false) {
+    // Primary initializer
+    private init(editSession: EditSession, needPreLoad: Bool = false) {
         self.editSession = editSession
         self.needPreLoad = needPreLoad
         
         if editSession.photos.isEmpty {
             _showPhotoPicker = State(initialValue: true)
         }
+    }
+    
+    init (storageSession:EditSession) {
+        self.init(editSession: storageSession, needPreLoad: true)
+    }
+    
+    init(transitionType: TransitionType) {
+        self.init(editSession: EditSession())
+        transType = transitionType
+    }
+    
+    init() {
+        self.init(transitionType: .None)
     }
     
     func refreshVideoByTask() {
