@@ -106,7 +106,6 @@ struct VideoEditView: View {
                     
                     for photo in validPhotos {
                         if let image = photo.image {
-                            editImages.append(image)
                             let item = PhotoItem(cacheKey: photo.key,
                                                  image: image,
                                                  duration: CMTime(value: 3, timescale: 1))
