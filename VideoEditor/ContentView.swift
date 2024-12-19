@@ -47,6 +47,15 @@ struct ContentView: View {
                                 VideoEditView(storageSession: item)
                             } label: {
                                 HStack {
+                                    AsyncImage(url: item.photos.first?.url ?? Bundle.main.url(forResource: "pic_1", withExtension: "jpg")!) { image in
+                                        image.resizable()
+                                    } placeholder: {
+                                        Color.red
+                                    }
+                                    .scaledToFill()
+                                    .frame(width: 60, height: 60)
+                                    .clipShape(.rect(cornerRadius: 8))
+                                        
                                     Text(item.createdAt, format: Date.FormatStyle(date: .numeric, time: .standard))
                                 }
                                 
