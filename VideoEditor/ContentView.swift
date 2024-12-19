@@ -8,18 +8,6 @@
 import SwiftUI
 import SwiftData
 
-
-struct DetailView: View {
-    var item: EditSession
-
-    var body: some View {
-        Text("Item at \(Date(), format: Date.FormatStyle(date: .numeric, time: .standard))")
-            .task {
-                item.createdAt = Date()
-            }
-    }
-}
-
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [EditSession]

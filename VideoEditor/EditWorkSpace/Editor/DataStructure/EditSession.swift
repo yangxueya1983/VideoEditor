@@ -133,6 +133,7 @@ class EditSession {
         return nil
     }
     
+    //TODO: yuyang create the video
     func exportVideo(outputURL: URL) async -> Error? {
         let videoURL = FileManager.default.temporaryDirectory.appendingPathComponent(Date().formattedDateString() + "video.mp4")
         let editImages = photos.map{$0.image}
