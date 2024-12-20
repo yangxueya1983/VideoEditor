@@ -1,5 +1,10 @@
 # My jouney to return to work
 
+A cap-cut like app that transforms photos into videos, applying smooth transitions between photo clips in Swift
+
+Use SwiftData to store edition work space
+Use AVfoundation to make video
+
 ## Screenshots
 
 <div style="display: flex; justify-content: space-around;">
