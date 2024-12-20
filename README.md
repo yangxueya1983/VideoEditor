@@ -3,6 +3,7 @@
 A cap-cut like app that transforms photos into videos, applying smooth transitions between photo clips in Swift
 
 Use SwiftData to store edition work space
+
 Use AVfoundation to make video
 
 ## Screenshots
