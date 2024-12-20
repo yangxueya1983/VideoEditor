@@ -1,6 +1,4 @@
-# My jouney to return to work
-
-A cap-cut like app that transforms photos into videos, applying smooth transitions between photo clips in Swift.
+#A cap-cut like app that transforms photos into videos, applying smooth transitions between photo clips in Swift.
 
 Use SwiftData to store the editing workspace.
 
