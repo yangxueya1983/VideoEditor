@@ -2,6 +2,8 @@
 
 ## Screenshots
 
+<img src="ScreenShots/homepage.png" alt="MainPage" width="200">
+
 ![MainPage](ScreenShots/homepage.png)
 
 ![EditingWorkSpace](ScreenShots/editing.png)
