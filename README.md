@@ -3,11 +3,6 @@
 ## Screenshots
 
 <img src="ScreenShots/homepage.png" alt="MainPage" width="200">
-
-![MainPage](ScreenShots/homepage.png)
-
-![EditingWorkSpace](ScreenShots/editing.png)
-
-![ShareView](ScreenShots/share.png)
-
-![Add Audio](ScreenShots/add_audio.png)
+<img src="ScreenShots/editing.png" alt="EditingWorkSpace" width="200">
+<img src="ScreenShots/share.png" alt="ShareView" width="200">
+<img src="ScreenShots/add_audio.png" alt="Add Audio" width="200">
