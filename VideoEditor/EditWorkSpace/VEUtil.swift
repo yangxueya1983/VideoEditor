@@ -75,7 +75,28 @@ class VEUtil {
                                 bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(buffer),
                                 space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue)
         
-        context?.draw(image.cgImage!, in: CGRect(x: 0, y: 0, width: videoSize.width, height: videoSize.height))
+        let imageSize = image.size
+        let transform : CGAffineTransform = .identity
+        let transformSize = imageSize.applying(transform)
+        
+        let targetAR = videoSize.width / videoSize.height
+        let sourceAR = abs(transformSize.width / transformSize.height)
+        
+        var scale: CGFloat = 0
+        if sourceAR > targetAR {
+            scale = videoSize.width / abs(transformSize.width)
+        } else {
+            scale = videoSize.height / abs(transformSize.height)
+        }
+        
+        let scaleWidth = scale * transformSize.width
+        let scaleHeight = scale * transformSize.height
+        let dx = (videoSize.width - scaleWidth) / 2.0
+        let dy = (videoSize.height - scaleHeight) / 2.0
+        
+        let drawRect = CGRectMake(dx, dy, scaleWidth, scaleHeight)
+        
+        context?.draw(image.cgImage!, in: drawRect)
         CVPixelBufferUnlockBaseAddress(buffer, [])
         
         while !writerInput.isReadyForMoreMediaData {}
@@ -278,12 +299,12 @@ class VEUtil {
             return errors.first(where:  {$0.1 != nil})?.1
         }
         
-        var urls = paths.map{URL(fileURLWithPath: $0)}
+        let urls = paths.map{URL(fileURLWithPath: $0)}
         let transitionTime = CMTimeMakeWithSeconds(0.5, preferredTimescale: Int32(NSEC_PER_SEC))
         let frameDuration = CMTimeMake(value: 1, timescale: 30)
         
         do {
-            let (comp, videoComp, duration) = try await concatenateVideos(videoURLS: urls, durations: durations, tranTypes: transTypes, transitionDuration: transitionTime, videoSize: size, frameDuration: frameDuration, customComposeClass: ExportCustomVideoCompositor.self, outputURL: outputURL)
+            let (comp, videoComp, _) = try await concatenateVideos(videoURLS: urls, durations: durations, tranTypes: transTypes, transitionDuration: transitionTime, videoSize: size, frameDuration: frameDuration, customComposeClass: ExportCustomVideoCompositor.self, outputURL: outputURL)
             
             // export
             guard let exportSession = AVAssetExportSession(asset: comp, presetName: AVAssetExportPresetHighestQuality) else {

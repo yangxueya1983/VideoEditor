@@ -25,8 +25,8 @@ class EditSession {
          photos: [PhotoItem] = [],
          audios: [AudioItem] = [],
          transitions: [TransitionType] = [], // the last transition type is ignored
-         videoWidth: Int = 1080,
-         videoHeight: Int = 1920) {
+         videoWidth: Int = 1920,
+         videoHeight: Int = 1080) {
         self.id = id
         self.createdAt = .now
         self.photos = photos
@@ -38,8 +38,8 @@ class EditSession {
         assert(photos.count == transitions.count)
     }
 
-    var videoWidth: Int = 1080
-    var videoHeight: Int = 1920
+    var videoWidth: Int = 1920
+    var videoHeight: Int = 1080
     
     func loadWithImages(images:[UIImage]) -> Bool {
         return true
