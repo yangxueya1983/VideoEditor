@@ -48,24 +48,24 @@ class AudioItem {
     }
 }
 
-enum TransitionType:String, CaseIterable, Identifiable, Codable {
-    case None = "None"
-    case TranslateUp = "TranslateUp"
-    case ScaleUp = "ScaleUp"
-    case Opacity = "Opacity"
-    
-    
-    var id:String {self.rawValue}
-    
-    var thumbImgName:String {
-        switch self {
-        case .None: return "avatar0"
-        case .TranslateUp: return "avatar1"
-        case .ScaleUp: return "avatar2"
-        case .Opacity: return "avatar3"
-        }
-    }
-}
+//enum TransitionType:String, CaseIterable, Identifiable, Codable {
+//    case None = "None"
+//    case TranslateUp = "TranslateUp"
+//    case ScaleUp = "ScaleUp"
+//    case Opacity = "Opacity"
+//    
+//    
+//    var id:String {self.rawValue}
+//    
+//    var thumbImgName:String {
+//        switch self {
+//        case .None: return "avatar0"
+//        case .TranslateUp: return "avatar1"
+//        case .ScaleUp: return "avatar2"
+//        case .Opacity: return "avatar3"
+//        }
+//    }
+//}
 
 @Model
 class TransitionCfg {

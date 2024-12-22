@@ -62,6 +62,7 @@
 		2677D12F2C70FF9800115565 /* pic_6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FE2C70FF9800115565 /* pic_6.jpg */; };
 		2677D1302C70FF9800115565 /* pic_6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FE2C70FF9800115565 /* pic_6.jpg */; };
 		2677D1312C70FF9800115565 /* pic_6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2677D0FE2C70FF9800115565 /* pic_6.jpg */; };
+		26AA97592D1785DB0063B342 /* Transitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AA97582D1785D60063B342 /* Transitions.swift */; };
 		26CC87CE2C7262DB0025A134 /* CustomVideoCompositor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC87CD2C7262DB0025A134 /* CustomVideoCompositor.swift */; };
 		26CC87D02C7266500025A134 /* CustomTransitionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC87CF2C7266500025A134 /* CustomTransitionTest.swift */; };
 		B64BE1352D066A810013C598 /* PicStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64BE1342D066A6F0013C598 /* PicStorage.swift */; };
@@ -142,6 +143,7 @@
 		2677D0FC2C70FF9800115565 /* pic_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_2.jpg; sourceTree = "<group>"; };
 		2677D0FD2C70FF9800115565 /* pic_3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_3.jpg; sourceTree = "<group>"; };
 		2677D0FE2C70FF9800115565 /* pic_6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic_6.jpg; sourceTree = "<group>"; };
+		26AA97582D1785D60063B342 /* Transitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transitions.swift; sourceTree = "<group>"; };
 		26CC87CD2C7262DB0025A134 /* CustomVideoCompositor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoCompositor.swift; sourceTree = "<group>"; };
 		26CC87CF2C7266500025A134 /* CustomTransitionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransitionTest.swift; sourceTree = "<group>"; };
 		B64BE1342D066A6F0013C598 /* PicStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicStorage.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 		2677D0E52C69885800115565 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				26AA97582D1785D60063B342 /* Transitions.swift */,
 				2677D0E42C69885800115565 /* SessionUtilties.swift */,
 				B64BE1342D066A6F0013C598 /* PicStorage.swift */,
 				26CC87CD2C7262DB0025A134 /* CustomVideoCompositor.swift */,
@@ -623,6 +626,7 @@
 				B6E44C2E2C7951C300A5B59C /* FileManager.swift in Sources */,
 				B679F18A2C7FD1DB00A061C8 /* Extension.swift in Sources */,
 				2677D0E72C69885800115565 /* EditSession.swift in Sources */,
+				26AA97592D1785DB0063B342 /* Transitions.swift in Sources */,
 				B679F1952C88CDB800A061C8 /* ClipView.swift in Sources */,
 				B66CB2C12CD4047700C8CF0B /* EditModels.swift in Sources */,
 				B66CB2C22CD4047700C8CF0B /* ClipsEditingVM.swift in Sources */,

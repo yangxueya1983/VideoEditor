@@ -19,21 +19,23 @@ class EditSession {
 
     var photos: [PhotoItem] = []
     var audios: [AudioItem] = []
-    var transCfgs: [TransitionCfg] = []
+    var transTypes: [TransitionType] = []
     
     init(id: UUID = UUID(),
          photos: [PhotoItem] = [],
          audios: [AudioItem] = [],
-         transitions: [TransitionCfg] = [],
+         transitions: [TransitionType] = [], // the last transition type is ignored
          videoWidth: Int = 1080,
          videoHeight: Int = 1920) {
         self.id = id
         self.createdAt = .now
         self.photos = photos
         self.audios = audios
-        self.transCfgs = transitions
+        self.transTypes = transitions
         self.videoWidth = videoWidth
         self.videoHeight = videoHeight
+        
+        assert(photos.count == transitions.count)
     }
 
     var videoWidth: Int = 1080
@@ -47,19 +49,19 @@ class EditSession {
         return photos.count > 0
     }
     
-    func hasTransition() -> Bool {
-        if transCfgs.isEmpty {
-            return false
-        }
-        
-        for t in transCfgs {
-            if t.type != .None {
-                return true
-            }
-        }
-
-        return false
-    }
+//    func hasTransition() -> Bool {
+//        if transCfgs.isEmpty {
+//            return false
+//        }
+//        
+//        for t in transCfgs {
+//            if t.type != .None {
+//                return true
+//            }
+//        }
+//
+//        return false
+//    }
     
     func isValid() -> Bool {
         return true
@@ -83,55 +85,55 @@ class EditSession {
         }
     }
     
-    func groupPhotoItemsWithoutTransition() -> ([[PhotoItem]], [TransitionCfg]) {
-        var groups: [[PhotoItem]] = []
-        var trans: [TransitionCfg] = []
-        
-        var oneGroup: [PhotoItem] = []
-        for itm in photos {
-            if oneGroup.isEmpty {
-                oneGroup.append(itm)
-                continue
-            }
-            
-            assert(!oneGroup.isEmpty)
-            let prvItem = oneGroup.last!
-            let cfg = findTransitionType(item1: prvItem, item2: itm)
-            guard let cfg = cfg else {
-                assert(false, "the transition type can not be found")
-            }
-            
-            if cfg.type == .None {
-                oneGroup.append(itm)
-            } else {
-                groups.append(oneGroup)
-                oneGroup.removeAll()
-                trans.append(cfg)
-                oneGroup.append(itm)
-            }
-        }
-        
-        if !oneGroup.isEmpty {
-            groups.append(oneGroup)
-            oneGroup.removeAll()
-        }
-        
-        return (groups, trans)
-    }
+//    func groupPhotoItemsWithoutTransition() -> ([[PhotoItem]], [TransitionCfg]) {
+//        var groups: [[PhotoItem]] = []
+//        var trans: [TransitionCfg] = []
+//        
+//        var oneGroup: [PhotoItem] = []
+//        for itm in photos {
+//            if oneGroup.isEmpty {
+//                oneGroup.append(itm)
+//                continue
+//            }
+//            
+//            assert(!oneGroup.isEmpty)
+//            let prvItem = oneGroup.last!
+//            let cfg = findTransitionType(item1: prvItem, item2: itm)
+//            guard let cfg = cfg else {
+//                assert(false, "the transition type can not be found")
+//            }
+//            
+//            if cfg.type == .None {
+//                oneGroup.append(itm)
+//            } else {
+//                groups.append(oneGroup)
+//                oneGroup.removeAll()
+//                trans.append(cfg)
+//                oneGroup.append(itm)
+//            }
+//        }
+//        
+//        if !oneGroup.isEmpty {
+//            groups.append(oneGroup)
+//            oneGroup.removeAll()
+//        }
+//        
+//        return (groups, trans)
+//    }
     
     
-    private func findTransitionType(item1: PhotoItem, item2: PhotoItem) -> TransitionCfg? {
-        let id1 = item1.itemID
-        let id2 = item2.itemID
-        
-        for itm in transCfgs {
-            if itm.item1Id == id1 && itm.item2Id == id2 {
-                return itm
-            }
-        }
-        
-        return nil
-    }
+//    private func findTransitionType(item1: PhotoItem, item2: PhotoItem) -> TransitionCfg? {
+//        let id1 = item1.itemID
+//        let id2 = item2.itemID
+//        
+//        for itm in transCfgs {
+//            if itm.item1Id == id1 && itm.item2Id == id2 {
+//                return itm
+//            }
+//        }
+//        
+//        return nil
+//    }
     
     //TODO: yuyang create the video
     func exportVideo(outputURL: URL) async -> Error? {
@@ -179,7 +181,7 @@ extension EditSession {
         let item = PhotoItem(cacheKey:key,
                              image: image,
                              duration: CMTime(value: 3, timescale: 1),
-                             transitionType: TransitionType.ScaleUp)
+                             transitionType: TransitionType.None)
         return item
     }
     static func getBundleAudioItem(bundleUrl: URL) -> AudioItem {
