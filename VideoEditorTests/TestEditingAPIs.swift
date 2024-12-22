@@ -88,6 +88,39 @@ final class EditAPITest : XCTestCase {
 //    }
     
     func testSession() async throws {
+        // create a session
         
+        let getImage = { (name: String, ext: String) -> UIImage? in
+            guard let url = Bundle.main.url(forResource: name, withExtension: ext) else {
+                return nil
+            }
+            
+            let image = UIImage(contentsOfFile: url.path())
+            return image
+        }
+        
+        let image1 = getImage("pic_1", "jpg")!
+        let image2 = getImage("pic_2", "jpg")!
+        let image3 = getImage("pic_3", "jpg")!
+        
+        let createPhotoItem = { (name: String, image: UIImage) -> PhotoItem in
+            let item = PhotoItem(cacheKey: name, image: image)
+            return item
+        }
+        
+        let photoItems : [PhotoItem] = [createPhotoItem("pic_1", image1), createPhotoItem("pic_2", image2), createPhotoItem("pic_3", image3)]
+        
+        let transitions: [TransitionType] = [.Dissolve, .MoveUp, .MoveDown]
+        
+        let session = EditSession(photos: photoItems, transitions: transitions)
+        let outputPath = NSTemporaryDirectory().appending("output.mp4")
+        print("will export to \(outputPath)")
+        if FileManager.default.fileExists(atPath: outputPath) {
+            try FileManager.default.removeItem(atPath: outputPath)
+        }
+        let outURL = URL(fileURLWithPath: outputPath)
+        
+        let error = await VEUtil.createVideoForSession(sess: session, outputURL:outURL)
+        print(error.debugDescription)
     }
 }
