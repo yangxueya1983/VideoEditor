@@ -199,7 +199,7 @@ class VEUtil {
             // all time ranges should be considered
             let hasPreviousTrack = idx > 0
             let hasNextTrack = idx < loadVideoTracks.count - 1
-            var transitionType: TransitionType = tranTypes[idx]
+            var transitionType: TransitionType = idx > 0 ? tranTypes[idx-1] : .None
             
             var singleTrackStartTime = curInsertTime
             var singleTrackDuration = timeRange.duration
