@@ -184,13 +184,13 @@ enum TransitionType : String, Codable, CaseIterable, Identifiable {
         switch self {
         case .None: return "avatar0"
         case .Dissolve: return "avatar1"
-        case .CircleEnlarge: return "vaatar2"
-        case .MoveLeft: return "vaatar2"
-        case .MoveRight: return "avatar1"
-        case .MoveUp: return "avatar2"
-        case .MoveDown: return "avatar1"
-        case .PageCurl: return "avatar2"
-        case .RadiusRotate: return "avatar1"
+        case .CircleEnlarge: return "avatar2"
+        case .MoveLeft: return "avatar3"
+        case .MoveRight: return "avatar0"
+        case .MoveUp: return "avatar1"
+        case .MoveDown: return "avatar2"
+        case .PageCurl: return "avatar3"
+        case .RadiusRotate: return "avatar0"
         }
     }
 }

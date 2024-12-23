@@ -16,15 +16,17 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             VStack {
-                HStack(spacing: 0, content: {
-                    ForEach(transitionTypes, id: \.self) { type in
-                        NavigationLink {
-                            VideoEditView(transitionType: type)
-                        } label: {
-                            TransitionTypeView(type: type)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 0, content: {
+                        ForEach(transitionTypes, id: \.self) { type in
+                            NavigationLink {
+                                VideoEditView(transitionType: type)
+                            } label: {
+                                TransitionTypeView(type: type)
+                            }
                         }
-                    }
-                })
+                    })
+                }
                 
                 if items.isEmpty {
                     ContentUnavailableView.init("No items", image: "book.pages.fill", description: Text("Click the plus button to add items"))
