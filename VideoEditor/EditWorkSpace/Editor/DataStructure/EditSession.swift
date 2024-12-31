@@ -19,27 +19,26 @@ class EditSession {
 
     var photos: [PhotoItem] = []
     var audios: [AudioItem] = []
-    var transTypes: [TransitionType] = []
     
     init(id: UUID = UUID(),
          photos: [PhotoItem] = [],
          audios: [AudioItem] = [],
-         transitions: [TransitionType] = [], // the last transition type is ignored
          videoWidth: Int = 1920,
          videoHeight: Int = 1080) {
         self.id = id
         self.createdAt = .now
         self.photos = photos
         self.audios = audios
-        self.transTypes = transitions
         self.videoWidth = videoWidth
         self.videoHeight = videoHeight
-        
-        assert(photos.count == transitions.count)
     }
 
     var videoWidth: Int = 1920
     var videoHeight: Int = 1080
+    
+    var transTypes: [TransitionType] {
+        return self.photos.map { $0.transitionType }
+    }
     
     func loadWithImages(images:[UIImage]) -> Bool {
         return true
@@ -136,36 +135,44 @@ class EditSession {
 //    }
     
     //TODO: yuyang create the video
+    
+    
     func exportVideo(outputURL: URL) async -> Error? {
         let videoURL = FileManager.default.temporaryDirectory.appendingPathComponent(Date().formattedDateString() + "video.mp4")
-        let editImages = photos.map{$0.image}
-        let error = await VEUtil.createVideoFromImages(images: editImages, outputURL: videoURL)
-        
-        if let error {
-            return error
-        } else {
-            print("Video created successfully at \(videoURL)")
-            if audios.count > 0 {
-                if let audioURL = audios.first?.url {
-                    let error = await VEUtil.addAudioToVideo(videoURL: videoURL, audioURL: audioURL, outputURL: outputURL)
-                    if let error {
-                        return error
-                    }
-                    print("Video added Audio successfully at \(outputURL)")
-                } else {
-                    return NSError(domain: "", code: 0, userInfo: ["error" : "Resource not found."])
-                }
-            } else {
-                do {
-                    try FileManager.default.moveItem(at: videoURL, to: outputURL)
-                } catch {
-                    return error
-                }
-            }
-            
-        }
-        return nil
+        let error = await VEUtil.createVideoForSession(sess: self, outputURL:videoURL)
+        print(error.debugDescription)
+        return error
     }
+//    {
+//        let videoURL = FileManager.default.temporaryDirectory.appendingPathComponent(Date().formattedDateString() + "video.mp4")
+//        let editImages = photos.map{$0.image}
+//        let error = await VEUtil.createVideoFromImages(images: editImages, outputURL: videoURL)
+//        
+//        if let error {
+//            return error
+//        } else {
+//            print("Video created successfully at \(videoURL)")
+//            if audios.count > 0 {
+//                if let audioURL = audios.first?.url {
+//                    let error = await VEUtil.addAudioToVideo(videoURL: videoURL, audioURL: audioURL, outputURL: outputURL)
+//                    if let error {
+//                        return error
+//                    }
+//                    print("Video added Audio successfully at \(outputURL)")
+//                } else {
+//                    return NSError(domain: "", code: 0, userInfo: ["error" : "Resource not found."])
+//                }
+//            } else {
+//                do {
+//                    try FileManager.default.moveItem(at: videoURL, to: outputURL)
+//                } catch {
+//                    return error
+//                }
+//            }
+//            
+//        }
+//        return nil
+//    }
 }
 
 extension EditSession {

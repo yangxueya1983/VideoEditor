@@ -1,5 +1,5 @@
 {
-  "originHash" : "37bb4f781d058eede70a5dcc1c63076a014a5dd8dd7b2687568e81a5313bfa67",
+  "originHash" : "a5e87578e1bb470b34c289733a0a9215f93e12a4cde65a10e8cc7c08cac523b5",
   "pins" : [
     {
       "identity" : "sdwebimage",
@@ -17,15 +17,6 @@
       "state" : {
         "revision" : "af76cf3ef710b6ca5f8c05f3a31307d44a3c5828",
         "version" : "5.0.2"
-      }
-    },
-    {
-      "identity" : "videoplayercontainer",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/shayanbo/VideoPlayerContainer.git",
-      "state" : {
-        "revision" : "67a89211d919b0a65bc447915fdb8dbe105b5a6b",
-        "version" : "1.0.1"
       }
     }
   ],

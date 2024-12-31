@@ -13,9 +13,9 @@ struct VideoPlayerView: View {
     
     @State private var isPlaying: Bool = false
     @State private var currentTime: Double = 0.0
-    @State private var duration: Float64 = 0.0
+    @State private var duration: Float64 = 1.0
     @State private var playerObserver: Any?
-    
+    @State private var isDragging = false
 
 
     var body: some View {
@@ -43,8 +43,19 @@ struct VideoPlayerView: View {
                 }
                 .padding()
 
-                Slider(value: $currentTime, in: 0...duration, onEditingChanged: sliderEditingChanged)
-                    .padding()
+                Slider(value: $currentTime, in: 0...duration, step: 1, onEditingChanged: { editing in
+                    if editing {// Start dragging
+                        isDragging = true
+                        viewModel.player.pause() // Pause during slider drag
+                    } else {// End dragging
+                        isDragging = false
+                        let newTime = CMTime(seconds: currentTime, preferredTimescale: 600)
+                        viewModel.player.seek(to: newTime) { _ in
+                            viewModel.player.play() // Resume playback
+                        }
+                    }
+                })
+                .padding()
 
                 Text(currentTime.formattedTime)
                     .padding(.trailing)
@@ -79,19 +90,6 @@ struct VideoPlayerView: View {
         isPlaying.toggle()
     }
 
-    // Slider editing changed
-    private func sliderEditingChanged(editingStarted: Bool) {
-        if editingStarted {
-            viewModel.pause()
-        } else {
-            let newTime = CMTime(seconds: currentTime, preferredTimescale: 600)
-            viewModel.player.seek(to: newTime) { _ in
-                if isPlaying {
-                    viewModel.play()
-                }
-            }
-        }
-    }
 
     // Setup player observer for time changes
     private func setupPlayerObserver() {

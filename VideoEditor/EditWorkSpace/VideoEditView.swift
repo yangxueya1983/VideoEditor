@@ -108,7 +108,8 @@ struct VideoEditView: View {
                         if let image = photo.image {
                             let item = PhotoItem(cacheKey: photo.key,
                                                  image: image,
-                                                 duration: CMTime(value: 3, timescale: 1))
+                                                 duration: CMTime(value: 3, timescale: 1),
+                                                 transitionType: transType)
                             editSession.photos.append(item)
                         }
                     }
