@@ -102,6 +102,7 @@ final class EditAPITest : XCTestCase {
         let image1 = getImage("pic_1", "jpg")!
         let image2 = getImage("pic_2", "jpg")!
         let image3 = getImage("pic_3", "jpg")!
+        let transitions: [TransitionType] = [.Dissolve, .MoveUp, .MoveDown]
         
         let createPhotoItem = { (name: String, image: UIImage) -> PhotoItem in
             let item = PhotoItem(cacheKey: name, image: image)
@@ -110,9 +111,12 @@ final class EditAPITest : XCTestCase {
         
         let photoItems : [PhotoItem] = [createPhotoItem("pic_1", image1), createPhotoItem("pic_2", image2), createPhotoItem("pic_3", image3)]
         
-        let transitions: [TransitionType] = [.Dissolve, .MoveUp, .MoveDown]
+        for (index, photoItem) in photoItems.enumerated() {
+            photoItem.transitionType = transitions[index]
+        }
         
-        let session = EditSession(photos: photoItems, transitions: transitions)
+        
+        let session = EditSession(photos: photoItems)
         let outputPath = NSTemporaryDirectory().appending("output.mp4")
         print("will export to \(outputPath)")
         if FileManager.default.fileExists(atPath: outputPath) {
