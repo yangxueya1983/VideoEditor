@@ -38,7 +38,7 @@ struct VideoEditView: View {
     
     init(transitionType: TransitionType) {
         self.init(editSession: EditSession())
-        transType = transitionType
+        self.transType = transitionType
     }
     
     init() {
@@ -50,14 +50,18 @@ struct VideoEditView: View {
             //load image
             editImages = editSession.photos.map{$0.image}
             
-            
-            //make the video
-            let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent(Date().formattedDateString() + ".mp4")
-            let error = await editSession.exportVideo(outputURL: outputURL)
-            if error == nil {
-                playerVM.updatePlayer(with: outputURL)
-                self.outputVideoURL = outputURL
+            if editImages.isEmpty {
+                
+            } else {
+                //make the video
+                let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent(Date().formattedDateString() + ".mp4")
+                let error = await editSession.exportVideo(outputURL: outputURL)
+                if error == nil {
+                    playerVM.updatePlayer(with: outputURL)
+                    self.outputVideoURL = outputURL
+                }
             }
+
         }
     }
     

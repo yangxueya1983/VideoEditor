@@ -138,8 +138,7 @@ class EditSession {
     
     
     func exportVideo(outputURL: URL) async -> Error? {
-        let videoURL = FileManager.default.temporaryDirectory.appendingPathComponent(Date().formattedDateString() + "video.mp4")
-        let error = await VEUtil.createVideoForSession(sess: self, outputURL:videoURL)
+        let error = await VEUtil.createVideoForSession(sess: self, outputURL:outputURL)
         print(error.debugDescription)
         return error
     }

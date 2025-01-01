@@ -27,6 +27,7 @@ class PhotoItem {
         self.cacheKey = cacheKey
         self.image = image
         self.duration = duration
+        self.transitionType = transitionType
     }
 }
 
