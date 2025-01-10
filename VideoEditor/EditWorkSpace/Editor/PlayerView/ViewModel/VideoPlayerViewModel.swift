@@ -7,20 +7,51 @@
 
 import Foundation
 import AVKit
+import SwiftUI
+
 class VideoPlayerViewModel: ObservableObject {
     @Published var player: AVPlayer
+    @Published var progress: Double = 0.0
+    
+    private var playerObserver: Any?
+    
+    var playProgress: Binding<Double> {
+        Binding {
+            self.progress
+        } set: {
+            self.progress = $0
+        }
+    }
+    
     init() {
         self.player = AVPlayer()
     }
+    
+    deinit {
+        if let playerObserver {
+            player.removeTimeObserver(playerObserver)
+        }
+    }
 
     func updatePlayer(with url: URL) {
-        self.player.replaceCurrentItem(with: AVPlayerItem(url: url))
-        self.player.seek(to: .zero)
-        self.player.play()
+        let item = AVPlayerItem(url: url)
+        updatePlayer(with: item)
     }
-    
     func updatePlayer(with asset: AVAsset) {
-        self.player.replaceCurrentItem(with: AVPlayerItem(asset: asset))
+        let item = AVPlayerItem(asset: asset)
+        updatePlayer(with: item)
+    }
+    func updatePlayer(with playerItem: AVPlayerItem) {
+        playerObserver = player.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 1), queue: nil) { time in
+
+            //guard let self else { return }
+            guard let item = self.player.currentItem else { return }
+            guard item.duration.seconds.isNormal else { return }
+            
+            self.progress = time.seconds / item.duration.seconds
+        }
+        
+        self.player.replaceCurrentItem(with: playerItem)
         self.player.seek(to: .zero)
         self.player.play()
     }
@@ -31,4 +62,5 @@ class VideoPlayerViewModel: ObservableObject {
     func pause() {
         self.player.pause()
     }
+
 }

@@ -12,11 +12,11 @@ import SwiftData
 struct VideoEditView: View {
     @Environment(\.modelContext) private var modelContext
     private var needPreLoad = false
+    private var playerVM = VideoPlayerViewModel()
     
     @State private var showPhotoPicker = false
     @State private var showAudioPicker = false
     @State private var editImages: [UIImage] = []
-    @StateObject private var playerVM = VideoPlayerViewModel()
     @State private var outputVideoURL: URL?
     
     @State var editSession:EditSession
@@ -29,6 +29,9 @@ struct VideoEditView: View {
         
         if editSession.photos.isEmpty {
             _showPhotoPicker = State(initialValue: true)
+        }
+        if editSession.audios.isEmpty {
+            _showAudioPicker = State(initialValue: true)
         }
     }
     
