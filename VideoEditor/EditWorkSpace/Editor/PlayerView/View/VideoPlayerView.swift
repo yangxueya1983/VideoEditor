@@ -9,7 +9,7 @@ import SwiftUI
 import AVKit
 
 struct VideoPlayerView: View {
-    var viewModel: VideoPlayerViewModel
+    @StateObject var viewModel: VideoPlayerViewModel
     
     @State private var isPlaying: Bool = false
     @State private var isDragging = false
@@ -30,8 +30,9 @@ struct VideoPlayerView: View {
                         .frame(width: 24, height: 24)
                 }
                 .padding()
-                Slider(value: viewModel.playProgress)
-                .padding()
+                
+                Slider(value: $viewModel.progress, in: 0.0...1.0)
+                    .padding()
 
 //                Text(currentTime.formattedTime + duration.formattedTime)
 //                    .padding(.trailing)

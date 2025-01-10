@@ -13,7 +13,7 @@ class VideoPlayerViewModel: ObservableObject {
     @Published var player: AVPlayer
     @Published var progress: Double = 0.0
     
-    private var playerObserver: Any?
+    private var timeObserver: Any?
     
     var playProgress: Binding<Double> {
         Binding {
@@ -25,11 +25,25 @@ class VideoPlayerViewModel: ObservableObject {
     
     init() {
         self.player = AVPlayer()
+        
+        let interval = CMTime(seconds: 1.0, preferredTimescale: 600) // Observe every second
+        // Add time observer to the player
+        timeObserver = self.player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
+            guard let self = self else { return }
+            
+            let currentTime = time.seconds
+            if let duration = self.player.currentItem?.duration.seconds, duration > 0 {
+                self.progress = currentTime / duration // Calculate progress as a percentage
+            } else {
+                self.progress = 0.0
+            }
+        }
     }
     
     deinit {
-        if let playerObserver {
-            player.removeTimeObserver(playerObserver)
+        if let timeObserver {
+            player.removeTimeObserver(timeObserver)
+            self.timeObserver = nil
         }
     }
 
@@ -42,15 +56,6 @@ class VideoPlayerViewModel: ObservableObject {
         updatePlayer(with: item)
     }
     func updatePlayer(with playerItem: AVPlayerItem) {
-        playerObserver = player.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 1), queue: nil) { time in
-
-            //guard let self else { return }
-            guard let item = self.player.currentItem else { return }
-            guard item.duration.seconds.isNormal else { return }
-            
-            self.progress = time.seconds / item.duration.seconds
-        }
-        
         self.player.replaceCurrentItem(with: playerItem)
         self.player.seek(to: .zero)
         self.player.play()
