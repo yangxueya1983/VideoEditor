@@ -168,7 +168,7 @@ class VEUtil {
         return ret
     }
     
-    static func concatenateVideos(videoURLS: [URL], durations: [CMTime], tranTypes: [TransitionType], transitionDuration: CMTime, videoSize: CGSize, frameDuration: CMTime, customComposeClass: (any AVVideoCompositing.Type), outputURL: URL) async throws -> (AVMutableComposition, AVMutableVideoComposition, CMTime) {
+    private static func concatenateVideos(videoURLS: [URL], durations: [CMTime], tranTypes: [TransitionType], transitionDuration: CMTime, videoSize: CGSize, frameDuration: CMTime, customComposeClass: (any AVVideoCompositing.Type), outputURL: URL) async throws -> (AVMutableComposition, AVMutableVideoComposition, CMTime) {
         guard videoURLS.count > 0, durations.count == videoURLS.count, tranTypes.count == videoURLS.count else {
             throw errorWithDes(description: "No videos provided")
         }
@@ -265,6 +265,22 @@ class VEUtil {
         return (composition, videoComposition, totalDuration)
     }
     
+    private static func addAudioTrack(to composition: AVMutableComposition, audioURLs: [URL], duration: CMTime) async throws {
+        for audioURL in audioURLs {
+            let audioAsset = AVURLAsset(url: audioURL)
+            let audioTrack = try await audioAsset.loadTracks(withMediaType: .audio).first
+            guard let audioTrack else {
+                throw errorWithDes(description: "can't load audio track")
+            }
+
+            let audioDuration = try await audioAsset.load(.duration)
+            let minDuration = CMTimeMinimum(audioDuration, duration)
+                
+            let audioCompositionTrack = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
+            try audioCompositionTrack?.insertTimeRange(CMTimeRange(start: .zero, duration: minDuration), of: audioTrack, at: .zero)
+        }
+    }
+    
     static func createVideoForSession(sess: EditSession, outputURL: URL) async -> Error? {
         let images = sess.photos.map {$0.image}
         let durations = sess.photos.map{$0.duration}
@@ -307,8 +323,11 @@ class VEUtil {
         let frameDuration = CMTimeMake(value: 1, timescale: 30)
         
         do {
-            let (comp, videoComp, _) = try await concatenateVideos(videoURLS: urls, durations: durations, tranTypes: transTypes, transitionDuration: transitionTime, videoSize: size, frameDuration: frameDuration, customComposeClass: ExportCustomVideoCompositor.self, outputURL: outputURL)
-            
+            let (comp, videoComp, duration) = try await concatenateVideos(videoURLS: urls, durations: durations, tranTypes: transTypes, transitionDuration: transitionTime, videoSize: size, frameDuration: frameDuration, customComposeClass: ExportCustomVideoCompositor.self, outputURL: outputURL)
+
+            let audioUrls = sess.audios.map{$0.url}
+            try await addAudioTrack(to: comp, audioURLs: audioUrls, duration: duration)
+
             // export
             guard let exportSession = AVAssetExportSession(asset: comp, presetName: AVAssetExportPresetHighestQuality) else {
                 return errorWithDes(description: "Export session create failed")

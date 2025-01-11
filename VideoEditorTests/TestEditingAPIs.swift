@@ -115,8 +115,10 @@ final class EditAPITest : XCTestCase {
             photoItem.transitionType = transitions[index]
         }
         
+        let audioURL = Bundle.main.url(forResource: "Saddle of My Heart", withExtension: "mp3")!
+        let audioItem = EditSession.getBundleAudioItem(bundleUrl: audioURL)
         
-        let session = EditSession(photos: photoItems)
+        let session = EditSession(photos: photoItems, audios: [audioItem])
         let outputPath = NSTemporaryDirectory().appending("output.mp4")
         print("will export to \(outputPath)")
         if FileManager.default.fileExists(atPath: outputPath) {
