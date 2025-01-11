@@ -74,6 +74,9 @@ class VEUtil {
         let context = CGContext(data: pixelData, width: Int(videoSize.width), height: Int(videoSize.height),
                                 bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(buffer),
                                 space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue)
+        // draw the black background
+        context?.setFillColor(UIColor.black.cgColor)
+        context?.fill(CGRect(x: 0, y: 0, width: videoSize.width, height: videoSize.height))
         
         let imageSize = image.size
         let transform : CGAffineTransform = .identity
