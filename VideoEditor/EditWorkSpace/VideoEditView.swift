@@ -30,9 +30,9 @@ struct VideoEditView: View {
         if editSession.photos.isEmpty {
             _showPhotoPicker = State(initialValue: true)
         }
-        if editSession.audios.isEmpty {
-            _showAudioPicker = State(initialValue: true)
-        }
+//        if editSession.audios.isEmpty {
+//            _showAudioPicker = State(initialValue: true)
+//        }
     }
     
     init (storageSession:EditSession) {
@@ -51,7 +51,7 @@ struct VideoEditView: View {
     func refreshVideoByTask() {
         Task {
             //load image
-            editImages = editSession.photos.map{$0.image}
+            editImages = editSession.imageArray
             
             if editImages.isEmpty {
                 
@@ -111,12 +111,13 @@ struct VideoEditView: View {
             
                     let validPhotos = selectedPhotos.filter { $0.image != nil }
                     
-                    for photo in validPhotos {
+                    for (index, photo) in validPhotos.enumerated() {
                         if let image = photo.image {
                             let item = PhotoItem(cacheKey: photo.key,
                                                  image: image,
                                                  duration: CMTime(value: 3, timescale: 1),
                                                  transitionType: transType)
+                            item.index = index
                             editSession.photos.append(item)
                         }
                     }

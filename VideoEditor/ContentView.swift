@@ -12,6 +12,7 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [EditSession]
     let transitionTypes: [TransitionType] = Array(TransitionType.allCases.dropFirst())
+    let defaultImagePath = Bundle.main.url(forResource: "pic_1", withExtension: "jpg")!
     
     var body: some View {
         NavigationSplitView {
@@ -37,7 +38,7 @@ struct ContentView: View {
                                 VideoEditView(storageSession: item)
                             } label: {
                                 HStack {
-                                    AsyncImage(url: item.photos.first?.url ?? Bundle.main.url(forResource: "pic_1", withExtension: "jpg")!) { image in
+                                    AsyncImage(url: item.photos.first(where: {$0.index == 0})?.url ?? defaultImagePath) { image in
                                         image.resizable()
                                     } placeholder: {
                                         Color.red

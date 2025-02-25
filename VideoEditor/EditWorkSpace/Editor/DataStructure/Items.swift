@@ -14,6 +14,7 @@ import SwiftData
 @Model
 class PhotoItem {
     var itemID: UUID = UUID()
+    var index: Int = 0
     var cacheKey: String = ""
     var transitionType: TransitionType = TransitionType.None
     @Transient var image: UIImage = UIImage()

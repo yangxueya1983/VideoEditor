@@ -48,6 +48,13 @@ class EditSession {
         return photos.count > 0
     }
     
+    var imageArray: [UIImage] {
+        get {
+            self.photos.sorted(by: { $0.index < $1.index })
+                .compactMap(\.image)
+        }
+    }
+    
 //    func hasTransition() -> Bool {
 //        if transCfgs.isEmpty {
 //            return false
@@ -72,7 +79,9 @@ class EditSession {
         // TODO: audio timerange should have no overlap
         return true
     }
-    
+    func fixOrders() {
+        self.photos.sort { $0.index < $1.index }
+    }
     func preLoadAsserts() async throws {
         for photo in photos {
             photo.image = try PicStorage.shared.imageForKey(key: photo.cacheKey)
@@ -214,8 +223,9 @@ extension EditSession {
                                 
         let editSession = EditSession()
         
-        for path in imageSrcURLArray {
+        for (index, path) in imageSrcURLArray.enumerated() {
             let item = getBundlePhotoItem(bundleUrl: path)
+            item.index = index
             editSession.photos.append(item)
         }
         
