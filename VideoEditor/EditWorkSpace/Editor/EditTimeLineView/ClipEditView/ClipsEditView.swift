@@ -8,6 +8,7 @@
 import UIKit
 import AVFoundation
 import SwiftUI
+import OSLog
 
 struct ClipsEditView:UIViewControllerRepresentable {
     @Binding var editingSession: EditSession
@@ -69,11 +70,11 @@ class ClipsEditViewController: UIViewController,
             editVM.videoClips.append(clip)
         }
         
-        for audio in editSession.audios {
-            let duration =  CMTime(seconds: 2, preferredTimescale: kDefaultTimeScale)
-            let clip = ClipData(duration: duration, type: .audio)
-            editVM.audioClips?.append(clip)
-        }
+//        for audio in editSession.audios {
+//            let duration =  CMTime(seconds: 2, preferredTimescale: kDefaultTimeScale)
+//            let clip = ClipData(duration: duration, type: .audio)
+//            editVM.audioClips?.append(clip)
+//        }
 
         
         // Setup the layout
@@ -159,7 +160,7 @@ class ClipsEditViewController: UIViewController,
             }
             editingInfo.dragDirection = .none
             
-            print("yxy viewDragEnded")
+            Logger.viewCycle.debug("yxy viewDragEnded")
             self.needUpdateDragView = true
             collectionView.collectionViewLayout.invalidateLayout()
         }
@@ -170,7 +171,7 @@ class ClipsEditViewController: UIViewController,
     
     // MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("yxy didSelectItemAt")
+        Logger.viewCycle.debug("yxy didSelectItemAt")
         if let cell = collectionView.cellForItem(at:indexPath) {
             if editVM.isEditing() {
                 self.dragView.removeFromSuperview()
@@ -260,7 +261,7 @@ class ClipsEditViewController: UIViewController,
         // Reorder the data in the data source array
 //        let movedItem = items.remove(at: sourceIndexPath.item)
 //        items.insert(movedItem, at: destinationIndexPath.item)
-        print("move item from \(sourceIndexPath) to \(destinationIndexPath)")
+        Logger.viewCycle.debug("move item from \(sourceIndexPath) to \(destinationIndexPath)")
     }
     
     // Enable reordering in the collection view
@@ -297,7 +298,7 @@ class ClipsEditViewController: UIViewController,
      * If not implemented or if nil is returned, the entire cell will be used for the preview.
      */
     func collectionView(_ collectionView: UICollectionView, dragPreviewParametersForItemAt indexPath: IndexPath) -> UIDragPreviewParameters? {
-        print("yxy dragPreviewParametersForItemAt")
+        Logger.viewCycle.debug("yxy dragPreviewParametersForItemAt")
         let previewParameters = UIDragPreviewParameters()
         
         // Customizing the visible part of the drag preview
@@ -305,7 +306,7 @@ class ClipsEditViewController: UIViewController,
         var rect = cell!.bounds
         rect.origin = CGPoint(x: 0, y: 0)
         rect.size = CGSize(width: 50, height: 50)
-        print("yxy rect = \(rect)")
+        Logger.viewCycle.debug("yxy rect = \(String(describing: rect))")
         let visiblePath = UIBezierPath(roundedRect: rect, cornerRadius: 10)
         
         previewParameters.visiblePath = visiblePath // Only show the rounded rectangle part of the cell
@@ -315,7 +316,7 @@ class ClipsEditViewController: UIViewController,
         let diff = cellFrame.origin.x - 50.0 * CGFloat(indexPath.row)
         let crtOffset = collectionView.contentOffset
         collectionView.contentOffset = CGPoint(x: crtOffset.x - diff, y: 0)
-        print("yxy diff = \(diff)")
+        Logger.viewCycle.debug("yxy diff = \(diff)")
         
         
         return previewParameters
@@ -323,11 +324,11 @@ class ClipsEditViewController: UIViewController,
 
 
     func collectionView(_ collectionView: UICollectionView, dragSessionWillBegin session: any UIDragSession) {
-        print("yxy dragSessionWillBegin")
+        Logger.viewCycle.debug("yxy dragSessionWillBegin")
         
     }
     func collectionView(_ collectionView: UICollectionView, dragSessionDidEnd session: any UIDragSession) {
-        print("yxy dragSessionDidEnd")
+        Logger.viewCycle.debug("yxy dragSessionDidEnd")
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
@@ -335,7 +336,7 @@ class ClipsEditViewController: UIViewController,
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
         
         guard let destinationIndexPath = coordinator.destinationIndexPath else { return }
-        print("yxy performDropWith index = \(destinationIndexPath.row)")
+        Logger.viewCycle.debug("yxy performDropWith index = \(destinationIndexPath.row)")
         coordinator.items.forEach { dropItem in
             if let sourceIndexPath = dropItem.sourceIndexPath {
                 collectionView.performBatchUpdates({
@@ -348,18 +349,18 @@ class ClipsEditViewController: UIViewController,
     }
     
     func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
-        print("yxy canHandle")
+        Logger.viewCycle.debug("yxy canHandle")
         return session.canLoadObjects(ofClass: NSString.self)
     }
     
     func collectionView(_ collectionView: UICollectionView, dropSessionDidExit session: any UIDropSession) {
-        print("yxy dropSessionDidExit")
+        Logger.viewCycle.debug("yxy dropSessionDidExit")
     }
     
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
 //        if let indexPath = destinationIndexPath {
-//            print("yxy withDestinationIndexPath  = \(indexPath.row)")
-//            print("yxy" + Date().description)
+//            Logger.viewCycle.debug("yxy withDestinationIndexPath  = \(indexPath.row)")
+//            Logger.viewCycle.debug("yxy" + Date().description)
 //        }
         return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
     }
@@ -370,7 +371,7 @@ class ClipsEditViewController: UIViewController,
         let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView.superview)
         draggingVertically = abs(velocity.x) < abs(velocity.y)
         
-        print("drag is vertical \(draggingVertically)")
+        Logger.viewCycle.debug("drag is vertical \(self.draggingVertically)")
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -382,7 +383,7 @@ class ClipsEditViewController: UIViewController,
 //        }
 //        scrollView.contentOffset = offset
         
-        //print("scrollViewDidScroll  \(offset)")
+        //Logger.viewCycle.debug("scrollViewDidScroll  \(offset)")
     }
     
     // MARK: - Long Press Gesture Handling

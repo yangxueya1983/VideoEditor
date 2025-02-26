@@ -8,6 +8,7 @@
 import Foundation
 import XCTest
 import AVFoundation
+import OSLog
 @testable import VideoEditor
 
 final class CustomTransitionTest : XCTestCase {
@@ -30,7 +31,7 @@ final class CustomTransitionTest : XCTestCase {
 //
 //        let error = await SessionUtilties.concatenatePhotoWithoutTransition(width: 1024, height: 768, photoItems: [photoItem], outURL: outURL)
 //        if let error {
-//            print("create photo video fail with error \(error)")
+//            Logger.viewCycle.debug("create photo video fail with error \(error)")
 //        }
     }
     
@@ -39,7 +40,7 @@ final class CustomTransitionTest : XCTestCase {
         let fileManager = FileManager.default
         let dirName = fileManager.temporaryDirectory.appendingPathComponent("CustomTransition", conformingTo: .directory)
         
-        print("create directory at : \(dirName) ")
+        Logger.viewCycle.debug("create directory at : \(dirName) ")
         transitionDir = dirName
         
         guard let transitionDir else {
@@ -121,11 +122,11 @@ final class CustomTransitionTest : XCTestCase {
 //        await exportSession.export()
 //        switch exportSession.status {
 //        case .completed:
-//            print("succeed")
+//            Logger.viewCycle.debug("succeed")
 //        case .failed, .cancelled:
-//            print("export fail with error: \(String(describing: exportSession.error))")
+//            Logger.viewCycle.debug("export fail with error: \(String(describing: exportSession.error))")
 //        default:
-//            print("has unknown error")
+//            Logger.viewCycle.debug("has unknown error")
 //        }
         
     }

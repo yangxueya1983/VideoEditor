@@ -8,6 +8,7 @@
 import Foundation
 import XCTest
 import AVFoundation
+import OSLog
 @testable import VideoEditor
 
 
@@ -46,12 +47,12 @@ final class EditAPITest : XCTestCase {
         let photoItems = [photoItem1, photoItem2, photoItem3]
         
         let outURL = getOutputURL()
-        print("the output will be dumpted to \(outURL)")
+        Logger.viewCycle.debug("the output will be dumpted to \(outURL)")
         let error = await SessionUtilties.concatenatePhotoWithoutTransition(width: 720, height: 480, photoItems: photoItems, outURL: outURL)
         if let error {
-            print("the error is \(error)")
+            Logger.viewCycle.debug("the error is \(error)")
         } else {
-            print("the export succeed")
+            Logger.viewCycle.debug("the export succeed")
         }
     }
     
@@ -78,12 +79,12 @@ final class EditAPITest : XCTestCase {
 //        session.transCfgs = [config]
 //        
 //        let outURL = getOutputURL()
-//        print("the generated video will be exported to \(outURL)")
+//        Logger.viewCycle.debug("the generated video will be exported to \(outURL)")
 //        let error = try await SessionUtilties.concatenatePhotosWithTransition(sess: session, outURL: outURL)
 //        if let error {
-//            print("the error is \(error)")
+//            Logger.viewCycle.debug("the error is \(error)")
 //        } else {
-//            print("the export succeed")
+//            Logger.viewCycle.debug("the export succeed")
 //        }
 //    }
     
@@ -120,7 +121,7 @@ final class EditAPITest : XCTestCase {
         
         let session = EditSession(photos: photoItems, audios: [audioItem])
         let outputPath = NSTemporaryDirectory().appending("output.mp4")
-        print("will export to \(outputPath)")
+        Logger.viewCycle.debug("will export to \(outputPath)")
         if FileManager.default.fileExists(atPath: outputPath) {
             try FileManager.default.removeItem(atPath: outputPath)
         }

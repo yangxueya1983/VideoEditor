@@ -6,6 +6,7 @@
 //
 import UIKit
 import SwiftUI
+import OSLog
 
 @MainActor public protocol VELayoutDelegate : UICollectionViewDelegate {
 
@@ -51,7 +52,7 @@ class VEViewLayout : UICollectionViewLayout {
                 self.prepareNormal(collectionView: collectionView, delegate: delegate)
             }
             
-            print("yxy prepareDragging called")
+            Logger.viewCycle.debug("yxy prepareDragging called")
             delegate.ve_collectionViewDidPrepared(itemAttributes: currentAttributes)
         }
     }
@@ -84,7 +85,7 @@ class VEViewLayout : UICollectionViewLayout {
             y += (rowHeight + gap)
         }
         contentSize = CGSizeMake(maxX, y)
-        print("yxy prepareNormal called")
+        Logger.viewCycle.debug("yxy prepareNormal called")
     }
     func prepareDragging(collectionView: UICollectionView, editingInfo:EditingInfo, delegate: VELayoutDelegate) {
         //TODO: audio and video different
@@ -101,7 +102,7 @@ class VEViewLayout : UICollectionViewLayout {
                 let size = delegate.ve_collectionView(sizeForItemAt: crtIndexPath)
                 posX = posX - size.width
                 let frame = CGRect(origin: CGPoint(x: posX, y: posY), size: size)
-                print("yxy index=\(crtIndexPath) frame = \(frame)")
+                //Logger.viewCycle.debug("yxy index=\(crtIndexPath) frame = \(frame)")
                 
                 let attributes = UICollectionViewLayoutAttributes(forCellWith: crtIndexPath)
                 attributes.frame = frame
@@ -119,7 +120,7 @@ class VEViewLayout : UICollectionViewLayout {
                 let crtIndexPath = IndexPath(row: i, section: editingSection)
                 let size = delegate.ve_collectionView(sizeForItemAt: crtIndexPath)
                 let frame = CGRect(origin: CGPoint(x: posX, y: posY), size: size)
-                print("yxy index=\(crtIndexPath) frame = \(frame)")
+                //Logger.viewCycle.debug("yxy index=\(crtIndexPath) frame = \(frame)")
                 
                 let attributes = UICollectionViewLayoutAttributes(forCellWith: crtIndexPath)
                 attributes.frame = frame
@@ -128,7 +129,7 @@ class VEViewLayout : UICollectionViewLayout {
                 posX = posX + size.width + gap
             }
         } else {
-            print("yxy prepareDragging error")
+            //Logger.viewCycle.debug("yxy prepareDragging error")
         }
     }
     
@@ -154,11 +155,11 @@ class VEViewLayout : UICollectionViewLayout {
     }
     // MARK: - Layout attributes
     override func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        print("query appear item \(itemIndexPath)")
+        Logger.viewCycle.debug("query appear item \(itemIndexPath)")
         return previousAttributes[itemIndexPath]
     }
     override func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        print("query disappear item \(itemIndexPath)")
+        Logger.viewCycle.debug("query disappear item \(itemIndexPath)")
         return layoutAttributesForItem(at: itemIndexPath)
     }
     

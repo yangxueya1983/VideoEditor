@@ -8,6 +8,7 @@
 import XCTest
 import simd
 import MetalKit
+import OSLog
 @testable import VideoEditor
 
 final class VideoEditorTests: XCTestCase {
@@ -82,17 +83,17 @@ final class VideoEditorTests: XCTestCase {
             let rotateVector = simd_act(quaternion, translatePosition)
             let finalCoordinate = rotateVector + center
             
-//            print("\(percent) => ( \(finalCoordinate.x) \(finalCoordinate.y) \(finalCoordinate.z)")
+//            Logger.viewCycle.debug("\(percent) => ( \(finalCoordinate.x) \(finalCoordinate.y) \(finalCoordinate.z)")
             let homogenousVector = simd_float4(finalCoordinate, 1.0)
             
             let projectVector = projectionMatrix * homogenousVector
             let ndcVector = projectVector / projectVector.w
-//            print("ndc vector : \(ndcVector.x) \(ndcVector.y)")
+//            Logger.viewCycle.debug("ndc vector : \(ndcVector.x) \(ndcVector.y)")
             
             let screenX = (ndcVector.x + 1) / 2 * screenWidth
             let screenY = (1 - ndcVector.y) / 2 * screenHeight
             
-            print("\(percent) -> ( \(screenX) : \(screenY)  )")
+            Logger.viewCycle.debug("\(percent) -> ( \(screenX) : \(screenY)  )")
         }
     }
 

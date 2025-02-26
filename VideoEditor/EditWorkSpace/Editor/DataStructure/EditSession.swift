@@ -11,6 +11,7 @@ import SwiftyJSON
 import SwiftData
 import SDWebImage
 import CryptoKit
+import OSLog
 
 @Model
 class EditSession {
@@ -159,14 +160,14 @@ class EditSession {
 //        if let error {
 //            return error
 //        } else {
-//            print("Video created successfully at \(videoURL)")
+//            Logger.veSession.debug("Video created successfully at \(videoURL)")
 //            if audios.count > 0 {
 //                if let audioURL = audios.first?.url {
 //                    let error = await VEUtil.addAudioToVideo(videoURL: videoURL, audioURL: audioURL, outputURL: outputURL)
 //                    if let error {
 //                        return error
 //                    }
-//                    print("Video added Audio successfully at \(outputURL)")
+//                    Logger.veSession.debug("Video added Audio successfully at \(outputURL)")
 //                } else {
 //                    return NSError(domain: "", code: 0, userInfo: ["error" : "Resource not found."])
 //                }

@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftData
-
+import OSLog
 @Model
 final class Item {
     var timestamp: Date
@@ -33,13 +33,13 @@ struct Cat: Animal {
 }
 
 func printAnimal(animal: some Animal) -> some Animal {
-//    print("return a cat named \(animal.name)")
+//    Logger.viewCycle.debug("return a cat named \(animal.name)")
 //    if let cat = animal as? Cat {
-//        print("cat name: \(cat.name)")
+//        Logger.viewCycle.debug("cat name: \(cat.name)")
 //        return cat
 //    } else {
 //        let dog = animal as! Dog
-//        print("dog name: \(dog.name)")
+//        Logger.viewCycle.debug("dog name: \(dog.name)")
 //        return dog
 //    }
     return Cat(name: animal.name, age: animal.age)

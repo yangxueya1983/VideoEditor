@@ -6,6 +6,7 @@
 //
 import AVFoundation
 import UIKit
+import OSLog
 
 let kErrorDomain = "VEUtil"
 let kDateFormatter = DateFormatter()
@@ -135,7 +136,7 @@ class VEUtil {
         }
         
         guard check else {
-            print("layer instruction check failed")
+            Logger.viewCycle.debug("layer instruction check failed")
             return ret
         }
         

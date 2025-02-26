@@ -8,12 +8,12 @@ import PhotosUI
 import UIKit
 import SwiftUI
 import SwiftData
-
+import OSLog
 struct VideoEditView: View {
     @Environment(\.modelContext) private var modelContext
-    private var needPreLoad = false
     private var playerVM = VideoPlayerViewModel()
     
+    @State private var isLoading: Bool = false
     @State private var showPhotoPicker = false
     @State private var showAudioPicker = false
     @State private var editImages: [UIImage] = []
@@ -23,9 +23,8 @@ struct VideoEditView: View {
     var transType = TransitionType.None
     
     // Primary initializer
-    private init(editSession: EditSession, needPreLoad: Bool = false) {
+    private init(editSession: EditSession) {
         self.editSession = editSession
-        self.needPreLoad = needPreLoad
         
         if editSession.photos.isEmpty {
             _showPhotoPicker = State(initialValue: true)
@@ -36,7 +35,7 @@ struct VideoEditView: View {
     }
     
     init (storageSession:EditSession) {
-        self.init(editSession: storageSession, needPreLoad: true)
+        self.init(editSession: storageSession)
     }
     
     init(transitionType: TransitionType) {
@@ -74,24 +73,26 @@ struct VideoEditView: View {
         modelContext.insert(editSession)
         do {
             try modelContext.save()
-            print("save success")
+            Logger.viewCycle.debug("save success")
         } catch {
-            print("save failed \(error.localizedDescription)")
+            Logger.viewCycle.debug("save failed \(error.localizedDescription)")
         }
     }
     
     var body: some View {
         VStack {
-             
-            VideoPlayerView(viewModel: playerVM)
-            
-            Spacer()
-            EditorToolView(imageArray: $editImages)
-            
-            
-            
-            //TODO: add more complex interaction
-            //ClipsEditView(editSession: $editSession)
+            if isLoading {
+                ProgressView()
+            } else {
+                VideoPlayerView(viewModel: playerVM)
+                
+                Spacer()
+                //EditorToolView(imageArray: $editImages)
+                
+                
+                //TODO: add more complex interaction
+                ClipsEditView(editSession: $editSession)
+            }
         }
         .onDisappear {
             saveEditSession()
@@ -117,7 +118,7 @@ struct VideoEditView: View {
                                                  image: image,
                                                  duration: CMTime(value: 3, timescale: 1),
                                                  transitionType: transType)
-                            item.index = index
+                            item.index = editSession.photos.count
                             editSession.photos.append(item)
                         }
                     }
@@ -154,10 +155,10 @@ struct VideoEditView: View {
             }
         }
         .task {
-            if needPreLoad {
-                try? await editSession.preLoadAsserts()
-                print("preload done")
-            }
+            self.isLoading = true
+            try? await editSession.preLoadAsserts()
+            self.isLoading = false
+
             refreshVideoByTask()
         }
     }

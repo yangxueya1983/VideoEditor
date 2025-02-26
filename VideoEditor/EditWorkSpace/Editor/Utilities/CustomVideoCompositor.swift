@@ -11,6 +11,7 @@ import CoreVideo
 import CoreImage
 import UIKit
 import CoreImage.CIFilterBuiltins
+import OSLog
 
 //class CrossDissolveCompositionInstruction : CustomVideoCompositionInstructionBase {
 //    override func compose(_ frontSample: CIImage, _ backgroundSample: CIImage, _ process: CGFloat, _ size: CGSize) -> CIImage? {
@@ -406,7 +407,7 @@ class CustomVideoCompositor: NSObject, AVVideoCompositing {
             if asyncVideoCompositionRequest.sourceTrackIDs.count == 1 {
                 // pass through for only 1 track
                 guard let frame = asyncVideoCompositionRequest.sourceFrame(byTrackID: asyncVideoCompositionRequest.sourceTrackIDs[0].int32Value) else {
-                    print("compositor single track frame is nil")
+                    Logger.viewCycle.debug("compositor single track frame is nil")
                     return
                 }
                 

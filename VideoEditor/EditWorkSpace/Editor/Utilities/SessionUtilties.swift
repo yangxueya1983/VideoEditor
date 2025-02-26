@@ -9,6 +9,7 @@ import Foundation
 import AVFoundation
 import UIKit
 import CryptoKit
+import OSLog
 
 struct CommonUtilities {
     static func md5Hash(for string: String) -> String {
@@ -97,7 +98,7 @@ struct SessionUtilties {
         
         for itm in photoItems {
             guard let image = CommonUtilities.imageWithURL(url: itm.url) else {
-                print("image with url \(itm.url) can't be found")
+                Logger.veSession.debug("image with url \(itm.url) can't be found")
                 continue
             }
             // allocate the pixel buffer

@@ -96,6 +96,21 @@
 		B6B5D0CA2C584BF500D2FA37 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5D0C92C584BF500D2FA37 /* PhotoPicker.swift */; };
 		B6B5D0CC2C585F1700D2FA37 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5D0CB2C585F1700D2FA37 /* VideoPlayerView.swift */; };
 		B6C489162C75190C0043209A /* EditorToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C489152C75190C0043209A /* EditorToolView.swift */; };
+		B6D8097F2D6E6BE900ECB205 /* NIO in Frameworks */ = {isa = PBXBuildFile; productRef = B6D8097E2D6E6BE900ECB205 /* NIO */; };
+		B6D809812D6E6BE900ECB205 /* NIOConcurrencyHelpers in Frameworks */ = {isa = PBXBuildFile; productRef = B6D809802D6E6BE900ECB205 /* NIOConcurrencyHelpers */; };
+		B6D809832D6E6BE900ECB205 /* NIOCore in Frameworks */ = {isa = PBXBuildFile; productRef = B6D809822D6E6BE900ECB205 /* NIOCore */; };
+		B6D809852D6E6BE900ECB205 /* NIOEmbedded in Frameworks */ = {isa = PBXBuildFile; productRef = B6D809842D6E6BE900ECB205 /* NIOEmbedded */; };
+		B6D809872D6E6BE900ECB205 /* NIOFoundationCompat in Frameworks */ = {isa = PBXBuildFile; productRef = B6D809862D6E6BE900ECB205 /* NIOFoundationCompat */; };
+		B6D809892D6E6BE900ECB205 /* NIOHTTP1 in Frameworks */ = {isa = PBXBuildFile; productRef = B6D809882D6E6BE900ECB205 /* NIOHTTP1 */; };
+		B6D8098B2D6E6BE900ECB205 /* NIOPosix in Frameworks */ = {isa = PBXBuildFile; productRef = B6D8098A2D6E6BE900ECB205 /* NIOPosix */; };
+		B6D8098D2D6E6BE900ECB205 /* NIOTLS in Frameworks */ = {isa = PBXBuildFile; productRef = B6D8098C2D6E6BE900ECB205 /* NIOTLS */; };
+		B6D8098F2D6E6BE900ECB205 /* NIOTestUtils in Frameworks */ = {isa = PBXBuildFile; productRef = B6D8098E2D6E6BE900ECB205 /* NIOTestUtils */; };
+		B6D809912D6E6BE900ECB205 /* NIOWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = B6D809902D6E6BE900ECB205 /* NIOWebSocket */; };
+		B6D809932D6E6BE900ECB205 /* _NIOConcurrency in Frameworks */ = {isa = PBXBuildFile; productRef = B6D809922D6E6BE900ECB205 /* _NIOConcurrency */; };
+		B6D809952D6E6BE900ECB205 /* _NIOFileSystem in Frameworks */ = {isa = PBXBuildFile; productRef = B6D809942D6E6BE900ECB205 /* _NIOFileSystem */; };
+		B6D809972D6E6BE900ECB205 /* _NIOFileSystemFoundationCompat in Frameworks */ = {isa = PBXBuildFile; productRef = B6D809962D6E6BE900ECB205 /* _NIOFileSystemFoundationCompat */; };
+		B6D809992D6E6CB300ECB205 /* HttpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D809982D6E6C9E00ECB205 /* HttpView.swift */; };
+		B6D8099B2D6FA27D00ECB205 /* VELogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D8099A2D6FA27500ECB205 /* VELogger.swift */; };
 		B6E44C2E2C7951C300A5B59C /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E44C2D2C7951C300A5B59C /* FileManager.swift */; };
 		B6EB6EB02CF151CC0098F357 /* groupTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EB6EAF2CF151B60098F357 /* groupTask.swift */; };
 		B6EE59122C7D4333006E66B4 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = B6EE59112C7D4333006E66B4 /* SwiftyJSON */; };
@@ -176,6 +191,8 @@
 		B6B5D0CB2C585F1700D2FA37 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		B6C489152C75190C0043209A /* EditorToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorToolView.swift; sourceTree = "<group>"; };
 		B6D8097C2D699D5100ECB205 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B6D809982D6E6C9E00ECB205 /* HttpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpView.swift; sourceTree = "<group>"; };
+		B6D8099A2D6FA27500ECB205 /* VELogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VELogger.swift; sourceTree = "<group>"; };
 		B6E44C2D2C7951C300A5B59C /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		B6EB6EAF2CF151B60098F357 /* groupTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = groupTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -185,9 +202,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6D809832D6E6BE900ECB205 /* NIOCore in Frameworks */,
+				B6D809952D6E6BE900ECB205 /* _NIOFileSystem in Frameworks */,
 				B64BE1382D076C7B0013C598 /* SDWebImage in Frameworks */,
+				B6D809972D6E6BE900ECB205 /* _NIOFileSystemFoundationCompat in Frameworks */,
+				B6D809912D6E6BE900ECB205 /* NIOWebSocket in Frameworks */,
+				B6D809852D6E6BE900ECB205 /* NIOEmbedded in Frameworks */,
+				B6D8097F2D6E6BE900ECB205 /* NIO in Frameworks */,
+				B6D809872D6E6BE900ECB205 /* NIOFoundationCompat in Frameworks */,
+				B6D8098B2D6E6BE900ECB205 /* NIOPosix in Frameworks */,
 				B64BE13A2D076C7B0013C598 /* SDWebImageMapKit in Frameworks */,
+				B6D809892D6E6BE900ECB205 /* NIOHTTP1 in Frameworks */,
+				B6D8098D2D6E6BE900ECB205 /* NIOTLS in Frameworks */,
 				B6EE59122C7D4333006E66B4 /* SwiftyJSON in Frameworks */,
+				B6D809812D6E6BE900ECB205 /* NIOConcurrencyHelpers in Frameworks */,
+				B6D8098F2D6E6BE900ECB205 /* NIOTestUtils in Frameworks */,
+				B6D809932D6E6BE900ECB205 /* _NIOConcurrency in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				26AA97582D1785D60063B342 /* Transitions.swift */,
+				B6D8099A2D6FA27500ECB205 /* VELogger.swift */,
 				2677D0E42C69885800115565 /* SessionUtilties.swift */,
 				B64BE1342D066A6F0013C598 /* PicStorage.swift */,
 				26CC87CD2C7262DB0025A134 /* CustomVideoCompositor.swift */,
@@ -352,6 +383,7 @@
 				B6B5D0C62C58166B00D2FA37 /* EditWorkSpace */,
 				B6B5D09A2C580FD600D2FA37 /* VideoEditorApp.swift */,
 				B6B5D09C2C580FD600D2FA37 /* ContentView.swift */,
+				B6D809982D6E6C9E00ECB205 /* HttpView.swift */,
 				B66CB2C62CD4051800C8CF0B /* TestUIView.swift */,
 				B6EB6EAF2CF151B60098F357 /* groupTask.swift */,
 				B6B5D09E2C580FD600D2FA37 /* Item.swift */,
@@ -429,6 +461,19 @@
 				B6EE59112C7D4333006E66B4 /* SwiftyJSON */,
 				B64BE1372D076C7B0013C598 /* SDWebImage */,
 				B64BE1392D076C7B0013C598 /* SDWebImageMapKit */,
+				B6D8097E2D6E6BE900ECB205 /* NIO */,
+				B6D809802D6E6BE900ECB205 /* NIOConcurrencyHelpers */,
+				B6D809822D6E6BE900ECB205 /* NIOCore */,
+				B6D809842D6E6BE900ECB205 /* NIOEmbedded */,
+				B6D809862D6E6BE900ECB205 /* NIOFoundationCompat */,
+				B6D809882D6E6BE900ECB205 /* NIOHTTP1 */,
+				B6D8098A2D6E6BE900ECB205 /* NIOPosix */,
+				B6D8098C2D6E6BE900ECB205 /* NIOTLS */,
+				B6D8098E2D6E6BE900ECB205 /* NIOTestUtils */,
+				B6D809902D6E6BE900ECB205 /* NIOWebSocket */,
+				B6D809922D6E6BE900ECB205 /* _NIOConcurrency */,
+				B6D809942D6E6BE900ECB205 /* _NIOFileSystem */,
+				B6D809962D6E6BE900ECB205 /* _NIOFileSystemFoundationCompat */,
 			);
 			productName = VideoEditor;
 			productReference = B6B5D0972C580FD600D2FA37 /* VideoEditor.app */;
@@ -511,6 +556,7 @@
 			packageReferences = (
 				B6EE590F2C7D3D06006E66B4 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				B64BE1362D076C7B0013C598 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				B6D8097D2D6E6BE900ECB205 /* XCRemoteSwiftPackageReference "swift-nio" */,
 			);
 			productRefGroup = B6B5D0982C580FD600D2FA37 /* Products */;
 			projectDirPath = "";
@@ -623,12 +669,14 @@
 				B6C489162C75190C0043209A /* EditorToolView.swift in Sources */,
 				B6E44C2E2C7951C300A5B59C /* FileManager.swift in Sources */,
 				B679F18A2C7FD1DB00A061C8 /* Extension.swift in Sources */,
+				B6D809992D6E6CB300ECB205 /* HttpView.swift in Sources */,
 				2677D0E72C69885800115565 /* EditSession.swift in Sources */,
 				26AA97592D1785DB0063B342 /* Transitions.swift in Sources */,
 				B679F1952C88CDB800A061C8 /* ClipView.swift in Sources */,
 				B66CB2C12CD4047700C8CF0B /* EditModels.swift in Sources */,
 				B66CB2C22CD4047700C8CF0B /* ClipsEditingVM.swift in Sources */,
 				B66CB2C32CD4047700C8CF0B /* ClipDragView.swift in Sources */,
+				B6D8099B2D6FA27D00ECB205 /* VELogger.swift in Sources */,
 				B66CB2C42CD4047700C8CF0B /* VEViewLayout.swift in Sources */,
 				B66CB2C72CD4052400C8CF0B /* TestUIView.swift in Sources */,
 				B66CB2C52CD4047700C8CF0B /* ClipsEditView.swift in Sources */,
@@ -985,6 +1033,14 @@
 				version = 5.20.0;
 			};
 		};
+		B6D8097D2D6E6BE900ECB205 /* XCRemoteSwiftPackageReference "swift-nio" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-nio.git";
+			requirement = {
+				kind = exactVersion;
+				version = 2.81.0;
+			};
+		};
 		B6EE590F2C7D3D06006E66B4 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
@@ -1005,6 +1061,71 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B64BE1362D076C7B0013C598 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImageMapKit;
+		};
+		B6D8097E2D6E6BE900ECB205 /* NIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6D8097D2D6E6BE900ECB205 /* XCRemoteSwiftPackageReference "swift-nio" */;
+			productName = NIO;
+		};
+		B6D809802D6E6BE900ECB205 /* NIOConcurrencyHelpers */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6D8097D2D6E6BE900ECB205 /* XCRemoteSwiftPackageReference "swift-nio" */;
+			productName = NIOConcurrencyHelpers;
+		};
+		B6D809822D6E6BE900ECB205 /* NIOCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6D8097D2D6E6BE900ECB205 /* XCRemoteSwiftPackageReference "swift-nio" */;
+			productName = NIOCore;
+		};
+		B6D809842D6E6BE900ECB205 /* NIOEmbedded */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6D8097D2D6E6BE900ECB205 /* XCRemoteSwiftPackageReference "swift-nio" */;
+			productName = NIOEmbedded;
+		};
+		B6D809862D6E6BE900ECB205 /* NIOFoundationCompat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6D8097D2D6E6BE900ECB205 /* XCRemoteSwiftPackageReference "swift-nio" */;
+			productName = NIOFoundationCompat;
+		};
+		B6D809882D6E6BE900ECB205 /* NIOHTTP1 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6D8097D2D6E6BE900ECB205 /* XCRemoteSwiftPackageReference "swift-nio" */;
+			productName = NIOHTTP1;
+		};
+		B6D8098A2D6E6BE900ECB205 /* NIOPosix */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6D8097D2D6E6BE900ECB205 /* XCRemoteSwiftPackageReference "swift-nio" */;
+			productName = NIOPosix;
+		};
+		B6D8098C2D6E6BE900ECB205 /* NIOTLS */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6D8097D2D6E6BE900ECB205 /* XCRemoteSwiftPackageReference "swift-nio" */;
+			productName = NIOTLS;
+		};
+		B6D8098E2D6E6BE900ECB205 /* NIOTestUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6D8097D2D6E6BE900ECB205 /* XCRemoteSwiftPackageReference "swift-nio" */;
+			productName = NIOTestUtils;
+		};
+		B6D809902D6E6BE900ECB205 /* NIOWebSocket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6D8097D2D6E6BE900ECB205 /* XCRemoteSwiftPackageReference "swift-nio" */;
+			productName = NIOWebSocket;
+		};
+		B6D809922D6E6BE900ECB205 /* _NIOConcurrency */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6D8097D2D6E6BE900ECB205 /* XCRemoteSwiftPackageReference "swift-nio" */;
+			productName = _NIOConcurrency;
+		};
+		B6D809942D6E6BE900ECB205 /* _NIOFileSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6D8097D2D6E6BE900ECB205 /* XCRemoteSwiftPackageReference "swift-nio" */;
+			productName = _NIOFileSystem;
+		};
+		B6D809962D6E6BE900ECB205 /* _NIOFileSystemFoundationCompat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6D8097D2D6E6BE900ECB205 /* XCRemoteSwiftPackageReference "swift-nio" */;
+			productName = _NIOFileSystemFoundationCompat;
 		};
 		B6EE59112C7D4333006E66B4 /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;

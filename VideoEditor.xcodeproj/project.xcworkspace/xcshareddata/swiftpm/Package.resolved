@@ -1,5 +1,5 @@
 {
-  "originHash" : "a5e87578e1bb470b34c289733a0a9215f93e12a4cde65a10e8cc7c08cac523b5",
+  "originHash" : "0699166a94e7bcd7c8c399b11c130de87e70ab9d980aa7aaa80a3e8bcc121399",
   "pins" : [
     {
       "identity" : "sdwebimage",
@@ -8,6 +8,42 @@
       "state" : {
         "revision" : "10d06f6a33bafae8c164fbfd1f03391f6d4692b3",
         "version" : "5.20.0"
+      }
+    },
+    {
+      "identity" : "swift-atomics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-atomics.git",
+      "state" : {
+        "revision" : "cd142fd2f64be2100422d658e7411e39489da985",
+        "version" : "1.2.0"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections.git",
+      "state" : {
+        "revision" : "671108c96644956dddcd89dd59c203dcdb36cec7",
+        "version" : "1.1.4"
+      }
+    },
+    {
+      "identity" : "swift-nio",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-nio.git",
+      "state" : {
+        "revision" : "c51907a839e63ebf0ba2076bba73dd96436bd1b9",
+        "version" : "2.81.0"
+      }
+    },
+    {
+      "identity" : "swift-system",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-system.git",
+      "state" : {
+        "revision" : "a34201439c74b53f0fd71ef11741af7e7caf01e1",
+        "version" : "1.4.2"
       }
     },
     {

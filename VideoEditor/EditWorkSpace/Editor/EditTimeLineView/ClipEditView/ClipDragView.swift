@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import OSLog
 let kMinItemWidth:CGFloat = 5.0
 
 @MainActor public protocol ClipDragViewDelegate: NSObjectProtocol {
@@ -93,7 +93,7 @@ class ClipDragView: UIView {
             // Save the initial touch point and view size
             initialSize = self.frame.size
             initialOrigin = self.frame.origin
-            print("yxy \(isLeft ? "left" : "right") began")
+            Logger.viewCycle.debug("yxy \(isLeft ? "left" : "right") began")
             self.delegate?.viewDragBegan(self, isLeft: isLeft)
         case .changed:
             self.isDraging = true
@@ -129,7 +129,7 @@ class ClipDragView: UIView {
             self.isDraging = false
             self.isDragLeft = false
             self.widthDifference = self.frame.width - initialSize.width
-            print("yxy ended widthDiff  " + String(format: "%.2f", self.widthDifference))
+            Logger.viewCycle.debug("yxy ended widthDiff \(String(format: "%.2f", self.widthDifference))")
 
             self.delegate?.viewDragEnded(self, widthDiff: self.widthDifference, isLeft: isLeft)
         default:

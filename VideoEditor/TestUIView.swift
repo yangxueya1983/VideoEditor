@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import OSLog
 class TestTask {
     let id: UUID = UUID()
     let name: String
@@ -25,7 +25,7 @@ struct TestUIView : View {
                             URL(string: "https://images.pexels.com/photos/13982096/pexels-photo-13982096.jpeg")!]
                 
                 let result = await downloadImages(imageURLs: urls)
-                print("result: \(result.count)")
+                Logger.viewCycle.debug("result: \(result.count)")
 //                let tasks = Array(1...10).map{
 //                    return TestTask(name: "Task \(String($0))")
 //                }
@@ -33,7 +33,7 @@ struct TestUIView : View {
 //                let doneTasks = try? await runGroupTasks(tasks: tasks)
 //                if let doneTasks {
 //                    let taskNames = doneTasks.map{$0.name}
-//                    print("doneTasks: \(taskNames)")
+//                    Logger.viewCycle.debug("doneTasks: \(taskNames)")
 //                }
                 
 
@@ -66,7 +66,7 @@ struct TestUIView : View {
         let randomTime = UInt64.random(in: 1...10)
         try await Task.sleep(nanoseconds: randomTime)
         task.isDone = true
-        print("\(task.name) is done")
+        Logger.viewCycle.debug("\(task.name) is done")
         return task
     }
 }
