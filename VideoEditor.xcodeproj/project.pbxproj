@@ -86,7 +86,6 @@
 		B6A0F83D2C5DA48F009741EF /* Saddle of My Heart.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B6A0F83C2C5DA48F009741EF /* Saddle of My Heart.mp3 */; };
 		B6B5D09B2C580FD600D2FA37 /* VideoEditorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5D09A2C580FD600D2FA37 /* VideoEditorApp.swift */; };
 		B6B5D09D2C580FD600D2FA37 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5D09C2C580FD600D2FA37 /* ContentView.swift */; };
-		B6B5D09F2C580FD600D2FA37 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5D09E2C580FD600D2FA37 /* Item.swift */; };
 		B6B5D0A12C580FD700D2FA37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6B5D0A02C580FD700D2FA37 /* Assets.xcassets */; };
 		B6B5D0A42C580FD700D2FA37 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6B5D0A32C580FD700D2FA37 /* Preview Assets.xcassets */; };
 		B6B5D0AE2C580FD700D2FA37 /* VideoEditorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5D0AD2C580FD700D2FA37 /* VideoEditorTests.swift */; };
@@ -112,7 +111,6 @@
 		B6D809992D6E6CB300ECB205 /* HttpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D809982D6E6C9E00ECB205 /* HttpView.swift */; };
 		B6D8099B2D6FA27D00ECB205 /* VELogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D8099A2D6FA27500ECB205 /* VELogger.swift */; };
 		B6E44C2E2C7951C300A5B59C /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E44C2D2C7951C300A5B59C /* FileManager.swift */; };
-		B6EB6EB02CF151CC0098F357 /* groupTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EB6EAF2CF151B60098F357 /* groupTask.swift */; };
 		B6EE59122C7D4333006E66B4 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = B6EE59112C7D4333006E66B4 /* SwiftyJSON */; };
 		B6EE59142C7D4398006E66B4 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = B6EE59132C7D4398006E66B4 /* SwiftyJSON */; };
 		B6EE59162C7D43AD006E66B4 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = B6EE59152C7D43AD006E66B4 /* SwiftyJSON */; };
@@ -178,7 +176,6 @@
 		B6B5D0972C580FD600D2FA37 /* VideoEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6B5D09A2C580FD600D2FA37 /* VideoEditorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoEditorApp.swift; sourceTree = "<group>"; };
 		B6B5D09C2C580FD600D2FA37 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		B6B5D09E2C580FD600D2FA37 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		B6B5D0A02C580FD700D2FA37 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6B5D0A32C580FD700D2FA37 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B6B5D0A92C580FD700D2FA37 /* VideoEditorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VideoEditorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,7 +191,6 @@
 		B6D809982D6E6C9E00ECB205 /* HttpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpView.swift; sourceTree = "<group>"; };
 		B6D8099A2D6FA27500ECB205 /* VELogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VELogger.swift; sourceTree = "<group>"; };
 		B6E44C2D2C7951C300A5B59C /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
-		B6EB6EAF2CF151B60098F357 /* groupTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = groupTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -385,8 +381,6 @@
 				B6B5D09C2C580FD600D2FA37 /* ContentView.swift */,
 				B6D809982D6E6C9E00ECB205 /* HttpView.swift */,
 				B66CB2C62CD4051800C8CF0B /* TestUIView.swift */,
-				B6EB6EAF2CF151B60098F357 /* groupTask.swift */,
-				B6B5D09E2C580FD600D2FA37 /* Item.swift */,
 				B6B5D0A02C580FD700D2FA37 /* Assets.xcassets */,
 				B6B5D0A22C580FD700D2FA37 /* Preview Content */,
 			);
@@ -659,13 +653,11 @@
 				B679F1932C876C9400A061C8 /* VideoPlayerViewModel.swift in Sources */,
 				B64C6D592C5C4D6000BD1883 /* VEUtil.swift in Sources */,
 				B6B5D09D2C580FD600D2FA37 /* ContentView.swift in Sources */,
-				B6B5D09F2C580FD600D2FA37 /* Item.swift in Sources */,
 				B64C34532D10FA0A00C55B1A /* AudioPicker.swift in Sources */,
 				B6B5D0C82C5816B900D2FA37 /* VideoEditView.swift in Sources */,
 				2677D0E82C69885800115565 /* Items.swift in Sources */,
 				B6B5D0CA2C584BF500D2FA37 /* PhotoPicker.swift in Sources */,
 				B6B5D09B2C580FD600D2FA37 /* VideoEditorApp.swift in Sources */,
-				B6EB6EB02CF151CC0098F357 /* groupTask.swift in Sources */,
 				B6C489162C75190C0043209A /* EditorToolView.swift in Sources */,
 				B6E44C2E2C7951C300A5B59C /* FileManager.swift in Sources */,
 				B679F18A2C7FD1DB00A061C8 /* Extension.swift in Sources */,

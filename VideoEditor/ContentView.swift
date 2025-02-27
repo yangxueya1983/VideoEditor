@@ -75,14 +75,6 @@ struct ContentView: View {
         }
     }
 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-            try? modelContext.save()
-        }
-    }
-
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
@@ -118,5 +110,4 @@ struct TransitionTypeView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
 }
